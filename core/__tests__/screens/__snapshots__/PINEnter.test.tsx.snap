@@ -137,7 +137,7 @@ exports[`displays a PIN create screen PIN create renders correctly 1`] = `
                         ]
                       }
                     >
-                      
+
                     </Text>
                   </View>
                   <View
@@ -172,7 +172,7 @@ exports[`displays a PIN create screen PIN create renders correctly 1`] = `
                         ]
                       }
                     >
-                      
+
                     </Text>
                   </View>
                   <View
@@ -207,7 +207,7 @@ exports[`displays a PIN create screen PIN create renders correctly 1`] = `
                         ]
                       }
                     >
-                      
+
                     </Text>
                   </View>
                   <View
@@ -242,7 +242,7 @@ exports[`displays a PIN create screen PIN create renders correctly 1`] = `
                         ]
                       }
                     >
-                      
+
                     </Text>
                   </View>
                   <View
@@ -277,7 +277,7 @@ exports[`displays a PIN create screen PIN create renders correctly 1`] = `
                         ]
                       }
                     >
-                      
+
                     </Text>
                   </View>
                   <View
@@ -312,7 +312,7 @@ exports[`displays a PIN create screen PIN create renders correctly 1`] = `
                         ]
                       }
                     >
-                      
+
                     </Text>
                   </View>
                   <TextInput

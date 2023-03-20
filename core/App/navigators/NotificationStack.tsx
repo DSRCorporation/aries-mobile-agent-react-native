@@ -8,6 +8,7 @@ import { useTheme } from '../contexts/theme'
 import CommonDecline from '../screens/CommonDecline'
 import CredentialDetails from '../screens/CredentialDetails'
 import CredentialOffer from '../screens/CredentialOffer'
+import ProofDetails from '../screens/ProofDetails'
 import ProofRequest from '../screens/ProofRequest'
 import { NotificationStackParams, Screens } from '../types/navigators'
 
@@ -36,6 +37,11 @@ const NotificationStack: React.FC = () => {
         name={Screens.ProofRequest}
         component={ProofRequest}
         options={{ title: t('Screens.ProofRequest') }}
+      />
+      <Stack.Screen
+        name={Screens.ProofDetails}
+        component={ProofDetails}
+        options={{ title: t('Screens.ProofDetails') }}
       />
       <Stack.Screen
         name={Screens.CustomNotification}

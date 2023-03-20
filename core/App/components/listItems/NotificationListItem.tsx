@@ -1,6 +1,5 @@
 import type { CredentialExchangeRecord, ProofExchangeRecord } from '@aries-framework/core'
 
-import { V1RequestPresentationMessage } from '@aries-framework/core'
 import { useAgent } from '@aries-framework/react-hooks'
 import { useNavigation } from '@react-navigation/core'
 import { StackNavigationProp } from '@react-navigation/stack'
@@ -9,6 +8,7 @@ import { useTranslation } from 'react-i18next'
 import { StyleSheet, View, ViewStyle, Text, TextStyle, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
+import { findProofRequestMessage } from '../../../verifier/utils/proof-request'
 import { useConfiguration } from '../../contexts/configuration'
 import { useStore } from '../../contexts/store'
 import { useTheme } from '../../contexts/theme'
@@ -25,6 +25,7 @@ const iconSize = 30
 export enum NotificationType {
   CredentialOffer = 'Offer',
   ProofRequest = 'ProofRecord',
+  Proof = 'Proof',
   Revocation = 'Revocation',
   Custom = 'Custom',
 }
@@ -129,25 +130,29 @@ const NotificationListItem: React.FC<NotificationListItemProps> = ({ notificatio
           })
           break
         case NotificationType.ProofRequest: {
-          const proofId = (notification as ProofExchangeRecord).id
-          agent?.proofs.findRequestMessage(proofId).then((message) => {
-            if (message instanceof V1RequestPresentationMessage && message.indyProofRequest) {
+          if (agent) {
+            findProofRequestMessage(agent, (notification as ProofExchangeRecord).id).then((proofRequest) => {
               resolve({
                 type: InfoBoxType.Info,
                 title: t('ProofRequest.NewProofRequest'),
-                body: message.indyProofRequest.name,
+                body: proofRequest?.name || '',
                 buttonTitle: undefined,
               })
-            } else {
-              //TODO:(jl) Should we have a default message or stick with an empty string?
+            })
+          }
+          break
+        }
+        case NotificationType.Proof: {
+          if (agent) {
+            findProofRequestMessage(agent, (notification as ProofExchangeRecord).id).then((proofRequest) => {
               resolve({
-                type: InfoBoxType.Info,
-                title: t('ProofRequest.NewProofRequest'),
-                body: '',
+                type: InfoBoxType.Success,
+                title: t('ProofRequest.NewProof'),
+                body: proofRequest?.name || '',
                 buttonTitle: undefined,
               })
-            }
-          })
+            })
+          }
           break
         }
         case NotificationType.Revocation:
@@ -207,6 +212,13 @@ const NotificationListItem: React.FC<NotificationListItemProps> = ({ notificatio
             },
           })
         }
+        break
+      case NotificationType.Proof:
+        onPress = () =>
+          navigation.getParent()?.navigate(Stacks.NotificationStack, {
+            screen: Screens.ProofDetails,
+            params: { recordId: notification.id, isHistory: true },
+          })
         break
       case NotificationType.Revocation:
         onPress = () =>
