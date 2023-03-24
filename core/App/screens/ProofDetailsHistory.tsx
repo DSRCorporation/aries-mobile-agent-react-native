@@ -23,7 +23,7 @@ interface ProofDetailsHistoryProps {
 
 const VerifiedProof: React.FC<ProofDetailsHistoryProps> = ({ record, navigation }) => {
   const { t } = useTranslation()
-  const { ColorPallet } = useTheme()
+  const { TextTheme } = useTheme()
   const styles = StyleSheet.create({
     container: {
       flexGrow: 1,
@@ -32,7 +32,7 @@ const VerifiedProof: React.FC<ProofDetailsHistoryProps> = ({ record, navigation 
     },
     descriptionContainer: { marginVertical: 20 },
     descriptionText: {
-      color: ColorPallet.grayscale.white,
+      color: TextTheme.normal.color,
     },
     label: {
       fontWeight: 'bold',
