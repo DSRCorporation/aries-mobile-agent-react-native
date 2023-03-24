@@ -106,11 +106,9 @@ const SharedDataCard: React.FC<{ sharedData: GroupedSharedProofDataItem }> = ({ 
   const CardBody: React.FC<{ overlay: CredentialOverlay<CardLayoutOverlay11> }> = ({ overlay }) => {
     return (
       <View style={styles.cardAttributes}>
-        <FlatList
-          data={overlay.presentationFields}
-          keyExtractor={(records, index) => records.name || index.toString()}
-          renderItem={({ item }) => <CardField item={item} />}
-        />
+        {overlay.presentationFields?.map((item) => (
+          <CardField item={item} key={item.name || item.toString()} />
+        ))}
       </View>
     )
   }
