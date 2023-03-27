@@ -10,7 +10,6 @@ import ContactDetails from '../screens/ContactDetails'
 import CredentialDetails from '../screens/CredentialDetails'
 import ListContacts from '../screens/ListContacts'
 import ProofDetails from '../screens/ProofDetails'
-import ProofDetailsHistory from '../screens/ProofDetailsHistory'
 import WhatAreContacts from '../screens/WhatAreContacts'
 import { ContactStackParams, Screens } from '../types/navigators'
 
@@ -39,14 +38,6 @@ const ContactStack: React.FC = () => {
       <Stack.Screen
         name={Screens.ProofDetails}
         component={ProofDetails}
-        options={() => ({
-          title: '',
-          headerRight: () => <HeaderRightHome />,
-        })}
-      />
-      <Stack.Screen
-        name={Screens.ProofDetailsHistory}
-        component={ProofDetailsHistory}
         options={() => ({
           title: '',
           headerRight: () => <HeaderRightHome />,

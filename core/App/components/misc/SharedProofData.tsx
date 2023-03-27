@@ -1,7 +1,7 @@
 import { useAgent } from '@aries-framework/react-hooks'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Dimensions, FlatList, Image, StyleSheet, Text, View } from 'react-native'
+import { Dimensions, Image, StyleSheet, Text, View } from 'react-native'
 
 import { GroupedSharedProofData, GroupedSharedProofDataItem } from '../../../verifier/types/proof'
 import { getProofData, groupSharedProofDataByCredential } from '../../../verifier/utils/proof'
@@ -173,6 +173,7 @@ const SharedProofData: React.FC<SharedProofDataProps> = ({ recordId, onSharedPro
       flexGrow: 1,
     },
     loaderContainer: {
+      height: 200,
       marginTop: 80,
     },
   })

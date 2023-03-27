@@ -97,6 +97,7 @@ const NotificationListItem: React.FC<NotificationListItemProps> = ({ notificatio
       flexGrow: 1,
       fontWeight: 'bold',
       alignSelf: 'center',
+      flex: 1,
     },
     bodyText: {
       ...TextTheme.normal,
@@ -216,7 +217,7 @@ const NotificationListItem: React.FC<NotificationListItemProps> = ({ notificatio
         onPress = () =>
           navigation.getParent()?.navigate(Stacks.NotificationStack, {
             screen: Screens.ProofDetails,
-            params: { recordId: notification.id },
+            params: { recordId: notification.id, isHistory: true },
           })
         break
       case NotificationType.Revocation:

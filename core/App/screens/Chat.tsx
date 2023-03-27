@@ -218,8 +218,8 @@ const Chat: React.FC<ChatProps> = ({ navigation, route }) => {
           withDetails: isPresentationReceived(record) && record.isVerified !== undefined,
           onDetails: () => {
             navigation.getParent()?.navigate(Stacks.ContactStack, {
-              screen: Screens.ProofDetailsHistory,
-              params: { recordId: record.id },
+              screen: Screens.ProofDetails,
+              params: { recordId: record.id, isHistory: true },
             })
           },
         }
