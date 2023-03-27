@@ -97,6 +97,7 @@ const NotificationListItem: React.FC<NotificationListItemProps> = ({ notificatio
       flexGrow: 1,
       fontWeight: 'bold',
       alignSelf: 'center',
+      flex: 1,
     },
     bodyText: {
       ...TextTheme.normal,
