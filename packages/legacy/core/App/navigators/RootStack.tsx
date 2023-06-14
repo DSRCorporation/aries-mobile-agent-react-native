@@ -7,7 +7,7 @@ import { AppState } from 'react-native'
 
 import { walletTimeout } from '../constants'
 import { useAuth } from '../contexts/auth'
-import { isHeaderShown, useConfiguration } from '../contexts/configuration'
+import { useConfiguration } from '../contexts/configuration'
 import { DispatchAction } from '../contexts/reducers/store'
 import { useStore } from '../contexts/store'
 import { useTheme } from '../contexts/theme'
@@ -26,7 +26,6 @@ import DeliveryStack from './DeliveryStack'
 import NotificationStack from './NotificationStack'
 import ProofRequestStack from './ProofRequestStack'
 import SettingStack from './SettingStack'
-import TabStack from './TabStack'
 import { createDefaultStackOptions } from './defaultStackOptions'
 
 const RootStack: React.FC = () => {
@@ -42,7 +41,7 @@ const RootStack: React.FC = () => {
   const theme = useTheme()
   const defaultStackOptions = createDefaultStackOptions(theme)
   const OnboardingTheme = theme.OnboardingTheme
-  const { showHeader, pages, terms, splash, tabStack, useBiometry } = useConfiguration()
+  const { pages, terms, splash, tabStack, useBiometry } = useConfiguration()
   useDeepLinks()
 
   const lockoutUser = async () => {
@@ -144,7 +143,7 @@ const RootStack: React.FC = () => {
         initialRouteName={Screens.Splash}
         screenOptions={{
           ...defaultStackOptions,
-          headerShown: isHeaderShown(showHeader, false),
+          headerShown: false,
         }}
       >
         <Stack.Screen name={Screens.Splash} component={splash} />
@@ -152,7 +151,7 @@ const RootStack: React.FC = () => {
           name={Screens.EnterPIN}
           options={() => ({
             title: t('Screens.EnterPIN'),
-            headerShown: isHeaderShown(showHeader, true),
+            headerShown: true,
             headerLeft: () => false,
             rightLeft: () => false,
           })}
@@ -162,7 +161,7 @@ const RootStack: React.FC = () => {
         <Stack.Screen
           name={Screens.AttemptLockout}
           component={AttemptLockout}
-          options={{ headerShown: isHeaderShown(showHeader, true), headerLeft: () => null }}
+          options={{ headerShown: true, headerLeft: () => null }}
         ></Stack.Screen>
       </Stack.Navigator>
     )
@@ -176,7 +175,7 @@ const RootStack: React.FC = () => {
         initialRouteName={Screens.Splash}
         screenOptions={{
           ...defaultStackOptions,
-          headerShown: isHeaderShown(showHeader, false),
+          headerShown: false,
         }}
       >
         <Stack.Screen name={Screens.Splash} component={splash} />
@@ -199,7 +198,7 @@ const RootStack: React.FC = () => {
         initialRouteName={Screens.Splash}
         screenOptions={{
           ...defaultStackOptions,
-          headerShown: isHeaderShown(showHeader, false),
+          headerShown: false,
         }}
       >
         <Stack.Screen name={Screens.Splash} component={splash} />
@@ -208,7 +207,7 @@ const RootStack: React.FC = () => {
           options={() => ({
             title: t('Screens.Onboarding'),
             headerTintColor: OnboardingTheme.headerTintColor,
-            headerShown: isHeaderShown(showHeader, true),
+            headerShown: true,
             gestureEnabled: false,
             headerLeft: () => false,
           })}
@@ -228,7 +227,7 @@ const RootStack: React.FC = () => {
           options={() => ({
             title: t('Screens.Terms'),
             headerTintColor: OnboardingTheme.headerTintColor,
-            headerShown: isHeaderShown(showHeader, true),
+            headerShown: true,
             headerLeft: () => false,
             rightLeft: () => false,
           })}
@@ -238,7 +237,7 @@ const RootStack: React.FC = () => {
           name={Screens.CreatePIN}
           options={() => ({
             title: t('Screens.CreatePIN'),
-            headerShown: isHeaderShown(showHeader, true),
+            headerShown: true,
             headerLeft: () => false,
             rightLeft: () => false,
           })}
@@ -250,7 +249,7 @@ const RootStack: React.FC = () => {
           options={() => ({
             title: t('Screens.Biometry'),
             headerTintColor: OnboardingTheme.headerTintColor,
-            headerShown: isHeaderShown(showHeader, true),
+            headerShown: true,
             headerLeft: () => false,
             rightLeft: () => false,
           })}

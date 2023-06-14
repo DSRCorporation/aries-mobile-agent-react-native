@@ -20,7 +20,6 @@ interface NotificationConfiguration {
 }
 
 export interface ConfigurationContext {
-  showHeader?: boolean
   pages: typeof OnboardingPages
   tabStack: React.FC
   splash: React.FC
@@ -50,6 +49,3 @@ export const ConfigurationContext = createContext<ConfigurationContext>(null as 
 export const ConfigurationProvider = ConfigurationContext.Provider
 
 export const useConfiguration = () => useContext(ConfigurationContext)
-
-export const isHeaderShown = (setting: boolean | undefined, defaultValue: boolean) =>
-  setting !== undefined ? setting : defaultValue

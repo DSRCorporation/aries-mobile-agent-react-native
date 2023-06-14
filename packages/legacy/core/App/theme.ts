@@ -705,6 +705,10 @@ export const ChatTheme = {
   },
 }
 
+export const HeaderTheme = {
+  backgroundColor: ColorPallet.brand.primary,
+}
+
 export const OnboardingTheme = {
   container: {
     backgroundColor: ColorPallet.brand.primaryBackground,
@@ -819,6 +823,7 @@ export interface ITheme {
   DialogTheme: any
   LoadingTheme: any
   PINInputTheme: any
+  HeaderTheme: any
   heavyOpacity: any
   borderRadius: any
   borderWidth: typeof borderWidth
@@ -838,6 +843,7 @@ export const theme: ITheme = {
   ChatTheme,
   OnboardingTheme,
   DialogTheme,
+  HeaderTheme,
   LoadingTheme,
   PINInputTheme,
   heavyOpacity,

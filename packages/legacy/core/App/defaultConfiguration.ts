@@ -18,7 +18,6 @@ import UseBiometry from './screens/UseBiometry'
 import * as oca from './types/oca'
 
 export const defaultConfiguration: ConfigurationContext = {
-  showHeader: false,
   tabStack: TabStack,
   pages: OnboardingPages,
   splash: Splash,
