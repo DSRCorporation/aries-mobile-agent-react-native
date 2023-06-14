@@ -6,6 +6,7 @@ import { defaultProofRequestTemplates } from '../../verifier'
 
 const configurationContext: ConfigurationContext = {
   pages: () => [],
+  tabStack: () => null,
   terms: () => null,
   splash: () => null,
   homeContentView: () => null,

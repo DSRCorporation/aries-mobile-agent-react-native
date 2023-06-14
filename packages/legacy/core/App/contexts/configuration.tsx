@@ -22,6 +22,7 @@ interface NotificationConfiguration {
 export interface ConfigurationContext {
   showHeader?: boolean
   pages: typeof OnboardingPages
+  tabStack: React.FC
   splash: React.FC
   terms: React.FC
   homeContentView: React.FC

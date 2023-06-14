@@ -42,7 +42,7 @@ const RootStack: React.FC = () => {
   const theme = useTheme()
   const defaultStackOptions = createDefaultStackOptions(theme)
   const OnboardingTheme = theme.OnboardingTheme
-  const { showHeader, pages, terms, splash, useBiometry } = useConfiguration()
+  const { showHeader, pages, terms, splash, tabStack, useBiometry } = useConfiguration()
   useDeepLinks()
 
   const lockoutUser = async () => {
@@ -180,7 +180,7 @@ const RootStack: React.FC = () => {
         }}
       >
         <Stack.Screen name={Screens.Splash} component={splash} />
-        <Stack.Screen name={Stacks.TabStack} component={TabStack} />
+        <Stack.Screen name={Stacks.TabStack} component={tabStack} />
         <Stack.Screen name={Stacks.ConnectStack} component={ConnectStack} options={{ presentation: 'modal' }} />
         <Stack.Screen name={Stacks.SettingStack} component={SettingStack} />
         <Stack.Screen name={Stacks.ContactStack} component={ContactStack} />

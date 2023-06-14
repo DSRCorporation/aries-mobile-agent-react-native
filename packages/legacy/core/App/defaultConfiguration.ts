@@ -8,6 +8,7 @@ import HomeContentView from './components/views/HomeContentView'
 import { PINRules } from './constants'
 import { ConfigurationContext } from './contexts/configuration'
 import { useNotifications } from './hooks/notifications'
+import TabStack from './navigators/TabStack'
 import Developer from './screens/Developer'
 import OnboardingPages from './screens/OnboardingPages'
 import Scan from './screens/Scan'
@@ -18,6 +19,7 @@ import * as oca from './types/oca'
 
 export const defaultConfiguration: ConfigurationContext = {
   showHeader: false,
+  tabStack: TabStack,
   pages: OnboardingPages,
   splash: Splash,
   terms: Terms,

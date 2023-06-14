@@ -29,7 +29,10 @@ import { NetworkProvider } from './contexts/network'
 import { useTour } from './contexts/tour/tour-context'
 import { TourProvider } from './contexts/tour/tour-provider'
 import { defaultConfiguration } from './defaultConfiguration'
+import CredentialStack from './navigators/CredentialStack'
+import HomeStack from './navigators/HomeStack'
 import RootStack from './navigators/RootStack'
+import SettingStack from './navigators/SettingStack'
 import AttemptLockout from './screens/AttemptLockout'
 import Developer from './screens/Developer'
 import OnboardingPages from './screens/OnboardingPages'
@@ -41,6 +44,7 @@ import * as types from './types'
 export { LocalStorageKeys } from './constants'
 export { initLanguages, initStoredLanguage, translationResources } from './localization'
 export { ConfigurationProvider, useConfiguration } from './contexts/configuration'
+export { useNetwork } from './contexts/network'
 export { defaultState, mergeReducers, StoreProvider, StoreContext, useStore } from './contexts/store'
 export { default as Store, DispatchAction, reducer } from './contexts/reducers/store'
 export { Assets as ImageAssets } from './theme'
@@ -76,7 +80,7 @@ export type {
 export type { ConfigurationContext } from './contexts/configuration'
 export type { TourStep } from './contexts/tour/tour-context'
 export type { GenericFn } from './types/fn'
-export type { AuthenticateStackParams } from './types/navigators'
+export type { AuthenticateStackParams, TabStackParams } from './types/navigators'
 export type { OnboardingStyleSheet }
 export type { WalletSecret } from './types/security'
 export type { ReducerAction } from './contexts/reducers/store'
@@ -114,6 +118,9 @@ export {
   ToastType,
   toastConfig,
   RootStack,
+  HomeStack,
+  CredentialStack,
+  SettingStack,
   NetInfo,
   OnboardingPages,
   Splash,
