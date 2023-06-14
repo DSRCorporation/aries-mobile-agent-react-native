@@ -61,6 +61,7 @@ export { createStyles } from './screens/OnboardingPages'
 export { statusBarStyleForColor, StatusBarStyles } from './utils/luminance'
 export { BifoldError } from './types/error'
 export { EventTypes } from './constants'
+export { useNotifications } from './hooks/notifications'
 
 export type { AnimatedComponents } from './animated-components'
 export type {
