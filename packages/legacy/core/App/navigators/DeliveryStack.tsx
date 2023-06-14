@@ -3,6 +3,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import HeaderRightHome from '../components/buttons/HeaderHome'
+import { useConfiguration } from '../contexts/configuration'
 import { useTheme } from '../contexts/theme'
 import Connection from '../screens/Connection'
 import CredentialOffer from '../screens/CredentialOffer'
@@ -16,6 +17,7 @@ const DeliveryStack: React.FC = () => {
   const { t } = useTranslation()
   const theme = useTheme()
   const defaultStackOptions = createDefaultStackOptions(theme)
+  const { showHeader } = useConfiguration()
 
   return (
     <Stack.Navigator
@@ -23,7 +25,7 @@ const DeliveryStack: React.FC = () => {
       screenOptions={{
         ...defaultStackOptions,
         cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
-        headerShown: true,
+        headerShown: showHeader ?? true,
         presentation: 'modal',
         headerLeft: () => null,
         headerRight: () => <HeaderRightHome />,

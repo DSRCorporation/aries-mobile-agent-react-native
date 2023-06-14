@@ -17,6 +17,7 @@ import UseBiometry from './screens/UseBiometry'
 import * as oca from './types/oca'
 
 export const defaultConfiguration: ConfigurationContext = {
+  showHeader: false,
   pages: OnboardingPages,
   splash: Splash,
   terms: Terms,

@@ -150,16 +150,18 @@ const Onboarding: React.FC<OnboardingProps> = ({
         onScroll={onScroll}
         scrollEventThrottle={16}
       />
-      <Pagination
-        pages={pages}
-        activeIndex={activeIndex}
-        nextButtonText={nextButtonText}
-        previousButtonText={previousButtonText}
-        scrollX={scrollX}
-        style={style}
-        next={next}
-        previous={previous}
-      />
+      {pages?.length > 1 && (
+        <Pagination
+          pages={pages}
+          activeIndex={activeIndex}
+          nextButtonText={nextButtonText}
+          previousButtonText={previousButtonText}
+          scrollX={scrollX}
+          style={style}
+          next={next}
+          previous={previous}
+        />
+      )}
     </SafeAreaView>
   )
 }

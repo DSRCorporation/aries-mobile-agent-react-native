@@ -2,13 +2,15 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import HeaderTitle from '../components/texts/HeaderTitle'
+import { isHeaderShown, useConfiguration } from '../contexts/configuration'
 import { ITheme } from '../theme'
 
 export function createDefaultStackOptions({ ColorPallet }: ITheme) {
   const { t } = useTranslation()
+  const { showHeader } = useConfiguration()
   return {
     headerTintColor: ColorPallet.brand.headerIcon,
-    headerShown: true,
+    headerShown: isHeaderShown(showHeader, true),
     headerBackTitleVisible: false,
     headerTitleContainerStyle: {
       flexShrink: 1,

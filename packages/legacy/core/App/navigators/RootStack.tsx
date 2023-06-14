@@ -7,7 +7,7 @@ import { AppState } from 'react-native'
 
 import { walletTimeout } from '../constants'
 import { useAuth } from '../contexts/auth'
-import { useConfiguration } from '../contexts/configuration'
+import { isHeaderShown, useConfiguration } from '../contexts/configuration'
 import { DispatchAction } from '../contexts/reducers/store'
 import { useStore } from '../contexts/store'
 import { useTheme } from '../contexts/theme'
@@ -42,7 +42,7 @@ const RootStack: React.FC = () => {
   const theme = useTheme()
   const defaultStackOptions = createDefaultStackOptions(theme)
   const OnboardingTheme = theme.OnboardingTheme
-  const { pages, terms, splash, useBiometry } = useConfiguration()
+  const { showHeader, pages, terms, splash, useBiometry } = useConfiguration()
   useDeepLinks()
 
   const lockoutUser = async () => {
@@ -140,13 +140,19 @@ const RootStack: React.FC = () => {
     const Stack = createStackNavigator()
 
     return (
-      <Stack.Navigator initialRouteName={Screens.Splash} screenOptions={{ ...defaultStackOptions, headerShown: false }}>
+      <Stack.Navigator
+        initialRouteName={Screens.Splash}
+        screenOptions={{
+          ...defaultStackOptions,
+          headerShown: isHeaderShown(showHeader, false),
+        }}
+      >
         <Stack.Screen name={Screens.Splash} component={splash} />
         <Stack.Screen
           name={Screens.EnterPIN}
           options={() => ({
             title: t('Screens.EnterPIN'),
-            headerShown: true,
+            headerShown: isHeaderShown(showHeader, true),
             headerLeft: () => false,
             rightLeft: () => false,
           })}
@@ -156,7 +162,7 @@ const RootStack: React.FC = () => {
         <Stack.Screen
           name={Screens.AttemptLockout}
           component={AttemptLockout}
-          options={{ headerShown: true, headerLeft: () => null }}
+          options={{ headerShown: isHeaderShown(showHeader, true), headerLeft: () => null }}
         ></Stack.Screen>
       </Stack.Navigator>
     )
@@ -166,7 +172,13 @@ const RootStack: React.FC = () => {
     const Stack = createStackNavigator()
 
     return (
-      <Stack.Navigator initialRouteName={Screens.Splash} screenOptions={{ ...defaultStackOptions, headerShown: false }}>
+      <Stack.Navigator
+        initialRouteName={Screens.Splash}
+        screenOptions={{
+          ...defaultStackOptions,
+          headerShown: isHeaderShown(showHeader, false),
+        }}
+      >
         <Stack.Screen name={Screens.Splash} component={splash} />
         <Stack.Screen name={Stacks.TabStack} component={TabStack} />
         <Stack.Screen name={Stacks.ConnectStack} component={ConnectStack} options={{ presentation: 'modal' }} />
@@ -183,14 +195,20 @@ const RootStack: React.FC = () => {
     const Stack = createStackNavigator()
     const carousel = createCarouselStyle(OnboardingTheme)
     return (
-      <Stack.Navigator initialRouteName={Screens.Splash} screenOptions={{ ...defaultStackOptions, headerShown: false }}>
+      <Stack.Navigator
+        initialRouteName={Screens.Splash}
+        screenOptions={{
+          ...defaultStackOptions,
+          headerShown: isHeaderShown(showHeader, false),
+        }}
+      >
         <Stack.Screen name={Screens.Splash} component={splash} />
         <Stack.Screen
           name={Screens.Onboarding}
           options={() => ({
             title: t('Screens.Onboarding'),
             headerTintColor: OnboardingTheme.headerTintColor,
-            headerShown: true,
+            headerShown: isHeaderShown(showHeader, true),
             gestureEnabled: false,
             headerLeft: () => false,
           })}
@@ -210,7 +228,7 @@ const RootStack: React.FC = () => {
           options={() => ({
             title: t('Screens.Terms'),
             headerTintColor: OnboardingTheme.headerTintColor,
-            headerShown: true,
+            headerShown: isHeaderShown(showHeader, true),
             headerLeft: () => false,
             rightLeft: () => false,
           })}
@@ -220,7 +238,7 @@ const RootStack: React.FC = () => {
           name={Screens.CreatePIN}
           options={() => ({
             title: t('Screens.CreatePIN'),
-            headerShown: true,
+            headerShown: isHeaderShown(showHeader, true),
             headerLeft: () => false,
             rightLeft: () => false,
           })}
@@ -232,7 +250,7 @@ const RootStack: React.FC = () => {
           options={() => ({
             title: t('Screens.Biometry'),
             headerTintColor: OnboardingTheme.headerTintColor,
-            headerShown: true,
+            headerShown: isHeaderShown(showHeader, true),
             headerLeft: () => false,
             rightLeft: () => false,
           })}
