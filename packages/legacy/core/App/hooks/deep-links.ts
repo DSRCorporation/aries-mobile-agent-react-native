@@ -46,5 +46,5 @@ export const useDeepLinks = () => {
     return () => {
       Linking.removeAllListeners('url')
     }
-  })
+  }, [])
 }

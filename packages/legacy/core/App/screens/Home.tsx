@@ -125,7 +125,8 @@ const Home: React.FC<HomeProps> = () => {
               paddingHorizontal: 20,
               paddingTop: index === 0 ? 20 : 0,
               paddingBottom: index === notifications.length - 1 ? 20 : 10,
-              backgroundColor: ColorPallet.brand.secondaryBackground,
+              // TODO: Double check if 'primaryBackground' here works fine for Bifold in general, not only for DSR branding
+              backgroundColor: ColorPallet.brand.primaryBackground,
             }}
           >
             {DisplayListItemType(item)}
