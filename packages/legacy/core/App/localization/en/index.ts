@@ -68,8 +68,8 @@ const translation = {
       "November": "Nov",
       "December": "Dec",
     },
-    "MinuteAgo": "minute ago",
-    "MinutesAgo": "minutes ago",
+    "MinuteAgo": "1 minute ago",
+    "MinutesAgo": "{{ count }} minutes ago",
     "JustNow": "Just now",
   },
   "Language": {
@@ -377,6 +377,19 @@ const translation = {
     "WhereToUseLink": "See where you can use Bifold Wallet",
     "BadQRCode": "QR Code Not Recognized",
     "BadQRCodeDescription": "Ths QR code scanned doesn't work with Bifold Wallet. Bifold Wallet only works with participating services.\n\nIt currently can't add digital credentials by taking photos of physical ones.",
+    "ErrorDetails": "Scan error details",
+    "ShowDetails": "Show error details",
+    "NoDetails": "No error details available",
+  },
+  "PasteUrl": {
+    "PasteUrl": "Paste a URL",
+    "PasteUrlDescription": "Paste a URL below to receive a proof request, add a credential or add a Contact.",
+    "Clear": "Clear",
+    "UseShareableLink": "Use shareable links",
+    "ErrorTextboxEmpty": "Textbox Empty",
+    "ErrorTextboxEmptyDescription": "Please add a URL intended for digital wallets and try again.",
+    "ErrorInvalidUrl": "URL not recognized",
+    "ErrorInvalidUrlDescription": "Check if the URL is intended for digital wallets and if it was copied correctly, then try again.",
   },
   "Connection": {
     "JustAMoment": "Just a moment while we make a secure connection...",
@@ -437,6 +450,7 @@ const translation = {
     "DeleteOfferDescription": "Don't recognize the organization? Check your Contacts list. You only receive notifications from Contacts you've initiated",
   },
   "ProofRequest": {
+    "RequestForProof": "Request for proof",
     "JustAMoment": "Just a moment while we prepare things for you...",
     "FromYourWallet": "From your wallet",
     "MissingCredentials": "Missing credentials",

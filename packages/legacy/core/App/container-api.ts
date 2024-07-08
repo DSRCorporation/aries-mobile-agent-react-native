@@ -1,5 +1,6 @@
 import { BaseLogger } from '@credo-ts/core'
 import { IndyVdrPoolConfig } from '@credo-ts/indy-vdr'
+import { ProofRequestTemplate } from '@hyperledger/aries-bifold-verifier'
 import { OCABundleResolverType } from '@hyperledger/aries-oca/build/legacy'
 import { StackNavigationProp } from '@react-navigation/stack'
 import React, { createContext, useContext } from 'react'
@@ -11,49 +12,62 @@ import Onboarding from './screens/Onboarding'
 import { GenericFn } from './types/fn'
 import { AuthenticateStackParams, ScreenOptionsType } from './types/navigators'
 
-export enum PROOF_TOKENS {
-  GROUP_BY_REFERENT = 'proof.groupByReferant',
-}
+export type FN_ONBOARDING_DONE = (
+  dispatch: React.Dispatch<ReducerAction<unknown>>,
+  navigation: StackNavigationProp<AuthenticateStackParams>
+) => GenericFn
 
-export enum SCREEN_TOKENS {
-  SCREEN_PREFACE = 'screen.preface',
-  SCREEN_TERMS = 'screen.terms',
-  SCREEN_ONBOARDING = 'screen.onboarding',
-  SCREEN_DEVELOPER = 'screen.developer',
-  SCREEN_ONBOARDING_ITEM = 'screen.onboarding.item',
-  SCREEN_CREDENTIAL_LIST = 'screen.credential.list',
-  SCREEN_CREDENTIAL_DETAILS = 'screen.credential.details',
-  SCREEN_CREDENTIAL_OFFER = 'screen.credential.offer',
-  SCREEN_PROOF_REQUEST = 'screen.proof.request',
-}
-export enum STACK_TOKENS {
-  STACK_ONBOARDING = 'stack.onboarding',
-}
-export enum FN_TOKENS {
-  FN_ONBOARDING_DONE = 'fn.onboardingDone',
-}
+type LoadStateFn = (dispatch: React.Dispatch<ReducerAction<unknown>>) => Promise<void>
 
-export enum COMP_TOKENS {
-  COMP_BUTTON = 'comp.button',
-}
+type ProofRequestTemplateFn = (useDevTemplates: boolean) => Array<ProofRequestTemplate>
 
-export enum SERVICE_TOKENS {
-  SERVICE_TERMS = 'service.terms',
-}
+export const PROOF_TOKENS = {
+  GROUP_BY_REFERENT: 'proof.groupByReferant',
+  CRED_HELP_ACTION_OVERRIDES: 'proof.credHelpActionOverride',
+} as const
 
-export enum LOAD_STATE_TOKENS {
-  LOAD_STATE = 'state.load',
-}
+export const SCREEN_TOKENS = {
+  SCREEN_PREFACE: 'screen.preface',
+  SCREEN_TERMS: 'screen.terms',
+  SCREEN_ONBOARDING: 'screen.onboarding',
+  SCREEN_DEVELOPER: 'screen.developer',
+  SCREEN_ONBOARDING_ITEM: 'screen.onboarding.item',
+  SCREEN_CREDENTIAL_LIST: 'screen.credential.list',
+  SCREEN_CREDENTIAL_DETAILS: 'screen.credential.details',
+  SCREEN_CREDENTIAL_OFFER: 'screen.credential.offer',
+  SCREEN_PROOF_REQUEST: 'screen.proof.request',
+} as const
 
-export enum OBJECT_TOKENS {
-  OBJECT_ONBOARDINGCONFIG = 'object.onboarding-config',
-}
+export const STACK_TOKENS = {
+  STACK_ONBOARDING: 'stack.onboarding',
+} as const
 
-export enum UTILITY_TOKENS {
-  UTIL_LOGGER = 'utility.logger',
-  UTIL_OCA_RESOLVER = 'utility.oca-resolver',
-  UTIL_LEDGERS = 'utility.ledgers',
-}
+export const FN_TOKENS = {
+  FN_ONBOARDING_DONE: 'fn.onboardingDone',
+} as const
+
+export const COMP_TOKENS = {
+  COMP_BUTTON: 'comp.button',
+} as const
+
+export const SERVICE_TOKENS = {
+  SERVICE_TERMS: 'screen.terms',
+} as const
+
+export const LOAD_STATE_TOKENS = {
+  LOAD_STATE: 'state.load',
+} as const
+
+export const OBJECT_TOKENS = {
+  OBJECT_ONBOARDING_CONFIG: 'object.onboarding-config',
+} as const
+
+export const UTILITY_TOKENS = {
+  UTIL_LOGGER: 'utility.logger',
+  UTIL_OCA_RESOLVER: 'utility.oca-resolver',
+  UTIL_LEDGERS: 'utility.ledgers',
+  UTIL_PROOF_TEMPLATE: 'utility.proof-template',
+} as const
 
 export const TOKENS = {
   ...PROOF_TOKENS,
@@ -65,16 +79,14 @@ export const TOKENS = {
   ...LOAD_STATE_TOKENS,
   ...OBJECT_TOKENS,
   ...UTILITY_TOKENS,
-}
+} as const
 
-export type FN_ONBOARDING_DONE = (
-  dispatch: React.Dispatch<ReducerAction<unknown>>,
-  navigation: StackNavigationProp<AuthenticateStackParams>
-) => GenericFn
-
-type FN_LOADSTATE = (dispatch: React.Dispatch<ReducerAction<unknown>>) => Promise<void>
-
-export interface TokenMapping {
+export type TokenMapping = {
+  [TOKENS.CRED_HELP_ACTION_OVERRIDES]: {
+    credDefIds: string[]
+    schemaIds: string[]
+    action: (navigation: any) => void
+  }[]
   [TOKENS.GROUP_BY_REFERENT]: boolean
   [TOKENS.SCREEN_PREFACE]: React.FC
   [TOKENS.STACK_ONBOARDING]: React.FC
@@ -86,18 +98,19 @@ export interface TokenMapping {
   [TOKENS.SCREEN_CREDENTIAL_OFFER]: React.FC
   [TOKENS.SCREEN_PROOF_REQUEST]: React.FC
   [TOKENS.FN_ONBOARDING_DONE]: FN_ONBOARDING_DONE
-  [TOKENS.LOAD_STATE]: FN_LOADSTATE
+  [TOKENS.LOAD_STATE]: LoadStateFn
   [TOKENS.COMP_BUTTON]: Button
-  [TOKENS.OBJECT_ONBOARDINGCONFIG]: ScreenOptionsType
+  [TOKENS.OBJECT_ONBOARDING_CONFIG]: ScreenOptionsType
   [TOKENS.UTIL_LOGGER]: BaseLogger
   [TOKENS.UTIL_OCA_RESOLVER]: OCABundleResolverType
   [TOKENS.UTIL_LEDGERS]: IndyVdrPoolConfig[]
+  [TOKENS.UTIL_PROOF_TEMPLATE]: ProofRequestTemplateFn | undefined
 }
 
 export interface Container {
   init(): Container
   resolve<K extends keyof TokenMapping>(token: K): TokenMapping[K]
-  getContainer(): DependencyContainer
+  get container(): DependencyContainer
 }
 
 export const ContainerContext = createContext<Container | undefined>(undefined)
