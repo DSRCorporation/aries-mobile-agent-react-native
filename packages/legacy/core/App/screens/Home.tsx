@@ -40,7 +40,8 @@ const Home: React.FC<HomeProps> = () => {
     noNewUpdatesContainer: {
       paddingHorizontal: 20,
       paddingVertical: 20,
-      backgroundColor: ColorPallet.brand.secondaryBackground,
+      // TODO: Double check if 'primaryBackground' here works fine for Bifold in general, not only for DSR branding
+      backgroundColor: ColorPallet.brand.primaryBackground,
     },
   })
 
@@ -108,7 +109,7 @@ const Home: React.FC<HomeProps> = () => {
       <FlatList
         style={styles.flatlist}
         showsVerticalScrollIndicator={false}
-        scrollEnabled={notifications?.length > 0 ? true : false}
+        scrollEnabled={notifications?.length > 0}
         decelerationRate="fast"
         ListEmptyComponent={() => (
           <View style={styles.noNewUpdatesContainer}>
@@ -125,8 +126,7 @@ const Home: React.FC<HomeProps> = () => {
               paddingHorizontal: 20,
               paddingTop: index === 0 ? 20 : 0,
               paddingBottom: index === notifications.length - 1 ? 20 : 10,
-              // TODO: Double check if 'primaryBackground' here works fine for Bifold in general, not only for DSR branding
-              backgroundColor: ColorPallet.brand.primaryBackground,
+              backgroundColor: ColorPallet.brand.secondaryBackground,
             }}
           >
             {DisplayListItemType(item)}
