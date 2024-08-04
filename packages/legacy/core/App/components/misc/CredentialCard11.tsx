@@ -1,7 +1,7 @@
 import { CredentialExchangeRecord } from '@credo-ts/core'
 import { BrandingOverlay } from '@hyperledger/aries-oca'
 import { Attribute, CredentialOverlay, Predicate } from '@hyperledger/aries-oca/build/legacy'
-import { useNavigation } from '@react-navigation/core'
+import { useNavigation } from '@react-navigation/native'
 import startCase from 'lodash.startcase'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -246,7 +246,7 @@ const CredentialCard11: React.FC<CredentialCard11Props> = ({
 
   const parseAttribute = (item: (Attribute & Predicate) | undefined) => {
     let parsedItem = item
-    if (item && item.value != null) {
+    if (item && item.pValue != null) {
       parsedItem = pTypeToText(item, t, attributeTypes) as Attribute & Predicate
     }
     const parsedValue = formatIfDate(

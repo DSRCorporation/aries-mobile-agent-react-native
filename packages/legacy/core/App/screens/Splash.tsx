@@ -1,12 +1,15 @@
 import { Agent, HttpOutboundTransport, WsOutboundTransport } from '@credo-ts/core'
+import { IndyVdrPoolService } from '@credo-ts/indy-vdr/build/pool'
 import { useAgent } from '@credo-ts/react-hooks'
 import { agentDependencies } from '@credo-ts/react-native'
-import { useNavigation } from '@react-navigation/core'
-import { CommonActions } from '@react-navigation/native'
+import { RemoteOCABundleResolver } from '@hyperledger/aries-oca/build/legacy'
+import { GetCredentialDefinitionRequest, GetSchemaRequest } from '@hyperledger/indy-vdr-shared'
+import { useNavigation, CommonActions } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { DeviceEventEmitter, StyleSheet } from 'react-native'
 import { Config } from 'react-native-config'
+import { CachesDirectoryPath } from 'react-native-fs'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { EventTypes } from '../constants'
@@ -90,7 +93,7 @@ const Splash: React.FC = () => {
   const { t } = useTranslation()
   const [store, dispatch] = useStore()
   const navigation = useNavigation()
-  const { getWalletCredentials } = useAuth()
+  const { walletSecret } = useAuth()
   const { ColorPallet } = useTheme()
   const { LoadingIndicator } = useAnimatedComponents()
   const container = useContainer()
@@ -98,6 +101,7 @@ const Splash: React.FC = () => {
   const { version: TermsVersion } = container.resolve(TOKENS.SCREEN_TERMS)
   const logger = container.resolve(TOKENS.UTIL_LOGGER)
   const indyLedgers = container.resolve(TOKENS.UTIL_LEDGERS)
+  const ocaBundleResolver = container.resolve(TOKENS.UTIL_OCA_RESOLVER) as RemoteOCABundleResolver
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -202,25 +206,26 @@ const Splash: React.FC = () => {
   }, [mounted, store.authentication.didAuthenticate, store.stateLoaded])
 
   useEffect(() => {
-    if (!mounted || !store.authentication.didAuthenticate || !store.onboarding.didConsiderBiometry) {
-      return
-    }
-
     const initAgent = async (): Promise<void> => {
       try {
-        const credentials = await getWalletCredentials()
-
-        if (!credentials?.id || !credentials.key) {
-          // Cannot find wallet id/secret
+        if (
+          !mounted ||
+          !store.authentication.didAuthenticate ||
+          !store.onboarding.didConsiderBiometry ||
+          !walletSecret?.id ||
+          !walletSecret.key
+        ) {
           return
         }
+
+        await ocaBundleResolver.checkForUpdates?.()
 
         const newAgent = new Agent({
           config: {
             label: store.preferences.walletName || 'Aries Bifold',
             walletConfig: {
-              id: credentials.id,
-              key: credentials.key,
+              id: walletSecret.id,
+              key: walletSecret.key,
             },
             logger,
             autoUpdateStorageOnStartup: true,
@@ -229,6 +234,11 @@ const Splash: React.FC = () => {
           modules: getAgentModules({
             indyNetworks: indyLedgers,
             mediatorInvitationUrl: Config.MEDIATOR_URL,
+            txnCache: {
+              capacity: 1000,
+              expiryOffsetMs: 1000 * 60 * 60 * 24 * 7,
+              path: CachesDirectoryPath + '/txn-cache',
+            },
           }),
         })
         const wsTransport = new WsOutboundTransport()
@@ -241,7 +251,7 @@ const Splash: React.FC = () => {
         if (!didMigrateToAskar(store.migration)) {
           newAgent.config.logger.debug('Agent not updated to Aries Askar, updating...')
 
-          await migrateToAskar(credentials.id, credentials.key, newAgent)
+          await migrateToAskar(walletSecret.id, walletSecret.key, newAgent)
 
           newAgent.config.logger.debug('Successfully finished updating agent to Aries Askar')
           // Store that we migrated to askar.
@@ -253,6 +263,22 @@ const Splash: React.FC = () => {
         await newAgent.initialize()
 
         await createLinkSecretIfRequired(newAgent)
+
+        const credDefs = container.resolve(TOKENS.CACHE_CRED_DEFS)
+        const schemas = container.resolve(TOKENS.CACHE_SCHEMAS)
+
+        const poolService = newAgent.dependencyManager.resolve(IndyVdrPoolService)
+        credDefs.forEach(async ({ did, id }) => {
+          const pool = await poolService.getPoolForDid(newAgent.context, did)
+          const credDefRequest = new GetCredentialDefinitionRequest({ credentialDefinitionId: id })
+          await pool.pool.submitRequest(credDefRequest)
+        })
+
+        schemas.forEach(async ({ did, id }) => {
+          const pool = await poolService.getPoolForDid(newAgent.context, did)
+          const schemaRequest = new GetSchemaRequest({ schemaId: id })
+          await pool.pool.submitRequest(schemaRequest)
+        })
 
         setAgent(newAgent)
         navigation.dispatch(
@@ -273,7 +299,7 @@ const Splash: React.FC = () => {
     }
 
     initAgent()
-  }, [mounted, store.authentication.didAuthenticate, store.onboarding.didConsiderBiometry])
+  }, [mounted, store.authentication.didAuthenticate, store.onboarding.didConsiderBiometry, walletSecret])
 
   return (
     <SafeAreaView style={styles.container}>

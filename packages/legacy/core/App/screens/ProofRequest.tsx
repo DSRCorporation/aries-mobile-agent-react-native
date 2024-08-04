@@ -8,11 +8,11 @@ import {
 import { CredentialExchangeRecord, DifPexInputDescriptorToCredentials, ProofState } from '@credo-ts/core'
 import { useConnectionById, useProofById } from '@credo-ts/react-hooks'
 import { Attribute, Predicate } from '@hyperledger/aries-oca/build/legacy'
-import { useIsFocused } from '@react-navigation/core'
+import { useIsFocused } from '@react-navigation/native'
 import moment from 'moment'
 import React, { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { DeviceEventEmitter, FlatList, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { DeviceEventEmitter, EmitterSubscription, FlatList, ScrollView, StyleSheet, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
@@ -20,6 +20,7 @@ import Button, { ButtonType } from '../components/buttons/Button'
 import { CredentialCard } from '../components/misc'
 import ConnectionAlert from '../components/misc/ConnectionAlert'
 import ConnectionImage from '../components/misc/ConnectionImage'
+import { InfoBoxType } from '../components/misc/InfoBox'
 import CommonRemoveModal from '../components/modals/CommonRemoveModal'
 import ProofCancelModal from '../components/modals/ProofCancelModal'
 import InfoTextBox from '../components/texts/InfoTextBox'
@@ -35,6 +36,7 @@ import { useTour } from '../contexts/tour/tour-context'
 import { useOutOfBandByConnectionId } from '../hooks/connections'
 import { useOutOfBandByReceivedInvitationId } from '../hooks/oob'
 import { useAllCredentialsForProof } from '../hooks/proofs'
+import { AttestationEventTypes } from '../types/attestation'
 import { BifoldError } from '../types/error'
 import { NotificationStackParams, Screens, Stacks, TabStacks } from '../types/navigators'
 import { ProofCredentialAttributes, ProofCredentialItems, ProofCredentialPredicates } from '../types/proof-items'
@@ -73,20 +75,21 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
   const outOfBandInvitation = proof?.parentThreadId
     ? useOutOfBandByReceivedInvitationId(proof?.parentThreadId)?.outOfBandInvitation
     : undefined
-  const { enableTours: enableToursConfig, useAttestation } = useConfiguration()
+  const { enableTours: enableToursConfig } = useConfiguration()
   const [containsPI, setContainsPI] = useState(false)
   const [activeCreds, setActiveCreds] = useState<ProofCredentialItems[]>([])
   const [selectedCredentials, setSelectedCredentials] = useState<string[]>([])
+  const [attestationLoading, setAttestationLoading] = useState(false)
   const [store, dispatch] = useStore()
   const credProofPromise = useAllCredentialsForProof(proofId)
   const proofConnectionLabel = useMemo(
     () => getConnectionName(connection, store.preferences.alternateContactNames),
     [connection, store.preferences.alternateContactNames]
   )
-  const { loading: attestationLoading } = useAttestation ? useAttestation() : { loading: false }
   const { start } = useTour()
   const screenIsFocused = useIsFocused()
   const bundleResolver = useContainer().resolve(TOKENS.UTIL_OCA_RESOLVER)
+  const attestationMonitor = useContainer().resolve(TOKENS.UTIL_ATTESTATION_MONITOR)
 
   const hasMatchingCredDef = useMemo(
     () => activeCreds.some((cred) => cred.credExchangeRecord !== undefined),
@@ -140,6 +143,37 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
       paddingHorizontal: 10,
     },
   })
+
+  useEffect(() => {
+    if (!attestationMonitor) {
+      return
+    }
+
+    const handleStartedAttestation = () => {
+      setAttestationLoading(true)
+    }
+
+    const handleStartedCompleted = () => {
+      setAttestationLoading(false)
+    }
+
+    const handleFailedAttestation = (error: BifoldError) => {
+      DeviceEventEmitter.emit(EventTypes.ERROR_ADDED, error)
+    }
+
+    const subscriptions = Array<EmitterSubscription>()
+    subscriptions.push(DeviceEventEmitter.addListener(AttestationEventTypes.Started, handleStartedAttestation))
+    subscriptions.push(DeviceEventEmitter.addListener(AttestationEventTypes.Completed, handleStartedCompleted))
+    subscriptions.push(DeviceEventEmitter.addListener(AttestationEventTypes.FailedHandleProof, handleFailedAttestation))
+    subscriptions.push(DeviceEventEmitter.addListener(AttestationEventTypes.FailedHandleOffer, handleFailedAttestation))
+    subscriptions.push(
+      DeviceEventEmitter.addListener(AttestationEventTypes.FailedRequestCredential, handleFailedAttestation)
+    )
+
+    return () => {
+      subscriptions.forEach((subscription) => subscription.remove())
+    }
+  }, [attestationMonitor])
 
   useEffect(() => {
     const shouldShowTour = enableToursConfig && store.tours.enableTours && !store.tours.seenProofRequestTour
@@ -452,6 +486,15 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
     navigation.getParent()?.navigate(TabStacks.HomeStack, { screen: Screens.Home })
   }
 
+  const isShareDisabled = () => {
+    return (
+      !hasAvailableCredentials ||
+      !hasSatisfiedPredicates(getCredentialsFields()) ||
+      revocationOffense ||
+      proof?.state !== ProofState.RequestReceived
+    )
+  }
+
   const proofPageHeader = () => {
     return (
       <View style={styles.pageMargin}>
@@ -494,37 +537,20 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
                   <Text>{activeCreds?.length > 1 ? t('ProofRequest.Credentials') : t('ProofRequest.Credential')}</Text>
                 </Text>
               )}
-              {containsPI && (
-                <View
-                  style={{
-                    backgroundColor: ColorPallet.notification.warn,
-                    width: '100%',
-                    marginTop: 10,
-                    borderColor: ColorPallet.notification.warnBorder,
-                    borderWidth: 2,
-                    borderRadius: 4,
-                    flexDirection: 'row',
-                  }}
+              {containsPI ? (
+                <InfoTextBox
+                  type={InfoBoxType.Warn}
+                  style={{ marginTop: 16 }}
+                  textStyle={{ fontSize: TextTheme.title.fontSize }}
                 >
-                  <Icon
-                    style={{ marginTop: 15, marginLeft: 10 }}
-                    name="warning"
-                    color={ColorPallet.notification.warnIcon}
-                    size={TextTheme.title.fontSize + 5}
-                  />
-                  <Text
-                    style={{
-                      ...TextTheme.title,
-                      color: ColorPallet.notification.warnText,
-                      flex: 1,
-                      flexWrap: 'wrap',
-                      margin: 10,
-                    }}
-                  >
-                    {t('ProofRequest.SensitiveInformation')}
-                  </Text>
-                </View>
-              )}
+                  {t('ProofRequest.SensitiveInformation')}
+                </InfoTextBox>
+              ) : null}
+              {isShareDisabled() ? (
+                <InfoTextBox type={InfoBoxType.Error} style={{ marginTop: 16 }} textStyle={{ fontWeight: 'normal' }}>
+                  {t('ProofRequest.YouCantRespond')}
+                </InfoTextBox>
+              ) : null}
             </View>
             {!hasAvailableCredentials && hasMatchingCredDef && (
               <Text
@@ -565,10 +591,7 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
         {!(loading || attestationLoading) && proofConnectionLabel && goalCode === 'aries.vc.verify' ? (
           <ConnectionAlert connectionID={proofConnectionLabel} />
         ) : null}
-        {!hasAvailableCredentials ||
-        !hasSatisfiedPredicates(getCredentialsFields()) ||
-        revocationOffense ||
-        proof?.state !== ProofState.RequestReceived ? (
+        {isShareDisabled() ? (
           <View style={styles.footerButton}>
             <Button
               title={t('Global.Cancel')}

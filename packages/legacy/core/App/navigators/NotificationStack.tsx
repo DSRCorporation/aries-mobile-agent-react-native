@@ -14,7 +14,8 @@ const NotificationStack: React.FC = () => {
   const theme = useTheme()
   const { t } = useTranslation()
   const defaultStackOptions = createDefaultStackOptions(theme)
-  const { customNotification } = useConfiguration()
+  const container = useContainer()
+  const { customNotificationConfig: customNotification } = container.resolve(TOKENS.NOTIFICATIONS)
 
   const container = useContainer()
   const CredentialDetails = container.resolve(TOKENS.SCREEN_CREDENTIAL_DETAILS)
@@ -38,11 +39,18 @@ const NotificationStack: React.FC = () => {
         component={ProofRequest}
         options={{ title: t('Screens.ProofRequest') }}
       />
-      <Stack.Screen
-        name={Screens.CustomNotification}
-        component={customNotification.component}
-        options={{ title: t(customNotification.pageTitle as any) }}
-      />
+      {customNotification && (
+        <Stack.Screen
+          name={Screens.CustomNotification}
+          component={customNotification.component}
+          options={{ title: t(customNotification.pageTitle as any) }}
+        />
+      )}
+      {customNotification &&
+        customNotification.additionalStackItems?.length &&
+        customNotification.additionalStackItems.map((item) => (
+          <Stack.Screen name={item.name as any} component={item.component} options={item.stackOptions}></Stack.Screen>
+        ))}
     </Stack.Navigator>
   )
 }
