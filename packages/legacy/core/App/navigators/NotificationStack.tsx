@@ -3,7 +3,6 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { TOKENS, useContainer } from '../container-api'
-import { useConfiguration } from '../contexts/configuration'
 import { useTheme } from '../contexts/theme'
 import { NotificationStackParams, Screens } from '../types/navigators'
 
@@ -14,13 +13,12 @@ const NotificationStack: React.FC = () => {
   const theme = useTheme()
   const { t } = useTranslation()
   const defaultStackOptions = createDefaultStackOptions(theme)
-  const container = useContainer()
-  const { customNotificationConfig: customNotification } = container.resolve(TOKENS.NOTIFICATIONS)
 
   const container = useContainer()
   const CredentialDetails = container.resolve(TOKENS.SCREEN_CREDENTIAL_DETAILS)
   const CredentialOffer = container.resolve(TOKENS.SCREEN_CREDENTIAL_OFFER)
   const ProofRequest = container.resolve(TOKENS.SCREEN_PROOF_REQUEST)
+  const { customNotificationConfig: customNotification } = container.resolve(TOKENS.NOTIFICATIONS)
 
   return (
     <Stack.Navigator screenOptions={{ ...defaultStackOptions }}>
