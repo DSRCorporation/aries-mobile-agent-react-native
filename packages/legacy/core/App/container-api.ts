@@ -53,6 +53,7 @@ export const NOTIFICATION_TOKENS = {
 
 export const STACK_TOKENS = {
   STACK_ONBOARDING: 'stack.onboarding',
+  STACK_TAB: 'stack.tab'
 } as const
 
 export const FN_TOKENS = {
@@ -114,6 +115,7 @@ export type TokenMapping = {
   [TOKENS.GROUP_BY_REFERENT]: boolean
   [TOKENS.SCREEN_PREFACE]: React.FC
   [TOKENS.STACK_ONBOARDING]: React.FC
+  [TOKENS.STACK_TAB]: React.FC
   [TOKENS.SCREEN_TERMS]: { screen: React.FC; version: boolean | string }
   [TOKENS.SCREEN_DEVELOPER]: React.FC
   [TOKENS.SCREEN_ONBOARDING]: typeof Onboarding

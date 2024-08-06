@@ -39,7 +39,11 @@ const Chat: React.FC<ChatProps> = ({ route }) => {
   const isFocused = useIsFocused()
   const { assertConnectedNetwork, silentAssertConnectedNetwork } = useNetwork()
   const [showActionSlider, setShowActionSlider] = useState(false)
-  const { ChatTheme: theme, Assets } = useTheme()
+
+
+  const theme = useTheme()
+  const { ColorPallet, ChatTheme, Assets } = theme
+
   const [theirLabel, setTheirLabel] = useState(getConnectionName(connection, store.preferences.alternateContactNames))
 
   // This useEffect is for properly rendering changes to the alt contact name, useMemo did not pick them up
@@ -104,7 +108,7 @@ const Chat: React.FC<ChatProps> = ({ route }) => {
   }
 
   return (
-    <SafeAreaView edges={['bottom', 'left', 'right']} style={{ flex: 1, paddingTop: 20 }}>
+    <SafeAreaView edges={['bottom', 'left', 'right']} style={{ flex: 1, backgroundColor: ColorPallet.grayscale.white, borderRadius: 24 }}>
       <GiftedChat
         messages={chatMessages}
         showAvatarForEveryMessage={true}
@@ -112,15 +116,15 @@ const Chat: React.FC<ChatProps> = ({ route }) => {
         renderAvatar={() => null}
         messageIdGenerator={(msg) => msg?._id.toString() || '0'}
         renderMessage={(props) => <ChatMessage messageProps={props} />}
-        renderInputToolbar={(props) => renderInputToolbar(props, theme)}
-        renderSend={(props) => renderSend(props, theme)}
-        renderComposer={(props) => renderComposer(props, theme, t('Contacts.TypeHere'))}
+        renderInputToolbar={(props) => renderInputToolbar(props, ChatTheme)}
+        renderSend={(props) => renderSend(props, ChatTheme)}
+        renderComposer={(props) => renderComposer(props, ChatTheme, t('Contacts.TypeHere'))}
         disableComposer={!silentAssertConnectedNetwork()}
         onSend={onSend}
         user={{
           _id: Role.me,
         }}
-        renderActions={(props) => renderActions(props, theme, actions)}
+        renderActions={(props) => renderActions(props, ChatTheme, actions)}
         onPressActionButton={actions ? () => setShowActionSlider(true) : undefined}
       />
       {showActionSlider && <ActionSlider onDismiss={onDismiss} actions={actions} />}

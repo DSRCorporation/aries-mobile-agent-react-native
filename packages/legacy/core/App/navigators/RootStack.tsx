@@ -34,7 +34,6 @@ import DeliveryStack from './DeliveryStack'
 import NotificationStack from './NotificationStack'
 import ProofRequestStack from './ProofRequestStack'
 import SettingStack from './SettingStack'
-import TabStack from './TabStack'
 import { createDefaultStackOptions } from './defaultStackOptions'
 
 const RootStack: React.FC = () => {
@@ -51,10 +50,13 @@ const RootStack: React.FC = () => {
   const theme = useTheme()
   const defaultStackOptions = createDefaultStackOptions(theme)
   const { splash, enableImplicitInvitations, enableReuseConnections } = useConfiguration()
+
   const container = useContainer()
   const logger = container.resolve(TOKENS.UTIL_LOGGER)
   const OnboardingStack = container.resolve(TOKENS.STACK_ONBOARDING)
+  const TabStack = container.resolve(TOKENS.STACK_TAB)
   const loadState = container.resolve(TOKENS.LOAD_STATE)
+
   useDeepLinks()
 
   // remove connection on mobile verifier proofs if proof is rejected regardless of if it has been opened

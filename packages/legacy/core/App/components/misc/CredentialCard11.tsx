@@ -632,8 +632,7 @@ const CredentialCard11: React.FC<CredentialCard11Props> = ({
       style={[
         styles.container,
         style,
-        { elevation: elevated ? 5 : 0, overflow: 'hidden' },
-        hasAltCredentials ? styles.selectedCred : undefined,
+        { elevation: elevated ? 5 : 0, overflow: 'hidden' }
       ]}
       onLayout={(event) => {
         setDimensions({ cardHeight: event.nativeEvent.layout.height, cardWidth: event.nativeEvent.layout.width })

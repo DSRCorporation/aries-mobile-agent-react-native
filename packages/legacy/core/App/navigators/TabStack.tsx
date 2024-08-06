@@ -48,7 +48,7 @@ const TabStack: React.FC = () => {
   }
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: ColorPallet.brand.primary }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: ColorPallet.brand.primaryBackground }}>
       <Tab.Navigator
         initialRouteName={TabStacks.HomeStack}
         screenOptions={{
