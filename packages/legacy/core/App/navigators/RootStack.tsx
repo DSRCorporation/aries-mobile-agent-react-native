@@ -215,9 +215,10 @@ const RootStack: React.FC = () => {
       <Stack.Navigator initialRouteName={Screens.Splash} screenOptions={{ ...defaultStackOptions, headerShown: false }}>
         <Stack.Screen name={Screens.Splash} component={splash} />
         <Stack.Screen name={Stacks.TabStack} component={TabStack} />
-        <Stack.Screen
-          name={Screens.Chat}
-          component={Chat}
+        {/* TODO: Find a way to resolve issues with StackScreen type in component below */}
+        {/* Note that component has been inlined to make '@ts-ignore' work for 'component' prop */}
+        {/* @ts-ignore */}
+        <Stack.Screen name={Screens.Chat} component={Chat}
           options={({ navigation }) => ({
             headerShown: true,
             title: t('Screens.CredentialOffer'),

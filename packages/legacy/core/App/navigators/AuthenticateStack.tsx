@@ -19,6 +19,8 @@ const AuthenticateStack: React.FC<AuthenticateStackProps> = ({ setAuthenticated 
 
   return (
     <Stack.Navigator screenOptions={{ ...defaultStackOptions, presentation: 'transparentModal', headerShown: false }}>
+      {/* TODO: Find a way to resolve issues with StackScreen type in component below */}
+      {/* @ts-ignore */}
       <Stack.Screen name={Screens.EnterPIN} component={PINEnter} initialParams={{ setAuthenticated }} />
       <Stack.Screen name={Screens.AttemptLockout} component={AttemptLockout} />
     </Stack.Navigator>

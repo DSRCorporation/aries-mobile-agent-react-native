@@ -1,5 +1,5 @@
 import { useAgent } from '@credo-ts/react-hooks'
-import { CommonActions, ParamListBase, useNavigation } from '@react-navigation/native'
+import { CommonActions, useNavigation } from '@react-navigation/native'
 import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack'
 import React, { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -13,10 +13,12 @@ import { useConfiguration } from '../contexts/configuration'
 import { DispatchAction } from '../contexts/reducers/store'
 import { useStore } from '../contexts/store'
 import { useTheme } from '../contexts/theme'
-import { AuthenticateStackParams, Screens } from '../types/navigators'
+import { AuthenticateStackParams, Screens, SettingStackParams } from '../types/navigators'
 import { testIdWithKey } from '../utils/testable'
 
-const PushNotification: React.FC<StackScreenProps<ParamListBase, Screens.UsePushNotifications>> = ({ route }) => {
+type PushNotificationProps = StackScreenProps<SettingStackParams, Screens.UsePushNotifications>
+
+const PushNotification: React.FC<PushNotificationProps> = ({ route }) => {
   const { t } = useTranslation()
   const [store, dispatch] = useStore()
   const { agent } = useAgent()

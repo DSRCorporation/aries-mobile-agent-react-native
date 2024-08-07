@@ -78,11 +78,11 @@ const SettingStack: React.FC = () => {
           headerBackTestID: testIdWithKey('Back'),
         }}
       />
-      <Stack.Screen
-        name={Screens.CreatePIN}
-        component={PINCreate}
-        options={{ title: t('Screens.ChangePIN'), headerBackTestID: testIdWithKey('Back') }}
-      />
+      {/* TODO: Find a way to resolve issues with StackScreen type in component below */}
+      {/* Note that component has been inlined to make '@ts-ignore' work for 'component' prop */}
+      {/* @ts-ignore */}
+      <Stack.Screen name={Screens.CreatePIN} component={PINCreate}
+        options={{ title: t('Screens.ChangePIN'), headerBackTestID: testIdWithKey('Back') }}/>
       <Stack.Screen
         name={Screens.UsePushNotifications}
         component={PushNotification}

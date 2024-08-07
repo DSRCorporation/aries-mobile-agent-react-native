@@ -45,6 +45,7 @@ export const SCREEN_TOKENS = {
   SCREEN_CREDENTIAL_DETAILS: 'screen.credential.details',
   SCREEN_CREDENTIAL_OFFER: 'screen.credential.offer',
   SCREEN_PROOF_REQUEST: 'screen.proof.request',
+  SCREEN_HOME: 'screen.home',
 } as const
 
 export const NOTIFICATION_TOKENS = {
@@ -123,6 +124,7 @@ export type TokenMapping = {
   [TOKENS.SCREEN_CREDENTIAL_DETAILS]: React.FC
   [TOKENS.SCREEN_CREDENTIAL_OFFER]: React.FC
   [TOKENS.SCREEN_PROOF_REQUEST]: React.FC
+  [TOKENS.SCREEN_HOME]: React.FC
   [TOKENS.FN_ONBOARDING_DONE]: FN_ONBOARDING_DONE
   [TOKENS.LOAD_STATE]: LoadStateFn
   [TOKENS.COMP_BUTTON]: Button
