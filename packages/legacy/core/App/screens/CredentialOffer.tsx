@@ -13,7 +13,6 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import Button, { ButtonType } from '../components/buttons/Button'
 import ConnectionAlert from '../components/misc/ConnectionAlert'
 import ConnectionImage from '../components/misc/ConnectionImage'
-import CredentialCard from '../components/misc/CredentialCard'
 import CommonRemoveModal from '../components/modals/CommonRemoveModal'
 import Record from '../components/record/Record'
 import { EventTypes } from '../constants'
@@ -53,7 +52,6 @@ const CredentialOffer: React.FC<CredentialOfferProps> = ({ navigation, route }) 
   const { TextTheme, ColorPallet } = useTheme()
   const { RecordLoading } = useAnimatedComponents()
   const { assertConnectedNetwork } = useNetwork()
-  const bundleResolver = useContainer().resolve(TOKENS.UTIL_OCA_RESOLVER)
   const [loading, setLoading] = useState<boolean>(true)
   const [buttonsVisible, setButtonsVisible] = useState(true)
   const [acceptModalVisible, setAcceptModalVisible] = useState(false)
@@ -68,6 +66,8 @@ const CredentialOffer: React.FC<CredentialOfferProps> = ({ navigation, route }) 
   const { enableTours: enableToursConfig } = useConfiguration()
   const container = useContainer()
   const logger = container.resolve(TOKENS.UTIL_LOGGER)
+  const bundleResolver = container.resolve(TOKENS.UTIL_OCA_RESOLVER)
+  const CredentialCard = container.resolve(TOKENS.COMP_CREDENTIAL_CARD)
 
   const styles = StyleSheet.create({
     headerTextContainer: {

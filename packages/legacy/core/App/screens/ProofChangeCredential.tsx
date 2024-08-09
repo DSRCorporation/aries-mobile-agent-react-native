@@ -10,7 +10,6 @@ import { DeviceEventEmitter, FlatList, StyleSheet, Text, TouchableOpacity, View 
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import RecordLoading from '../components/animated/RecordLoading'
-import { CredentialCard } from '../components/misc'
 import { EventTypes } from '../constants'
 import { useTheme } from '../contexts/theme'
 import { useAllCredentialsForProof } from '../hooks/proofs'
@@ -19,6 +18,7 @@ import { ProofRequestsStackParams, Screens } from '../types/navigators'
 import { ProofCredentialItems } from '../types/proof-items'
 import { Fields, evaluatePredicates } from '../utils/helpers'
 import { testIdWithKey } from '../utils/testable'
+import { TOKENS, useContainer } from "../container-api"
 
 type ProofChangeProps = StackScreenProps<ProofRequestsStackParams, Screens.ProofChangeCredential>
 
@@ -36,6 +36,10 @@ const ProofChangeCredential: React.FC<ProofChangeProps> = ({ route, navigation }
   const [proofItems, setProofItems] = useState<ProofCredentialItems[]>([])
   const [retrievedCredentials, setRetrievedCredentials] = useState<AnonCredsCredentialsForProofRequest>()
   const credProofPromise = useAllCredentialsForProof(proofId)
+
+  const container = useContainer()
+  const CredentialCard = container.resolve(TOKENS.COMP_CREDENTIAL_CARD)
+
   const styles = StyleSheet.create({
     pageContainer: {
       flex: 1,

@@ -17,7 +17,6 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
 import Button, { ButtonType } from '../components/buttons/Button'
-import { CredentialCard } from '../components/misc'
 import ConnectionAlert from '../components/misc/ConnectionAlert'
 import ConnectionImage from '../components/misc/ConnectionImage'
 import { InfoBoxType } from '../components/misc/InfoBox'
@@ -88,8 +87,11 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
   )
   const { start } = useTour()
   const screenIsFocused = useIsFocused()
-  const bundleResolver = useContainer().resolve(TOKENS.UTIL_OCA_RESOLVER)
-  const attestationMonitor = useContainer().resolve(TOKENS.UTIL_ATTESTATION_MONITOR)
+
+  const container = useContainer()
+  const bundleResolver = container.resolve(TOKENS.UTIL_OCA_RESOLVER)
+  const attestationMonitor = container.resolve(TOKENS.UTIL_ATTESTATION_MONITOR)
+  const CredentialCard = container.resolve(TOKENS.COMP_CREDENTIAL_CARD)
 
   const hasMatchingCredDef = useMemo(
     () => activeCreds.some((cred) => cred.credExchangeRecord !== undefined),

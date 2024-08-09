@@ -7,7 +7,6 @@ import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList, View } from 'react-native'
 
-import CredentialCard from '../components/misc/CredentialCard'
 import { useConfiguration } from '../contexts/configuration'
 import { DispatchAction } from '../contexts/reducers/store'
 import { useStore } from '../contexts/store'
@@ -15,10 +14,15 @@ import { useTheme } from '../contexts/theme'
 import { useTour } from '../contexts/tour/tour-context'
 import { CredentialStackParams, Screens } from '../types/navigators'
 import { TourID } from '../types/tour'
+import { TOKENS, useContainer } from "../container-api"
 
 const ListCredentials: React.FC = () => {
   const { t } = useTranslation()
   const [store, dispatch] = useStore()
+
+  const container = useContainer()
+  const CredentialCard = container.resolve(TOKENS.COMP_CREDENTIAL_CARD)
+
   const {
     credentialListOptions: CredentialListOptions,
     credentialEmptyList: CredentialEmptyList,
