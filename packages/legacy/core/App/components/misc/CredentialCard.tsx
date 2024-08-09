@@ -10,7 +10,7 @@ import { GenericFn } from '../../types/fn'
 import CredentialCard10 from './CredentialCard10'
 import CredentialCard11 from './CredentialCard11'
 
-interface CredentialCardProps {
+export interface CredentialCardProps {
   credential?: CredentialExchangeRecord
   credDefId?: string
   schemaId?: string

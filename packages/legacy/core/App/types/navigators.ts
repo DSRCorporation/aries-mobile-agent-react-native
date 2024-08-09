@@ -73,6 +73,8 @@ export type RootStackParams = {
   [Stacks.ConnectStack]: NavigatorScreenParams<ConnectStackParams>
   [Stacks.SettingStack]: NavigatorScreenParams<SettingStackParams>
   [Stacks.ContactStack]: NavigatorScreenParams<ContactStackParams>
+  [Stacks.CredentialStack]: NavigatorScreenParams<CredentialStackParams>
+  [TabStacks.CredentialStack]: NavigatorScreenParams<CredentialStackParams>
   [Stacks.ProofRequestsStack]: NavigatorScreenParams<ProofRequestsStackParams>
   [Stacks.NotificationStack]: NavigatorScreenParams<NotificationStackParams>
   [Stacks.HistoryStack]: NavigatorScreenParams<HistoryStackParams>

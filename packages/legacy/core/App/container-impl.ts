@@ -37,7 +37,8 @@ import {
   Tours as ToursState,
 } from './types/state'
 import TabStack from "./navigators/TabStack"
-import Home from "./screens/Home"
+import HomeStack from "./navigators/HomeStack"
+import CredentialCard from "./components/misc/CredentialCard"
 
 export class MainContainer implements Container {
   public static readonly TOKENS = TOKENS
@@ -64,9 +65,10 @@ export class MainContainer implements Container {
     this._container.registerInstance(TOKENS.SCREEN_CREDENTIAL_DETAILS, CredentialDetails)
     this._container.registerInstance(TOKENS.SCREEN_CREDENTIAL_OFFER, CredentialOffer)
     this._container.registerInstance(TOKENS.SCREEN_PROOF_REQUEST, ProofRequest)
-    this._container.registerInstance(TOKENS.SCREEN_HOME, Home)
     this._container.registerInstance(TOKENS.STACK_ONBOARDING, OnboardingStack)
     this._container.registerInstance(TOKENS.STACK_TAB, TabStack)
+    this._container.registerInstance(TOKENS.STACK_HOME, HomeStack)
+    this._container.registerInstance(TOKENS.COMP_CREDENTIAL_CARD, CredentialCard)
     this._container.registerInstance(TOKENS.COMP_BUTTON, Button)
     this._container.registerInstance(TOKENS.GROUP_BY_REFERENT, false)
     this._container.registerInstance(TOKENS.CRED_HELP_ACTION_OVERRIDES, [])

@@ -35,6 +35,7 @@ import NotificationStack from './NotificationStack'
 import ProofRequestStack from './ProofRequestStack'
 import SettingStack from './SettingStack'
 import { createDefaultStackOptions } from './defaultStackOptions'
+import CredentialStack from "./CredentialStack"
 
 const RootStack: React.FC = () => {
   const [state, dispatch] = useStore()
@@ -244,6 +245,8 @@ const RootStack: React.FC = () => {
           }}
         />
         <Stack.Screen name={Stacks.ContactStack} component={ContactStack} />
+        <Stack.Screen name={Stacks.CredentialStack} component={CredentialStack}/>
+        <Stack.Screen name={TabStacks.CredentialStack} component={CredentialStack}/>
         <Stack.Screen name={Stacks.NotificationStack} component={NotificationStack} />
         <Stack.Screen
           name={Stacks.ConnectionStack}

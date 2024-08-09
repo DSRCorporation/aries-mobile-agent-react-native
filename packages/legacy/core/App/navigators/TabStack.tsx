@@ -16,11 +16,11 @@ import { TourID } from '../types/tour'
 import { testIdWithKey } from '../utils/testable'
 
 import CredentialStack from './CredentialStack'
-import HomeStack from './HomeStack'
 
 const TabStack: React.FC = () => {
   const { fontScale } = useWindowDimensions()
   const container = useContainer()
+  const HomeStack = container.resolve(TOKENS.STACK_HOME)
   const { useNotifications } = container.resolve(TOKENS.NOTIFICATIONS)
   const notifications = useNotifications()
   const { t } = useTranslation()

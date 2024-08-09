@@ -20,6 +20,7 @@ import { AttestationMonitor } from './types/attestation'
 import { GenericFn } from './types/fn'
 import { AuthenticateStackParams, ScreenOptionsType } from './types/navigators'
 import { CustomNotification } from './types/notification'
+import { CredentialCardProps } from "./components/misc/CredentialCard"
 
 export type FN_ONBOARDING_DONE = (
   dispatch: React.Dispatch<ReducerAction<unknown>>,
@@ -45,7 +46,6 @@ export const SCREEN_TOKENS = {
   SCREEN_CREDENTIAL_DETAILS: 'screen.credential.details',
   SCREEN_CREDENTIAL_OFFER: 'screen.credential.offer',
   SCREEN_PROOF_REQUEST: 'screen.proof.request',
-  SCREEN_HOME: 'screen.home',
 } as const
 
 export const NOTIFICATION_TOKENS = {
@@ -54,7 +54,8 @@ export const NOTIFICATION_TOKENS = {
 
 export const STACK_TOKENS = {
   STACK_ONBOARDING: 'stack.onboarding',
-  STACK_TAB: 'stack.tab'
+  STACK_TAB: 'stack.tab',
+  STACK_HOME: 'stack.home',
 } as const
 
 export const FN_TOKENS = {
@@ -64,6 +65,7 @@ export const FN_TOKENS = {
 
 export const COMP_TOKENS = {
   COMP_BUTTON: 'comp.button',
+  COMP_CREDENTIAL_CARD: 'comp.credentialCard'
 } as const
 
 export const SERVICE_TOKENS = {
@@ -117,6 +119,7 @@ export type TokenMapping = {
   [TOKENS.SCREEN_PREFACE]: React.FC
   [TOKENS.STACK_ONBOARDING]: React.FC
   [TOKENS.STACK_TAB]: React.FC
+  [TOKENS.STACK_HOME]: React.FC
   [TOKENS.SCREEN_TERMS]: { screen: React.FC; version: boolean | string }
   [TOKENS.SCREEN_DEVELOPER]: React.FC
   [TOKENS.SCREEN_ONBOARDING]: typeof Onboarding
@@ -124,10 +127,10 @@ export type TokenMapping = {
   [TOKENS.SCREEN_CREDENTIAL_DETAILS]: React.FC
   [TOKENS.SCREEN_CREDENTIAL_OFFER]: React.FC
   [TOKENS.SCREEN_PROOF_REQUEST]: React.FC
-  [TOKENS.SCREEN_HOME]: React.FC
   [TOKENS.FN_ONBOARDING_DONE]: FN_ONBOARDING_DONE
   [TOKENS.LOAD_STATE]: LoadStateFn
   [TOKENS.COMP_BUTTON]: Button
+  [TOKENS.COMP_CREDENTIAL_CARD]: React.FC<CredentialCardProps>
   [TOKENS.NOTIFICATIONS]: {
     useNotifications: () => Array<BasicMessageRecord | CredentialRecord | ProofExchangeRecord | CustomNotification>
     customNotificationConfig?: CustomNotification

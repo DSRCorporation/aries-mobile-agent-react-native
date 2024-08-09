@@ -71,7 +71,7 @@ const CredentialOfferAccept: React.FC<CredentialOfferAcceptProps> = ({ visible, 
   }
 
   const onDoneTouched = () => {
-    navigation.getParent()?.navigate(TabStacks.CredentialStack, { screen: Screens.Credentials })
+    navigation.getParent()?.navigate(TabStacks.HomeStack, { screen: Screens.Home })
   }
 
   useEffect(() => {

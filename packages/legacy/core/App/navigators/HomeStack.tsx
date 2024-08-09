@@ -9,7 +9,7 @@ import HistoryMenu from '../modules/history/ui/components/HistoryMenu'
 import { HomeStackParams, Screens } from '../types/navigators'
 
 import { createDefaultStackOptions } from './defaultStackOptions'
-import { TOKENS, useContainer } from "../container-api"
+import Home from "../screens/Home"
 
 const HomeStack: React.FC = () => {
   const Stack = createStackNavigator<HomeStackParams>()
@@ -17,9 +17,6 @@ const HomeStack: React.FC = () => {
   const { t } = useTranslation()
   const [store] = useStore()
   const defaultStackOptions = createDefaultStackOptions(theme)
-
-  const container = useContainer()
-  const Home = container.resolve(TOKENS.SCREEN_HOME)
 
   return (
     <Stack.Navigator screenOptions={{ ...defaultStackOptions }}>

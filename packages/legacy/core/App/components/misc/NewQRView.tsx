@@ -95,6 +95,7 @@ const NewQRView: React.FC<Props> = ({ defaultToConnect, handleCodeScan, error, e
     tabContainer: {
       flexDirection: 'row',
       ...TabTheme.tabBarStyle,
+      position: 'relative',
     },
     qrContainer: {
       marginTop: 10,
