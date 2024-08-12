@@ -24,7 +24,7 @@ import CommonRemoveModal from '../components/modals/CommonRemoveModal'
 import ProofCancelModal from '../components/modals/ProofCancelModal'
 import InfoTextBox from '../components/texts/InfoTextBox'
 import { EventTypes } from '../constants'
-import { TOKENS, useContainer } from '../container-api'
+import { TOKENS, useServices } from '../container-api'
 import { useAnimatedComponents } from '../contexts/animated-components'
 import { useConfiguration } from '../contexts/configuration'
 import { useNetwork } from '../contexts/network'
@@ -87,11 +87,7 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
   )
   const { start } = useTour()
   const screenIsFocused = useIsFocused()
-
-  const container = useContainer()
-  const bundleResolver = container.resolve(TOKENS.UTIL_OCA_RESOLVER)
-  const attestationMonitor = container.resolve(TOKENS.UTIL_ATTESTATION_MONITOR)
-  const CredentialCard = container.resolve(TOKENS.COMP_CREDENTIAL_CARD)
+  const [bundleResolver, attestationMonitor, CredentialCard] = useServices([TOKENS.UTIL_OCA_RESOLVER, TOKENS.UTIL_ATTESTATION_MONITOR, TOKENS.COMP_CREDENTIAL_CARD])
 
   const hasMatchingCredDef = useMemo(
     () => activeCreds.some((cred) => cred.credExchangeRecord !== undefined),
