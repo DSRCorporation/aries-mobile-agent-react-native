@@ -39,6 +39,7 @@ import {
 import TabStack from "./navigators/TabStack"
 import HomeStack from "./navigators/HomeStack"
 import CredentialCard from "./components/misc/CredentialCard"
+import CredentialStack from "./navigators/CredentialStack"
 
 export class MainContainer implements Container {
   public static readonly TOKENS = TOKENS
@@ -68,6 +69,7 @@ export class MainContainer implements Container {
     this._container.registerInstance(TOKENS.STACK_ONBOARDING, OnboardingStack)
     this._container.registerInstance(TOKENS.STACK_TAB, TabStack)
     this._container.registerInstance(TOKENS.STACK_HOME, HomeStack)
+    this._container.registerInstance(TOKENS.STACK_CREDENTIAL, CredentialStack)
     this._container.registerInstance(TOKENS.COMP_CREDENTIAL_CARD, CredentialCard)
     this._container.registerInstance(TOKENS.COMP_BUTTON, Button)
     this._container.registerInstance(TOKENS.GROUP_BY_REFERENT, false)

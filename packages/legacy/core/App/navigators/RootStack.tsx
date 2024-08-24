@@ -35,7 +35,6 @@ import NotificationStack from './NotificationStack'
 import ProofRequestStack from './ProofRequestStack'
 import SettingStack from './SettingStack'
 import { createDefaultStackOptions } from './defaultStackOptions'
-import CredentialStack from "./CredentialStack"
 
 const RootStack: React.FC = () => {
   const [state, dispatch] = useStore()
@@ -52,7 +51,7 @@ const RootStack: React.FC = () => {
   const defaultStackOptions = createDefaultStackOptions(theme)
   const { splash, enableImplicitInvitations, enableReuseConnections } = useConfiguration()
 
-  const [logger, OnboardingStack, TabStack, loadState] = useServices([TOKENS.UTIL_LOGGER, TOKENS.STACK_ONBOARDING, TOKENS.STACK_TAB, TOKENS.LOAD_STATE])
+  const [logger, OnboardingStack, TabStack, CredentialStack, loadState] = useServices([TOKENS.UTIL_LOGGER, TOKENS.STACK_ONBOARDING, TOKENS.STACK_TAB, TOKENS.STACK_CREDENTIAL, TOKENS.LOAD_STATE])
 
   useDeepLinks()
 

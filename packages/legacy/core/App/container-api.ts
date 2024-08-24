@@ -56,6 +56,7 @@ export const STACK_TOKENS = {
   STACK_ONBOARDING: 'stack.onboarding',
   STACK_TAB: 'stack.tab',
   STACK_HOME: 'stack.home',
+  STACK_CREDENTIAL: 'stack.credential',
 } as const
 
 export const FN_TOKENS = {
@@ -120,6 +121,7 @@ export type TokenMapping = {
   [TOKENS.STACK_ONBOARDING]: React.FC
   [TOKENS.STACK_TAB]: React.FC
   [TOKENS.STACK_HOME]: React.FC
+  [TOKENS.STACK_CREDENTIAL]: React.FC
   [TOKENS.SCREEN_TERMS]: { screen: React.FC; version: boolean | string }
   [TOKENS.SCREEN_DEVELOPER]: React.FC
   [TOKENS.SCREEN_ONBOARDING]: typeof Onboarding

@@ -154,6 +154,7 @@ const ProofChangeCredential: React.FC<ProofChangeProps> = ({ route, navigation }
                 testID={testIdWithKey(`select:${item.credId}`)}
                 onPress={() => changeCred(item.credId ?? '')}
                 style={[item.credId === selectedCred ? styles.selectedCred : undefined, { marginBottom: 10 }]}
+                activeOpacity={1}
               >
                 <CredentialCard
                   credential={item.credExchangeRecord}

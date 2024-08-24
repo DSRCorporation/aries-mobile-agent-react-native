@@ -1,6 +1,6 @@
 {
-  "name": "@hyperledger/aries-bifold-core",
-  "version": "1.0.0",
+  "name": "@DSRCorporation/aries-bifold-core",
+  "version": "1.0.0-alpha-dsrw.1",
   "main": "lib/commonjs/index.js",
   "module": "lib/module/index.js",
   "react-native": "App/index.ts",
@@ -8,6 +8,10 @@
   "types": "lib/typescript/App/index.d.ts",
   "bin": {
     "bifold": "bin/bifold"
+  },
+  "repository": {
+    "url": "https://github.com/DSRCorporation/aries-mobile-agent-react-native",
+    "type": "git"
   },
   "files": [
     "App",
@@ -216,6 +220,9 @@
     "react-native-vision-camera": "*",
     "tsyringe": "^4.7.0",
     "uuid": "^9.0.0"
+  },
+  "publishConfig": {
+    "@DSRCorporation:registry": "https://npm.pkg.github.com"
   },
   "installConfig": {
     "hoistingLimits": "workspaces"
