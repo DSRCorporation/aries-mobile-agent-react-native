@@ -6,7 +6,7 @@ import { EmptyListProps } from '../components/misc/EmptyList'
 import { RecordProps } from '../components/record/Record'
 import { Locales } from '../localization'
 import OnboardingPages from '../screens/OnboardingPages'
-import { ConnectStackParams } from '../types/navigators'
+import { ConnectStackParams, Screens } from '../types/navigators'
 import { PINSecurityParams } from '../types/security'
 import { SettingSection } from '../types/settings'
 
@@ -31,7 +31,7 @@ export interface ConfigurationContext {
   credentialEmptyList: React.FC<EmptyListProps>
   developer: React.FC
   proofTemplateBaseUrl?: string
-  scan: React.FC<StackScreenProps<ConnectStackParams>>
+  scan: React.FC<StackScreenProps<ConnectStackParams, Screens.Scan>>
   record: React.FC<RecordProps>
   PINSecurity: PINSecurityParams
   settings: SettingSection[]

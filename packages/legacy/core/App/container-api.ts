@@ -20,7 +20,8 @@ import { AttestationMonitor } from './types/attestation'
 import { GenericFn } from './types/fn'
 import { AuthenticateStackParams, ScreenOptionsType } from './types/navigators'
 import { CustomNotification } from './types/notification'
-import { CredentialCardProps } from "./components/misc/CredentialCard"
+import CredentialCard from "./components/misc/CredentialCard"
+import Settings from "./screens/Settings"
 
 export type FN_ONBOARDING_DONE = (
   dispatch: React.Dispatch<ReducerAction<unknown>>,
@@ -41,6 +42,7 @@ export const SCREEN_TOKENS = {
   SCREEN_TERMS: 'screen.terms',
   SCREEN_ONBOARDING: 'screen.onboarding',
   SCREEN_DEVELOPER: 'screen.developer',
+  SCREEN_SETTINGS: 'screen.settings',
   SCREEN_ONBOARDING_ITEM: 'screen.onboarding.item',
   SCREEN_CREDENTIAL_LIST: 'screen.credential.list',
   SCREEN_CREDENTIAL_DETAILS: 'screen.credential.details',
@@ -125,6 +127,7 @@ export type TokenMapping = {
   [TOKENS.SCREEN_TERMS]: { screen: React.FC; version: boolean | string }
   [TOKENS.SCREEN_DEVELOPER]: React.FC
   [TOKENS.SCREEN_ONBOARDING]: typeof Onboarding
+  [TOKENS.SCREEN_SETTINGS]: typeof Settings
   [TOKENS.SCREEN_CREDENTIAL_LIST]: React.FC
   [TOKENS.SCREEN_CREDENTIAL_DETAILS]: React.FC
   [TOKENS.SCREEN_CREDENTIAL_OFFER]: React.FC
@@ -132,7 +135,7 @@ export type TokenMapping = {
   [TOKENS.FN_ONBOARDING_DONE]: FN_ONBOARDING_DONE
   [TOKENS.LOAD_STATE]: LoadStateFn
   [TOKENS.COMP_BUTTON]: Button
-  [TOKENS.COMP_CREDENTIAL_CARD]: React.FC<CredentialCardProps>
+  [TOKENS.COMP_CREDENTIAL_CARD]: typeof CredentialCard
   [TOKENS.NOTIFICATIONS]: {
     useNotifications: () => Array<BasicMessageRecord | CredentialRecord | ProofExchangeRecord | CustomNotification>
     customNotificationConfig?: CustomNotification

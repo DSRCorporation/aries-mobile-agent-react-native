@@ -15,11 +15,11 @@ import { TOKENS, useContainer } from '../container-api'
 import { useConfiguration } from '../contexts/configuration'
 import { useStore } from '../contexts/store'
 import { BifoldError, QrCodeScanError } from '../types/error'
-import { ConnectStackParams } from '../types/navigators'
+import { ConnectStackParams, Screens } from '../types/navigators'
 import { PermissionContract } from '../types/permissions'
 import { connectFromScanOrDeepLink } from '../utils/helpers'
 
-export type ScanProps = StackScreenProps<ConnectStackParams>
+export type ScanProps = StackScreenProps<ConnectStackParams, Screens.Scan>
 
 const Scan: React.FC<ScanProps> = ({ navigation, route }) => {
   const { agent } = useAgent()

@@ -14,13 +14,13 @@ import Onboarding from '../screens/Onboarding'
 import { createCarouselStyle } from '../screens/OnboardingPages'
 import PINCreate from '../screens/PINCreate'
 import PushNotification from '../screens/PushNotification'
-import Settings from '../screens/Settings'
 import Tours from '../screens/Tours'
 import UseBiometry from '../screens/UseBiometry'
 import { Screens, SettingStackParams } from '../types/navigators'
 import { testIdWithKey } from '../utils/testable'
 
 import { createDefaultStackOptions } from './defaultStackOptions'
+import { TOKENS, useServices } from "../container-api"
 
 const SettingStack: React.FC = () => {
   const Stack = createStackNavigator<SettingStackParams>()
@@ -31,6 +31,8 @@ const SettingStack: React.FC = () => {
   const defaultStackOptions = createDefaultStackOptions(theme)
   const OnboardingTheme = theme.OnboardingTheme
   const carousel = createCarouselStyle(OnboardingTheme)
+
+  const [Settings] = useServices([TOKENS.SCREEN_SETTINGS])
 
   useEffect(() => {
     const handleBiometry = DeviceEventEmitter.addListener(EventTypes.BIOMETRY_UPDATE, (value: boolean) => {
