@@ -8,13 +8,13 @@ import { useTheme } from '../contexts/theme'
 import Connection from '../screens/Connection'
 import { DeliveryStackParams, Screens } from '../types/navigators'
 
-import { createDefaultStackOptions } from './defaultStackOptions'
+import { useDefaultStackOptions } from './defaultStackOptions'
 
 const DeliveryStack: React.FC = () => {
   const Stack = createStackNavigator<DeliveryStackParams>()
   const { t } = useTranslation()
   const theme = useTheme()
-  const defaultStackOptions = createDefaultStackOptions(theme)
+  const defaultStackOptions = useDefaultStackOptions(theme)
 
   const container = useContainer()
   const CredentialOffer = container.resolve(TOKENS.SCREEN_CREDENTIAL_OFFER)

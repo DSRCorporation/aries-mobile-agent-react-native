@@ -2,23 +2,20 @@ import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { TOKENS, useContainer } from '../container-api'
+import { TOKENS, useServices } from '../container-api'
 import { useTheme } from '../contexts/theme'
 import { NotificationStackParams, Screens } from '../types/navigators'
 
-import { createDefaultStackOptions } from './defaultStackOptions'
+import { useDefaultStackOptions } from './defaultStackOptions'
 
 const NotificationStack: React.FC = () => {
   const Stack = createStackNavigator<NotificationStackParams>()
   const theme = useTheme()
   const { t } = useTranslation()
-  const defaultStackOptions = createDefaultStackOptions(theme)
 
-  const container = useContainer()
-  const CredentialDetails = container.resolve(TOKENS.SCREEN_CREDENTIAL_DETAILS)
-  const CredentialOffer = container.resolve(TOKENS.SCREEN_CREDENTIAL_OFFER)
-  const ProofRequest = container.resolve(TOKENS.SCREEN_PROOF_REQUEST)
-  const { customNotificationConfig: customNotification } = container.resolve(TOKENS.NOTIFICATIONS)
+  const defaultStackOptions = useDefaultStackOptions(theme)
+
+  const [CredentialDetails, CredentialOffer, ProofRequest, { customNotificationConfig: customNotification }] = useServices([TOKENS.SCREEN_CREDENTIAL_DETAILS, TOKENS.SCREEN_CREDENTIAL_OFFER, TOKENS.SCREEN_PROOF_REQUEST,  TOKENS.NOTIFICATIONS])
 
   return (
     <Stack.Navigator screenOptions={{ ...defaultStackOptions }}>
@@ -46,8 +43,8 @@ const NotificationStack: React.FC = () => {
       )}
       {customNotification &&
         customNotification.additionalStackItems?.length &&
-        customNotification.additionalStackItems.map((item) => (
-          <Stack.Screen name={item.name as any} component={item.component} options={item.stackOptions}></Stack.Screen>
+        customNotification.additionalStackItems.map((item, i) => (
+          <Stack.Screen key={i+1} name={item.name as any} component={item.component} options={item.stackOptions}></Stack.Screen>
         ))}
     </Stack.Navigator>
   )

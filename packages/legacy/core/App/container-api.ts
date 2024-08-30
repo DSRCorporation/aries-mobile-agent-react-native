@@ -22,6 +22,7 @@ import { AuthenticateStackParams, ScreenOptionsType } from './types/navigators'
 import { CustomNotification } from './types/notification'
 import CredentialCard from "./components/misc/CredentialCard"
 import Settings from "./screens/Settings"
+import { Config } from './types/config'
 
 export type FN_ONBOARDING_DONE = (
   dispatch: React.Dispatch<ReducerAction<unknown>>,
@@ -48,6 +49,17 @@ export const SCREEN_TOKENS = {
   SCREEN_CREDENTIAL_DETAILS: 'screen.credential.details',
   SCREEN_CREDENTIAL_OFFER: 'screen.credential.offer',
   SCREEN_PROOF_REQUEST: 'screen.proof.request',
+  SCREEN_ONBOARDING_PAGES: 'screen.onboarding.pages',
+  SCREEN_SPLASH: 'screen.splash',
+  SCREEN_SCAN: 'screen.scan',
+  SCREEN_USE_BIOMETRY: 'screen.use-biometry',
+} as const
+
+export const COMPONENT_TOKENS = {
+  COMPONENT_HOME_HEADER: 'component.home.header',
+  COMPONENT_HOME_FOOTER: 'component.home.footer',
+  COMPONENT_CRED_EMPTY_LIST: 'component.cred.empty-list',
+  COMPONENT_RECORD: 'component.record',
 } as const
 
 export const NOTIFICATION_TOKENS = {
@@ -64,6 +76,8 @@ export const STACK_TOKENS = {
 export const FN_TOKENS = {
   FN_ONBOARDING_DONE: 'fn.onboardingDone',
   FN_LOAD_HISTORY: 'fn.loadHistory',
+  COMPONENT_CRED_LIST_HEADER_RIGHT: 'fn.credListHeaderRight',
+  COMPONENT_CRED_LIST_OPTIONS: 'fn.credListOptions',
 } as const
 
 export const COMP_TOKENS = {
@@ -96,8 +110,13 @@ export const UTILITY_TOKENS = {
   UTIL_ATTESTATION_MONITOR: 'utility.attestation-monitor',
 } as const
 
+export const CONFIG_TOKENS = {
+  CONFIG: 'config',
+} as const
+
 export const TOKENS = {
   ...PROOF_TOKENS,
+  ...COMPONENT_TOKENS,
   ...SCREEN_TOKENS,
   ...SERVICE_TOKENS,
   ...STACK_TOKENS,
@@ -108,6 +127,7 @@ export const TOKENS = {
   ...OBJECT_TOKENS,
   ...CACHE_TOKENS,
   ...UTILITY_TOKENS,
+  ...CONFIG_TOKENS,
 } as const
 
 export type FN_HISTORY_MANAGER = (agent: Agent<any>) => IHistoryManager
@@ -126,6 +146,10 @@ export type TokenMapping = {
   [TOKENS.STACK_CREDENTIAL]: React.FC
   [TOKENS.SCREEN_TERMS]: { screen: React.FC; version: boolean | string }
   [TOKENS.SCREEN_DEVELOPER]: React.FC
+  [TOKENS.SCREEN_ONBOARDING_PAGES]: (onTutorialCompleted: GenericFn, OnboardingTheme: any) => Array<Element>
+  [TOKENS.SCREEN_SPLASH]: React.FC
+  [TOKENS.SCREEN_SCAN]: React.FC
+  [TOKENS.SCREEN_USE_BIOMETRY]: React.FC
   [TOKENS.SCREEN_ONBOARDING]: typeof Onboarding
   [TOKENS.SCREEN_SETTINGS]: typeof Settings
   [TOKENS.SCREEN_CREDENTIAL_LIST]: React.FC
@@ -149,6 +173,13 @@ export type TokenMapping = {
   [TOKENS.UTIL_PROOF_TEMPLATE]: ProofRequestTemplateFn | undefined
   [TOKENS.UTIL_ATTESTATION_MONITOR]: AttestationMonitor
   [TOKENS.FN_LOAD_HISTORY]: FN_HISTORY_MANAGER
+  [TOKENS.CONFIG]: Config
+  [TOKENS.COMPONENT_CRED_LIST_HEADER_RIGHT]: React.FC
+  [TOKENS.COMPONENT_CRED_LIST_OPTIONS]: React.FC
+  [TOKENS.COMPONENT_HOME_HEADER]: React.FC
+  [TOKENS.COMPONENT_HOME_FOOTER]: React.FC
+  [TOKENS.COMPONENT_CRED_EMPTY_LIST]: React.FC
+  [TOKENS.COMPONENT_RECORD]: React.FC
 }
 
 export interface Container {

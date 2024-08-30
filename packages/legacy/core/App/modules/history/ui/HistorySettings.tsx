@@ -7,7 +7,7 @@ import { StyleSheet, Text, View } from 'react-native'
 // eslint-disable-next-line import/no-named-as-default
 import { ButtonType } from '../../../components/buttons/Button-api'
 import KeyboardView from '../../../components/views/KeyboardView'
-import { TOKENS, useContainer } from '../../../container-api'
+import { TOKENS, useServices } from '../../../container-api'
 import { useAnimatedComponents } from '../../../contexts/animated-components'
 import { useTheme } from '../../../contexts/theme'
 import { Screens, SettingStackParams } from '../../../types/navigators'
@@ -28,12 +28,10 @@ const HistorySettings: React.FC<HistorySettingsProps> = () => {
   const { ButtonLoading } = useAnimatedComponents()
   const actionButtonLabel = t('Global.SaveSettings')
   const actionButtonTestId = testIdWithKey('Save')
-  const container = useContainer()
-  const Button = container.resolve(TOKENS.COMP_BUTTON)
-  const logger = container.resolve(TOKENS.UTIL_LOGGER)
+  const [Button, logger, loadHistory] = useServices([TOKENS.COMP_BUTTON, TOKENS.UTIL_LOGGER, TOKENS.FN_LOAD_HISTORY])
   const { agent } = useAgent()
   const historyManager: IHistoryManager | undefined = agent
-    ? container.resolve(TOKENS.FN_LOAD_HISTORY)(agent)
+    ? loadHistory(agent)
     : undefined
 
   //State

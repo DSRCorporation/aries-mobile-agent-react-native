@@ -8,7 +8,6 @@ import { useTheme } from '../contexts/theme'
 import HistoryMenu from '../modules/history/ui/components/HistoryMenu'
 import { HomeStackParams, Screens } from '../types/navigators'
 
-import { createDefaultStackOptions } from './defaultStackOptions'
 import Home from "../screens/Home"
 
 const HomeStack: React.FC = () => {
@@ -16,7 +15,7 @@ const HomeStack: React.FC = () => {
   const theme = useTheme()
   const { t } = useTranslation()
   const [store] = useStore()
-  const defaultStackOptions = createDefaultStackOptions(theme)
+  const defaultStackOptions = useDefaultStackOptions(theme)
 
   return (
     <Stack.Navigator screenOptions={{ ...defaultStackOptions }}>
