@@ -23,6 +23,7 @@ import { CustomNotification } from './types/notification'
 import CredentialCard from "./components/misc/CredentialCard"
 import Settings from "./screens/Settings"
 import { Config } from './types/config'
+import { EmptyListProps } from "./components/misc/EmptyList"
 
 export type FN_ONBOARDING_DONE = (
   dispatch: React.Dispatch<ReducerAction<unknown>>,
@@ -186,7 +187,7 @@ export type TokenMapping = {
   [TOKENS.COMPONENT_HOME_HEADER]: React.FC
   [TOKENS.COMPONENT_HOME_NOTIFICATIONS_EMPTY_LIST]: React.FC
   [TOKENS.COMPONENT_HOME_FOOTER]: React.FC
-  [TOKENS.COMPONENT_CRED_EMPTY_LIST]: React.FC
+  [TOKENS.COMPONENT_CRED_EMPTY_LIST]: React.FC<EmptyListProps>
   [TOKENS.COMPONENT_RECORD]: React.FC
 }
 

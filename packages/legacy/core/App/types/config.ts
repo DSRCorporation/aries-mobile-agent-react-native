@@ -1,4 +1,4 @@
-import { Locales } from "localization";
+import { Locales } from "../localization";
 import { PINSecurityParams } from "./security";
 import { SettingSection } from "./settings";
 import { Agent } from "@credo-ts/core";
