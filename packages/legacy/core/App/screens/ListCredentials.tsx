@@ -7,7 +7,6 @@ import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList, View } from 'react-native'
 
-import CredentialCard from '../components/misc/CredentialCard'
 import { DispatchAction } from '../contexts/reducers/store'
 import { useStore } from '../contexts/store'
 import { useTheme } from '../contexts/theme'
@@ -21,10 +20,17 @@ const ListCredentials: React.FC = () => {
   const { t } = useTranslation()
   const [store, dispatch] = useStore()
 
-  const [CredentialCard, CredentialListOptions, credentialEmptyList, {
-    enableTours: enableToursConfig,
-    credentialHideList,
-  }] = useServices([TOKENS.COMP_CREDENTIAL_CARD, TOKENS.COMPONENT_CRED_LIST_OPTIONS, TOKENS.COMPONENT_CRED_EMPTY_LIST, TOKENS.CONFIG])
+  const [
+    CredentialCard,
+    CredentialListOptions,
+    credentialEmptyList,
+    { enableTours: enableToursConfig, credentialHideList },
+  ] = useServices([
+    TOKENS.COMP_CREDENTIAL_CARD,
+    TOKENS.COMPONENT_CRED_LIST_OPTIONS,
+    TOKENS.COMPONENT_CRED_EMPTY_LIST,
+    TOKENS.CONFIG,
+  ])
 
   let credentials = [
     ...useCredentialByState(CredentialState.CredentialReceived),

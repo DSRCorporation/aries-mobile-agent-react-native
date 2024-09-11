@@ -49,8 +49,23 @@ const RootStack: React.FC = () => {
   const theme = useTheme()
   const defaultStackOptions = useDefaultStackOptions(theme)
 
-  const [logger, OnboardingStack, TabStack, CredentialStack, loadState] = useServices([TOKENS.UTIL_LOGGER, TOKENS.STACK_ONBOARDING, TOKENS.STACK_TAB, TOKENS.STACK_CREDENTIAL, TOKENS.LOAD_STATE])
-  const [splash, { enableImplicitInvitations, enableReuseConnections }, logger, OnboardingStack, loadState] = useServices([TOKENS.SCREEN_SPLASH, TOKENS.CONFIG, TOKENS.UTIL_LOGGER, TOKENS.STACK_ONBOARDING, TOKENS.LOAD_STATE])
+  const [
+    Splash,
+    TabStack,
+    CredentialStack,
+    OnboardingStack,
+    { enableImplicitInvitations, enableReuseConnections },
+    logger,
+    loadState,
+  ] = useServices([
+    TOKENS.SCREEN_SPLASH,
+    TOKENS.STACK_TAB,
+    TOKENS.STACK_CREDENTIAL,
+    TOKENS.STACK_ONBOARDING,
+    TOKENS.CONFIG,
+    TOKENS.UTIL_LOGGER,
+    TOKENS.LOAD_STATE,
+  ])
 
   useDeepLinks()
 
@@ -61,7 +76,7 @@ const RootStack: React.FC = () => {
       const meta = proof?.metadata?.get(ProofMetadata.customMetadata) as ProofCustomMetadata
       if (meta?.delete_conn_after_seen) {
         // eslint-disable-next-line @typescript-eslint/no-empty-function
-        agent?.connections.deleteById(proof?.connectionId ?? '').catch(() => { })
+        agent?.connections.deleteById(proof?.connectionId ?? '').catch(() => {})
         proof?.metadata.set(ProofMetadata.customMetadata, { ...meta, delete_conn_after_seen: false })
       }
     })
@@ -225,7 +240,7 @@ const RootStack: React.FC = () => {
 
     return (
       <Stack.Navigator initialRouteName={Screens.Splash} screenOptions={{ ...defaultStackOptions, headerShown: false }}>
-        <Stack.Screen name={Screens.Splash} component={splash} />
+        <Stack.Screen name={Screens.Splash} component={Splash} />
         <Stack.Screen name={Stacks.TabStack} component={TabStack} />
         {/* TODO: Find a way to resolve issues with StackScreen type in component below */}
         {/* Note that component has been inlined to make '@ts-ignore' work for 'component' prop */}
@@ -256,8 +271,8 @@ const RootStack: React.FC = () => {
           }}
         />
         <Stack.Screen name={Stacks.ContactStack} component={ContactStack} />
-        <Stack.Screen name={Stacks.CredentialStack} component={CredentialStack}/>
-        <Stack.Screen name={TabStacks.CredentialStack} component={CredentialStack}/>
+        <Stack.Screen name={Stacks.CredentialStack} component={CredentialStack} />
+        <Stack.Screen name={TabStacks.CredentialStack} component={CredentialStack} />
         <Stack.Screen name={Stacks.NotificationStack} component={NotificationStack} />
         <Stack.Screen
           name={Stacks.ConnectionStack}

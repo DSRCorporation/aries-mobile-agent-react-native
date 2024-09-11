@@ -18,7 +18,7 @@ import { ProofRequestsStackParams, Screens } from '../types/navigators'
 import { ProofCredentialItems } from '../types/proof-items'
 import { Fields, evaluatePredicates } from '../utils/helpers'
 import { testIdWithKey } from '../utils/testable'
-import { TOKENS, useContainer } from "../container-api"
+import { TOKENS, useServices } from '../container-api'
 
 type ProofChangeProps = StackScreenProps<ProofRequestsStackParams, Screens.ProofChangeCredential>
 
@@ -37,8 +37,7 @@ const ProofChangeCredential: React.FC<ProofChangeProps> = ({ route, navigation }
   const [retrievedCredentials, setRetrievedCredentials] = useState<AnonCredsCredentialsForProofRequest>()
   const credProofPromise = useAllCredentialsForProof(proofId)
 
-  const container = useContainer()
-  const CredentialCard = container.resolve(TOKENS.COMP_CREDENTIAL_CARD)
+  const [CredentialCard] = useServices([TOKENS.COMP_CREDENTIAL_CARD])
 
   const styles = StyleSheet.create({
     pageContainer: {

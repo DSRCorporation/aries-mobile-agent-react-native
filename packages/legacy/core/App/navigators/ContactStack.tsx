@@ -3,7 +3,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import HeaderRightHome from '../components/buttons/HeaderHome'
-import { TOKENS, useContainer } from '../container-api'
+import { TOKENS, useServices } from '../container-api'
 import { useTheme } from '../contexts/theme'
 import Chat from '../screens/Chat'
 import ContactDetails from '../screens/ContactDetails'
@@ -21,10 +21,11 @@ const ContactStack: React.FC = () => {
   const { t } = useTranslation()
   const defaultStackOptions = useDefaultStackOptions(theme)
 
-  const container = useContainer()
-  const CredentialDetails = container.resolve(TOKENS.SCREEN_CREDENTIAL_DETAILS)
-  const CredentialOffer = container.resolve(TOKENS.SCREEN_CREDENTIAL_OFFER)
-  const ProofRequest = container.resolve(TOKENS.SCREEN_PROOF_REQUEST)
+  const [CredentialDetails, CredentialOffer, ProofRequest] = useServices([
+    TOKENS.SCREEN_CREDENTIAL_DETAILS,
+    TOKENS.SCREEN_CREDENTIAL_OFFER,
+    TOKENS.SCREEN_PROOF_REQUEST,
+  ])
 
   return (
     <Stack.Navigator screenOptions={{ ...defaultStackOptions }}>

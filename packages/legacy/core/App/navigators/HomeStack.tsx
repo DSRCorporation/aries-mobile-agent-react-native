@@ -8,7 +8,8 @@ import { useTheme } from '../contexts/theme'
 import HistoryMenu from '../modules/history/ui/components/HistoryMenu'
 import { HomeStackParams, Screens } from '../types/navigators'
 
-import Home from "../screens/Home"
+import Home from '../screens/Home'
+import { useDefaultStackOptions } from './defaultStackOptions'
 
 const HomeStack: React.FC = () => {
   const Stack = createStackNavigator<HomeStackParams>()

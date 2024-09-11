@@ -3,7 +3,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import HeaderRightHome from '../components/buttons/HeaderHome'
-import { TOKENS, useContainer } from '../container-api'
+import { TOKENS, useServices } from '../container-api'
 import { useTheme } from '../contexts/theme'
 import Connection from '../screens/Connection'
 import { DeliveryStackParams, Screens } from '../types/navigators'
@@ -16,9 +16,7 @@ const DeliveryStack: React.FC = () => {
   const theme = useTheme()
   const defaultStackOptions = useDefaultStackOptions(theme)
 
-  const container = useContainer()
-  const CredentialOffer = container.resolve(TOKENS.SCREEN_CREDENTIAL_OFFER)
-  const ProofRequest = container.resolve(TOKENS.SCREEN_PROOF_REQUEST)
+  const [CredentialOffer, ProofRequest] = useServices([TOKENS.SCREEN_CREDENTIAL_OFFER, TOKENS.SCREEN_PROOF_REQUEST])
 
   return (
     <Stack.Navigator
