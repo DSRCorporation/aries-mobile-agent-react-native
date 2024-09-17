@@ -19,7 +19,6 @@ import { useAuth } from '../contexts/auth'
 import { DispatchAction } from '../contexts/reducers/store'
 import { useStore } from '../contexts/store'
 import { useTheme } from '../contexts/theme'
-import { useDeepLinks } from '../hooks/deep-links'
 import HistoryStack from '../modules/history/navigation/HistoryStack'
 import Chat from '../screens/Chat'
 import { BifoldError } from '../types/error'
@@ -57,6 +56,7 @@ const RootStack: React.FC = () => {
     { enableImplicitInvitations, enableReuseConnections },
     logger,
     loadState,
+    useDeeplinks,
   ] = useServices([
     TOKENS.SCREEN_SPLASH,
     TOKENS.STACK_TAB,
@@ -65,9 +65,10 @@ const RootStack: React.FC = () => {
     TOKENS.CONFIG,
     TOKENS.UTIL_LOGGER,
     TOKENS.LOAD_STATE,
+    TOKENS.HOOK_USE_DEEPLINKS,
   ])
 
-  useDeepLinks()
+  useDeeplinks()
 
   // remove connection on mobile verifier proofs if proof is rejected regardless of if it has been opened
   const declinedProofs = useProofByState([ProofState.Declined, ProofState.Abandoned])

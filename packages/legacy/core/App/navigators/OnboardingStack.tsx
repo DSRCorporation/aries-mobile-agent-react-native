@@ -72,6 +72,11 @@ const OnboardingStack: React.FC = () => {
 
   const screens: ScreenOptions[] = [
     {
+      name: Screens.Splash,
+      component: splash,
+      options: ScreenOptionsDictionary[Screens.Splash],
+    },
+    {
       name: Screens.Preface,
       component: Preface,
       options: () => {
@@ -80,11 +85,6 @@ const OnboardingStack: React.FC = () => {
           title: t('Screens.Preface'),
         }
       },
-    },
-    {
-      name: Screens.Splash,
-      component: splash,
-      options: ScreenOptionsDictionary[Screens.Splash],
     },
     {
       name: Screens.Onboarding,

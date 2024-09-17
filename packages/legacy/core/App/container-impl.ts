@@ -37,10 +37,10 @@ import {
   Onboarding as StoreOnboardingState,
   Tours as ToursState,
 } from './types/state'
-import TabStack from "./navigators/TabStack"
-import HomeStack from "./navigators/HomeStack"
-import CredentialCard from "./components/misc/CredentialCard"
-import CredentialStack from "./navigators/CredentialStack"
+import TabStack from './navigators/TabStack'
+import HomeStack from './navigators/HomeStack'
+import CredentialCard from './components/misc/CredentialCard'
+import CredentialStack from './navigators/CredentialStack'
 import OnboardingPages from './screens/OnboardingPages'
 import UseBiometry from './screens/UseBiometry'
 import Scan from './screens/Scan'
@@ -49,6 +49,7 @@ import HomeFooterView from './components/views/HomeFooterView'
 import EmptyList from './components/misc/EmptyList'
 import Record from './components/record/Record'
 import NoNewUpdates from './components/misc/NoNewUpdates'
+import { useDeepLinks } from './hooks/deep-links'
 
 export const defaultConfig = {
   PINSecurity: { rules: PINRules, displayHelper: false },
@@ -133,6 +134,7 @@ export class MainContainer implements Container {
     this._container.registerInstance(TOKENS.FN_LOAD_HISTORY, (agent: Agent<any>): IHistoryManager => {
       return new HistoryManager(agent)
     })
+    this._container.registerInstance(TOKENS.HOOK_USE_DEEPLINKS, useDeepLinks)
     this._container.registerInstance(TOKENS.LOAD_STATE, async (dispatch: React.Dispatch<ReducerAction<unknown>>) => {
       const loadState = async <Type>(key: LocalStorageKeys, updateVal: (newVal: Type) => void) => {
         const data = await AsyncStorage.getItem(key)

@@ -20,10 +20,10 @@ import { AttestationMonitor } from './types/attestation'
 import { GenericFn } from './types/fn'
 import { AuthenticateStackParams, ScreenOptionsType } from './types/navigators'
 import { CustomNotification } from './types/notification'
-import CredentialCard from "./components/misc/CredentialCard"
-import Settings from "./screens/Settings"
+import CredentialCard from './components/misc/CredentialCard'
+import Settings from './screens/Settings'
 import { Config } from './types/config'
-import { EmptyListProps } from "./components/misc/EmptyList"
+import { EmptyListProps } from './components/misc/EmptyList'
 
 export type FN_ONBOARDING_DONE = (
   dispatch: React.Dispatch<ReducerAction<unknown>>,
@@ -33,6 +33,8 @@ export type FN_ONBOARDING_DONE = (
 type LoadStateFn = (dispatch: React.Dispatch<ReducerAction<unknown>>) => Promise<void>
 
 type ProofRequestTemplateFn = (useDevTemplates: boolean) => Array<ProofRequestTemplate>
+
+type HOOK_USE_DEEPLINKS = () => void
 
 export const PROOF_TOKENS = {
   GROUP_BY_REFERENT: 'proof.groupByReferant',
@@ -81,6 +83,10 @@ export const FN_TOKENS = {
   COMPONENT_CRED_LIST_OPTIONS: 'fn.credListOptions',
 } as const
 
+export const HOOK_TOKENS = {
+  HOOK_USE_DEEPLINKS: 'hook.useDeeplinks',
+} as const
+
 export const HISTORY_TOKENS = {
   FN_LOAD_HISTORY: 'fn.loadHistory',
   HISTORY_ENABLED: 'history.enabled',
@@ -88,7 +94,7 @@ export const HISTORY_TOKENS = {
 
 export const COMP_TOKENS = {
   COMP_BUTTON: 'comp.button',
-  COMP_CREDENTIAL_CARD: 'comp.credentialCard'
+  COMP_CREDENTIAL_CARD: 'comp.credentialCard',
 } as const
 
 export const SERVICE_TOKENS = {
@@ -128,6 +134,7 @@ export const TOKENS = {
   ...STACK_TOKENS,
   ...NOTIFICATION_TOKENS,
   ...FN_TOKENS,
+  ...HOOK_TOKENS,
   ...COMP_TOKENS,
   ...LOAD_STATE_TOKENS,
   ...OBJECT_TOKENS,
@@ -180,7 +187,8 @@ export type TokenMapping = {
   [TOKENS.UTIL_PROOF_TEMPLATE]: ProofRequestTemplateFn | undefined
   [TOKENS.UTIL_ATTESTATION_MONITOR]: AttestationMonitor
   [TOKENS.FN_LOAD_HISTORY]: FN_HISTORY_MANAGER
-  [TOKENS.HISTORY_ENABLED]: boolean,
+  [TOKENS.HOOK_USE_DEEPLINKS]: HOOK_USE_DEEPLINKS
+  [TOKENS.HISTORY_ENABLED]: boolean
   [TOKENS.CONFIG]: Config
   [TOKENS.COMPONENT_CRED_LIST_HEADER_RIGHT]: React.FC
   [TOKENS.COMPONENT_CRED_LIST_OPTIONS]: React.FC
