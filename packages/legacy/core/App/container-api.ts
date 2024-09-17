@@ -24,6 +24,8 @@ import CredentialCard from './components/misc/CredentialCard'
 import Settings from './screens/Settings'
 import { Config } from './types/config'
 import { EmptyListProps } from './components/misc/EmptyList'
+import { NotificationListItemProps } from './components/listItems/NotificationListItem'
+import { PINCreateHeaderProps } from './components/misc/PINCreateHeader'
 
 export type FN_ONBOARDING_DONE = (
   dispatch: React.Dispatch<ReducerAction<unknown>>,
@@ -64,10 +66,12 @@ export const COMPONENT_TOKENS = {
   COMPONENT_HOME_FOOTER: 'component.home.footer',
   COMPONENT_CRED_EMPTY_LIST: 'component.cred.empty-list',
   COMPONENT_RECORD: 'component.record',
+  COMPONENT_PIN_CREATE_HEADER: 'component.pin-create-header',
 } as const
 
 export const NOTIFICATION_TOKENS = {
   NOTIFICATIONS: 'notification.list',
+  NOTIFICATIONS_LIST_ITEM: 'notification.list-item',
 } as const
 
 export const STACK_TOKENS = {
@@ -175,10 +179,14 @@ export type TokenMapping = {
   [TOKENS.COMP_BUTTON]: Button
   [TOKENS.COMP_CREDENTIAL_CARD]: typeof CredentialCard
   [TOKENS.NOTIFICATIONS]: {
-    useNotifications: () => Array<BasicMessageRecord | CredentialRecord | ProofExchangeRecord | CustomNotification>
+    useNotifications: () => Array<
+      BasicMessageRecord | CredentialRecord | ProofExchangeRecord | CustomNotificationRecord
+    >
     customNotificationConfig?: CustomNotification
   }
+  [TOKENS.NOTIFICATIONS_LIST_ITEM]: React.FC<NotificationListItemProps>
   [TOKENS.OBJECT_ONBOARDING_CONFIG]: ScreenOptionsType
+  [TOKENS.COMPONENT_PIN_CREATE_HEADER]: React.FC<PINCreateHeaderProps>
   [TOKENS.CACHE_CRED_DEFS]: { did: string; id: string }[]
   [TOKENS.CACHE_SCHEMAS]: { did: string; id: string }[]
   [TOKENS.UTIL_LOGGER]: BaseLogger
