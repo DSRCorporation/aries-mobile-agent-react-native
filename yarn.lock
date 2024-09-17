@@ -3003,8 +3003,8 @@ __metadata:
   linkType: hard
 
 "@hyperledger/aries-bifold-core@file:../core::locator=aries-bifold-app%40workspace%3Apackages%2Flegacy%2Fapp":
-  version: 1.0.0-alpha-dsrw.2
-  resolution: "@hyperledger/aries-bifold-core@file:../core#../core::hash=6769fd&locator=aries-bifold-app%40workspace%3Apackages%2Flegacy%2Fapp"
+  version: 1.0.0-alpha-dsrw.6
+  resolution: "@hyperledger/aries-bifold-core@file:../core#../core::hash=2b7162&locator=aries-bifold-app%40workspace%3Apackages%2Flegacy%2Fapp"
   peerDependencies:
     "@credo-ts/anoncreds": 0.5.9
     "@credo-ts/askar": 0.5.9
@@ -3079,7 +3079,7 @@ __metadata:
     uuid: ^9.0.0
   bin:
     bifold: bin/bifold
-  checksum: eade03f08519c46aab53901a88869dd717822c31dc4078bd978441a3a159036c103895c9f591aa47a0b4390713555f18de57e17e0d377a21c9ac96c8f63d98c1
+  checksum: 0b3e19eb859a2015cdef7e1f91bad4f71bd88e8791ada7c373aae6856a83e3dd3116f266e471b09559605834d742d78b84c6eb901f7c41bc30239598b6aec94b
   languageName: node
   linkType: hard
 
