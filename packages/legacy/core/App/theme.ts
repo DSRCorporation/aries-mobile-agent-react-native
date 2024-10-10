@@ -451,6 +451,17 @@ export const Buttons = StyleSheet.create({
     color: ColorPallet.brand.modalPrimary,
     textAlign: 'center',
   },
+  secondaryCritical: {
+    padding: 16,
+    borderRadius: 4,
+    borderWidth: 2,
+    backgroundColor: 'transparent',
+    borderColor: ColorPallet.semantic.error,
+  },
+  secondaryCriticalText: {
+    ...TextTheme.bold,
+    color: ColorPallet.semantic.error
+  },
 })
 
 export const ListItems = StyleSheet.create({

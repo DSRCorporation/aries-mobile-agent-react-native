@@ -26,6 +26,13 @@ import { Config } from './types/config'
 import { EmptyListProps } from './components/misc/EmptyList'
 import { NotificationListItemProps } from './components/listItems/NotificationListItem'
 import { PINCreateHeaderProps } from './components/misc/PINCreateHeader'
+import Connection from './screens/Connection'
+import ContactDetails from "./screens/ContactDetails";
+import PINEnter from './screens/PINEnter'
+import PINCreate from './screens/PINCreate'
+import Language from './screens/Language'
+import AttemptLockout from './screens/AttemptLockout'
+import ProofDetails from './screens/ProofDetails'
 
 export type FN_ONBOARDING_DONE = (
   dispatch: React.Dispatch<ReducerAction<unknown>>,
@@ -49,6 +56,8 @@ export const SCREEN_TOKENS = {
   SCREEN_ONBOARDING: 'screen.onboarding',
   SCREEN_DEVELOPER: 'screen.developer',
   SCREEN_SETTINGS: 'screen.settings',
+  SCREEN_CONNECTION: 'screen.connection',
+  SCREEN_CONNECTION_DETAILS: 'screen.connection.details',
   SCREEN_ONBOARDING_ITEM: 'screen.onboarding.item',
   SCREEN_CREDENTIAL_LIST: 'screen.credential.list',
   SCREEN_CREDENTIAL_DETAILS: 'screen.credential.details',
@@ -58,6 +67,11 @@ export const SCREEN_TOKENS = {
   SCREEN_SPLASH: 'screen.splash',
   SCREEN_SCAN: 'screen.scan',
   SCREEN_USE_BIOMETRY: 'screen.use-biometry',
+  SCREEN_PIN_CREATE: 'screen.pin-create',
+  SCREEN_PIN_ENTER: 'screen.pin-enter',
+  SCREEN_ATTEMPT_LOCKOUT: 'screen.attempt-lockout',
+  SCREEN_LANGUAGE: 'screen.language',
+  SCREEN_PROOF_DETAILS: 'screen.proof.details',
 } as const
 
 export const COMPONENT_TOKENS = {
@@ -170,10 +184,17 @@ export type TokenMapping = {
   [TOKENS.SCREEN_USE_BIOMETRY]: React.FC
   [TOKENS.SCREEN_ONBOARDING]: typeof Onboarding
   [TOKENS.SCREEN_SETTINGS]: typeof Settings
+  [TOKENS.SCREEN_CONNECTION]: typeof Connection
+  [TOKENS.SCREEN_CONNECTION_DETAILS]: typeof ContactDetails
   [TOKENS.SCREEN_CREDENTIAL_LIST]: React.FC
   [TOKENS.SCREEN_CREDENTIAL_DETAILS]: React.FC
   [TOKENS.SCREEN_CREDENTIAL_OFFER]: React.FC
   [TOKENS.SCREEN_PROOF_REQUEST]: React.FC
+  [TOKENS.SCREEN_PIN_CREATE]: typeof PINCreate
+  [TOKENS.SCREEN_PIN_ENTER]: typeof PINEnter
+  [TOKENS.SCREEN_ATTEMPT_LOCKOUT]: typeof AttemptLockout
+  [TOKENS.SCREEN_LANGUAGE]: typeof Language
+  [TOKENS.SCREEN_PROOF_DETAILS]: typeof ProofDetails
   [TOKENS.FN_ONBOARDING_DONE]: FN_ONBOARDING_DONE
   [TOKENS.LOAD_STATE]: LoadStateFn
   [TOKENS.COMP_BUTTON]: Button

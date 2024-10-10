@@ -17,6 +17,7 @@ const ButtonImplComponent = (
     [ButtonType.ModalCritical]: { color: Buttons.modalCritical, text: Buttons.primaryText },
     [ButtonType.ModalPrimary]: { color: Buttons.modalPrimary, text: Buttons.modalPrimaryText },
     [ButtonType.ModalSecondary]: { color: Buttons.modalSecondary, text: Buttons.modalSecondaryText },
+    [ButtonType.SecondaryCritical]: { color: Buttons.secondaryCritical, text: Buttons.secondaryCriticalText },
   }
   const [isActive, setIsActive] = useState<boolean>(false)
 
@@ -50,7 +51,7 @@ const ButtonImplComponent = (
           style={[
             buttonStyles[buttonType].text,
             disabled &&
-              (buttonType === ButtonType.Primary ? Buttons.primaryTextDisabled : Buttons.secondaryTextDisabled),
+            (buttonType === ButtonType.Primary ? Buttons.primaryTextDisabled : Buttons.secondaryTextDisabled),
             isActive && { textDecorationLine: 'underline' },
             isActive && buttonType === ButtonType.Secondary && { color: Buttons.primaryText.color },
           ]}

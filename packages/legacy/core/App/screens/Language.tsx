@@ -9,7 +9,8 @@ import { useTheme } from '../contexts/theme'
 import { Locales, storeLanguage } from '../localization'
 import { testIdWithKey } from '../utils/testable'
 import { TOKENS, useServices } from '../container-api'
-interface Language {
+
+interface LanguageOption {
   id: Locales
   value: string
 }
@@ -19,7 +20,7 @@ const Language = () => {
   const { ColorPallet, TextTheme, SettingsTheme } = useTheme()
   const [{ supportedLanguages }] = useServices([TOKENS.CONFIG])
 
-  const languages: Language[] = supportedLanguages.map((lang) => ({
+  const languages: LanguageOption[] = supportedLanguages.map((lang) => ({
     id: lang,
     value: i18n.t(`Language.code`, { context: lang }),
   }))
@@ -52,7 +53,7 @@ const Language = () => {
    *
    * @param {BlockSelection} language
    */
-  const handleLanguageChange = async (language: Language) => {
+  const handleLanguageChange = async (language: LanguageOption) => {
     await i18n.changeLanguage(language.id as Locales)
     await storeLanguage(language.id)
     // const langId = await AsyncStorage.getItem('language')
@@ -63,7 +64,7 @@ const Language = () => {
       <FlatList
         data={languages}
         renderItem={({ item: language }) => {
-          const { id, value }: Language = language
+          const { id, value }: LanguageOption = language
           return (
             <View style={[styles.section, styles.sectionRow]}>
               <Text style={TextTheme.title}>{value}</Text>

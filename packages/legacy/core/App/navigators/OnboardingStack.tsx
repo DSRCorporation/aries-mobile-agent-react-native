@@ -9,11 +9,8 @@ import { TOKENS, useServices } from '../container-api'
 import { DispatchAction } from '../contexts/reducers/store'
 import { useStore } from '../contexts/store'
 import { useTheme } from '../contexts/theme'
-import AttemptLockout from '../screens/AttemptLockout'
 import NameWallet from '../screens/NameWallet'
 import { createCarouselStyle } from '../screens/OnboardingPages'
-import PINCreate from '../screens/PINCreate'
-import PINEnter from '../screens/PINEnter'
 import PushNotification from '../screens/PushNotification'
 import { AuthenticateStackParams, Screens } from '../types/navigators'
 
@@ -34,7 +31,7 @@ const OnboardingStack: React.FC = () => {
   const theme = useTheme()
   const OnboardingTheme = theme.OnboardingTheme
   const carousel = createCarouselStyle(OnboardingTheme)
-  const [splash, pages, useBiometry, Onboarding, Developer, { screen: Terms }, onTutorialCompletedCurried, ScreenOptionsDictionary, Preface] = useServices([TOKENS.SCREEN_SPLASH, TOKENS.SCREEN_ONBOARDING_PAGES, TOKENS.SCREEN_USE_BIOMETRY, TOKENS.SCREEN_ONBOARDING, TOKENS.SCREEN_DEVELOPER, TOKENS.SCREEN_TERMS, TOKENS.FN_ONBOARDING_DONE, TOKENS.OBJECT_ONBOARDING_CONFIG, TOKENS.SCREEN_PREFACE])
+  const [splash, pages, useBiometry, Onboarding, Developer, { screen: Terms }, onTutorialCompletedCurried, ScreenOptionsDictionary, Preface, PINCreate, PINEnter, AttemptLockout] = useServices([TOKENS.SCREEN_SPLASH, TOKENS.SCREEN_ONBOARDING_PAGES, TOKENS.SCREEN_USE_BIOMETRY, TOKENS.SCREEN_ONBOARDING, TOKENS.SCREEN_DEVELOPER, TOKENS.SCREEN_TERMS, TOKENS.FN_ONBOARDING_DONE, TOKENS.OBJECT_ONBOARDING_CONFIG, TOKENS.SCREEN_PREFACE, TOKENS.SCREEN_PIN_CREATE, TOKENS.SCREEN_PIN_ENTER, TOKENS.SCREEN_ATTEMPT_LOCKOUT])
   const defaultStackOptions = useDefaultStackOptions(theme)
   const navigation = useNavigation<StackNavigationProp<AuthenticateStackParams>>()
   const onTutorialCompleted = onTutorialCompletedCurried(dispatch, navigation)
@@ -92,7 +89,7 @@ const OnboardingStack: React.FC = () => {
       options: () => {
         return {
           ...ScreenOptionsDictionary[Screens.Onboarding],
-          title: t('Screens.Onboarding'),
+          headerShown: false,
         }
       },
     },
@@ -101,6 +98,8 @@ const OnboardingStack: React.FC = () => {
       options: () => ({
         ...ScreenOptionsDictionary[Screens.Terms],
         title: t('Screens.Terms'),
+        headerShown: true,
+        headerTitleAlign: 'left',
       }),
       component: Terms,
     },
@@ -111,6 +110,7 @@ const OnboardingStack: React.FC = () => {
       options: () => ({
         ...ScreenOptionsDictionary[Screens.CreatePIN],
         title: t('Screens.CreatePIN'),
+        headerShown: false,
       }),
     },
     {
@@ -126,6 +126,8 @@ const OnboardingStack: React.FC = () => {
       options: () => ({
         ...ScreenOptionsDictionary[Screens.UseBiometry],
         title: t('Screens.Biometry'),
+        headerShown: true,
+        headerTitleAlign: 'left',
       }),
       component: useBiometry,
     },
@@ -154,7 +156,7 @@ const OnboardingStack: React.FC = () => {
       options: () => {
         return {
           title: t('Screens.EnterPIN'),
-          headerShown: true,
+          headerShown: false,
           headerLeft: () => false,
           rightLeft: () => false,
         }
@@ -163,7 +165,7 @@ const OnboardingStack: React.FC = () => {
     {
       name: Screens.AttemptLockout,
       component: AttemptLockout,
-      options: () => ({ headerShown: true, headerLeft: () => null }),
+      options: () => ({ headerShown: false, headerLeft: () => null }),
     },
   ]
 

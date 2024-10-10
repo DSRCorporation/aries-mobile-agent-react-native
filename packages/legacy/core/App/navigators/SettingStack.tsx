@@ -7,11 +7,8 @@ import { EventTypes } from '../constants'
 import { useTheme } from '../contexts/theme'
 import HistorySettings from '../modules/history/ui/HistorySettings'
 import DataRetention from '../screens/DataRetention'
-import Language from '../screens/Language'
 import NameWallet from '../screens/NameWallet'
-import Onboarding from '../screens/Onboarding'
 import { createCarouselStyle } from '../screens/OnboardingPages'
-import PINCreate from '../screens/PINCreate'
 import PushNotification from '../screens/PushNotification'
 import Tours from '../screens/Tours'
 import { Screens, SettingStackParams } from '../types/navigators'
@@ -25,17 +22,19 @@ const SettingStack: React.FC = () => {
   const theme = useTheme()
   const [biometryUpdatePending, setBiometryUpdatePending] = useState<boolean>(false)
   const { t } = useTranslation()
-  const [pages, { screen: terms }, UseBiometry, developer] = useServices([
+  const [pages, { screen: terms }, UseBiometry, developer, PINCreate, Settings, Language, Onboarding] = useServices([
     TOKENS.SCREEN_ONBOARDING_PAGES,
     TOKENS.SCREEN_TERMS,
     TOKENS.SCREEN_USE_BIOMETRY,
     TOKENS.SCREEN_DEVELOPER,
+    TOKENS.SCREEN_PIN_CREATE,
+    TOKENS.SCREEN_SETTINGS,
+    TOKENS.SCREEN_LANGUAGE,
+    TOKENS.SCREEN_ONBOARDING,
   ])
   const defaultStackOptions = useDefaultStackOptions(theme)
   const OnboardingTheme = theme.OnboardingTheme
   const carousel = createCarouselStyle(OnboardingTheme)
-
-  const [Settings] = useServices([TOKENS.SCREEN_SETTINGS])
 
   useEffect(() => {
     const handleBiometry = DeviceEventEmitter.addListener(EventTypes.BIOMETRY_UPDATE, (value: boolean) => {
@@ -87,7 +86,7 @@ const SettingStack: React.FC = () => {
       {/* Note that component has been inlined to make '@ts-ignore' work for 'component' prop */}
       {/* @ts-ignore */}
       <Stack.Screen name={Screens.CreatePIN} component={PINCreate}
-        options={{ title: t('Screens.ChangePIN'), headerBackTestID: testIdWithKey('Back') }}/>
+                    options={{ title: t('Screens.ChangePIN'), headerBackTestID: testIdWithKey('Back') }}/>
       <Stack.Screen
         name={Screens.UsePushNotifications}
         component={PushNotification}
@@ -103,7 +102,7 @@ const SettingStack: React.FC = () => {
         component={developer}
         options={{ title: t('Screens.Developer'), headerBackTestID: testIdWithKey('Back') }}
       />
-      <Stack.Screen name={Screens.Onboarding} options={{ title: t('Screens.Onboarding') }}>
+      <Stack.Screen name={Screens.Onboarding} options={{ headerShown: false }}>
         {(props) => (
           <Onboarding
             {...props}

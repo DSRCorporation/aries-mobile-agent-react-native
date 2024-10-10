@@ -7,6 +7,7 @@ export enum ButtonType {
   ModalCritical,
   ModalPrimary,
   ModalSecondary,
+  SecondaryCritical,
 }
 
 export interface ButtonProps extends React.PropsWithChildren {
@@ -37,6 +38,7 @@ const styles: stylesType = StyleSheet.create({
   [ButtonType.ModalCritical]: {},
   [ButtonType.ModalPrimary]: {},
   [ButtonType.ModalSecondary]: {},
+  [ButtonType.SecondaryCritical]: {},
 })
 */
 export type Button = React.FC<ButtonProps & React.RefAttributes<TouchableOpacity>>

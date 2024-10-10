@@ -8,7 +8,6 @@ import { useTheme } from '../contexts/theme'
 import ListProofRequests from '../screens/ListProofRequests'
 import MobileVerifierLoading from '../screens/MobileVerifierLoading'
 import ProofChangeCredential from '../screens/ProofChangeCredential'
-import ProofDetails from '../screens/ProofDetails'
 import ProofRequestDetails from '../screens/ProofRequestDetails'
 import ProofRequestUsageHistory from '../screens/ProofRequestUsageHistory'
 import ProofRequesting from '../screens/ProofRequesting'
@@ -16,12 +15,17 @@ import { ProofRequestsStackParams, Screens } from '../types/navigators'
 import { testIdWithKey } from '../utils/testable'
 
 import { useDefaultStackOptions } from './defaultStackOptions'
+import { TOKENS, useServices } from '../container-api'
 
 const ProofRequestStack: React.FC = () => {
   const Stack = createStackNavigator<ProofRequestsStackParams>()
   const theme = useTheme()
   const { t } = useTranslation()
   const defaultStackOptions = useDefaultStackOptions(theme)
+
+  const [ProofDetails] = useServices([
+    TOKENS.SCREEN_PROOF_DETAILS,
+  ])
 
   return (
     <Stack.Navigator screenOptions={{ ...defaultStackOptions }}>

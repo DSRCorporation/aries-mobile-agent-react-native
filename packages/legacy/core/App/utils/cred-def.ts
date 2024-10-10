@@ -2,17 +2,22 @@ import { AnonCredsCredentialMetadataKey, parseIndyCredentialDefinitionId, parseI
 import { CredentialExchangeRecord as CredentialRecord } from '@credo-ts/core'
 
 import { credentialSchema } from './schema'
+import { isDidIndyCredentialDefinitionId, isDidIndySchemaId } from "@credo-ts/anoncreds/build/utils/indyIdentifiers";
 
 export function parseCredDefFromId(credDefId?: string, schemaId?: string): string {
   let name = 'Credential'
   if (credDefId) {
-    const parseIndyCredDefId = parseIndyCredentialDefinitionId(credDefId)
-    name = parseIndyCredDefId.tag
+    if (isDidIndyCredentialDefinitionId(credDefId)) {
+      const parseIndyCredDefId = parseIndyCredentialDefinitionId(credDefId)
+      name = parseIndyCredDefId.tag
+    }
   }
   if (name.toLocaleLowerCase() === 'default' || name.toLowerCase() === 'credential') {
     if (schemaId) {
-      const parseIndySchema = parseIndySchemaId(schemaId)
-      name = parseIndySchema.schemaName
+      if (isDidIndySchemaId(schemaId)) {
+        const parseIndySchema = parseIndySchemaId(schemaId)
+        name = parseIndySchema.schemaName
+      }
     } else {
       name = 'Credential'
     }
@@ -31,3 +36,4 @@ export function parsedCredDefNameFromCredential(credential: CredentialRecord): s
 export function parsedCredDefName(credentialDefinitionId: string, schemaId: string): string {
   return parseCredDefFromId(credentialDefinitionId, schemaId)
 }
+

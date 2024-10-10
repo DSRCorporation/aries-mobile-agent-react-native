@@ -15,7 +15,7 @@ import { useTheme } from '../contexts/theme'
 import { OnboardingStackParams, Screens } from '../types/navigators'
 import { testIdWithKey } from '../utils/testable'
 
-import PINEnter, { PINEntryUsage } from './PINEnter'
+import { PINEntryUsage } from './PINEnter'
 import { TOKENS, useServices } from '../container-api'
 
 enum UseBiometryUsage {
@@ -26,7 +26,7 @@ enum UseBiometryUsage {
 const UseBiometry: React.FC = () => {
   const [store, dispatch] = useStore()
   const { t } = useTranslation()
-  const [{ enablePushNotifications }] = useServices([TOKENS.CONFIG])
+  const [{ enablePushNotifications }, PINEnter] = useServices([TOKENS.CONFIG, TOKENS.SCREEN_PIN_ENTER])
   const { isBiometricsActive, commitPIN, disableBiometrics } = useAuth()
   const [biometryAvailable, setBiometryAvailable] = useState(false)
   const [biometryEnabled, setBiometryEnabled] = useState(store.preferences.useBiometry)

@@ -52,6 +52,11 @@ import NotificationListItem from './components/listItems/NotificationListItem'
 import NoNewUpdates from './components/misc/NoNewUpdates'
 import { useDeepLinks } from './hooks/deep-links'
 import PINCreateHeader from './components/misc/PINCreateHeader'
+import PINCreate from './screens/PINCreate'
+import PINEnter from './screens/PINEnter'
+import AttemptLockout from './screens/AttemptLockout'
+import Language from './screens/Language'
+import ProofDetails from './screens/ProofDetails'
 
 export const defaultConfig = {
   PINSecurity: { rules: PINRules, displayHelper: false },
@@ -96,6 +101,11 @@ export class MainContainer implements Container {
     this._container.registerInstance(TOKENS.SCREEN_CREDENTIAL_DETAILS, CredentialDetails)
     this._container.registerInstance(TOKENS.SCREEN_CREDENTIAL_OFFER, CredentialOffer)
     this._container.registerInstance(TOKENS.SCREEN_PROOF_REQUEST, ProofRequest)
+    this._container.registerInstance(TOKENS.SCREEN_PIN_CREATE, PINCreate)
+    this._container.registerInstance(TOKENS.SCREEN_PIN_ENTER, PINEnter)
+    this._container.registerInstance(TOKENS.SCREEN_ATTEMPT_LOCKOUT, AttemptLockout)
+    this._container.registerInstance(TOKENS.SCREEN_LANGUAGE, Language)
+    this._container.registerInstance(TOKENS.SCREEN_PROOF_DETAILS, ProofDetails)
     this._container.registerInstance(TOKENS.STACK_ONBOARDING, OnboardingStack)
     this._container.registerInstance(TOKENS.STACK_TAB, TabStack)
     this._container.registerInstance(TOKENS.STACK_HOME, HomeStack)
