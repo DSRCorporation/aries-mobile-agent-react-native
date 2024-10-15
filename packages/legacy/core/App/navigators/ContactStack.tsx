@@ -58,7 +58,7 @@ const ContactStack: React.FC = () => {
         name={Screens.ProofDetails}
         component={ProofDetails}
         options={() => ({
-          title: '',
+          title: t('Screens.ProofDetails'),
           headerRight: () => <HeaderRightHome />,
         })}
       />
