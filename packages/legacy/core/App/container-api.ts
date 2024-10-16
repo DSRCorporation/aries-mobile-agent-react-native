@@ -33,6 +33,9 @@ import PINCreate from './screens/PINCreate'
 import Language from './screens/Language'
 import AttemptLockout from './screens/AttemptLockout'
 import ProofDetails from './screens/ProofDetails'
+import ListContacts from './screens/ListContacts'
+import WhatAreContacts from './screens/WhatAreContacts'
+import Chat from './screens/Chat'
 
 export type FN_ONBOARDING_DONE = (
   dispatch: React.Dispatch<ReducerAction<unknown>>,
@@ -58,6 +61,7 @@ export const SCREEN_TOKENS = {
   SCREEN_SETTINGS: 'screen.settings',
   SCREEN_CONNECTION: 'screen.connection',
   SCREEN_CONNECTION_DETAILS: 'screen.connection.details',
+  SCREEN_CONNECTION_LIST: 'screen.connection.list',
   SCREEN_ONBOARDING_ITEM: 'screen.onboarding.item',
   SCREEN_CREDENTIAL_LIST: 'screen.credential.list',
   SCREEN_CREDENTIAL_DETAILS: 'screen.credential.details',
@@ -72,6 +76,8 @@ export const SCREEN_TOKENS = {
   SCREEN_ATTEMPT_LOCKOUT: 'screen.attempt-lockout',
   SCREEN_LANGUAGE: 'screen.language',
   SCREEN_PROOF_DETAILS: 'screen.proof.details',
+  SCREEN_WHAT_ARE_CONTACTS: 'screen.what-are-contacts',
+  SCREEN_CHAT: 'screen.chat',
 } as const
 
 export const COMPONENT_TOKENS = {
@@ -186,6 +192,7 @@ export type TokenMapping = {
   [TOKENS.SCREEN_SETTINGS]: typeof Settings
   [TOKENS.SCREEN_CONNECTION]: typeof Connection
   [TOKENS.SCREEN_CONNECTION_DETAILS]: typeof ContactDetails
+  [TOKENS.SCREEN_CONNECTION_LIST  ]: typeof ListContacts
   [TOKENS.SCREEN_CREDENTIAL_LIST]: React.FC
   [TOKENS.SCREEN_CREDENTIAL_DETAILS]: React.FC
   [TOKENS.SCREEN_CREDENTIAL_OFFER]: React.FC
@@ -195,6 +202,8 @@ export type TokenMapping = {
   [TOKENS.SCREEN_ATTEMPT_LOCKOUT]: typeof AttemptLockout
   [TOKENS.SCREEN_LANGUAGE]: typeof Language
   [TOKENS.SCREEN_PROOF_DETAILS]: typeof ProofDetails
+  [TOKENS.SCREEN_WHAT_ARE_CONTACTS]: typeof WhatAreContacts
+  [TOKENS.SCREEN_CHAT]: typeof Chat
   [TOKENS.FN_ONBOARDING_DONE]: FN_ONBOARDING_DONE
   [TOKENS.LOAD_STATE]: LoadStateFn
   [TOKENS.COMP_BUTTON]: Button

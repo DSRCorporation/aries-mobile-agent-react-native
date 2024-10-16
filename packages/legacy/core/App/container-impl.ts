@@ -57,6 +57,10 @@ import PINEnter from './screens/PINEnter'
 import AttemptLockout from './screens/AttemptLockout'
 import Language from './screens/Language'
 import ProofDetails from './screens/ProofDetails'
+import ListContacts from './screens/ListContacts'
+import Connection from './screens/Connection'
+import WhatAreContacts from './screens/WhatAreContacts'
+import Chat from './screens/Chat'
 
 export const defaultConfig = {
   PINSecurity: { rules: PINRules, displayHelper: false },
@@ -106,6 +110,10 @@ export class MainContainer implements Container {
     this._container.registerInstance(TOKENS.SCREEN_ATTEMPT_LOCKOUT, AttemptLockout)
     this._container.registerInstance(TOKENS.SCREEN_LANGUAGE, Language)
     this._container.registerInstance(TOKENS.SCREEN_PROOF_DETAILS, ProofDetails)
+    this._container.registerInstance(TOKENS.SCREEN_CONNECTION, Connection)
+    this._container.registerInstance(TOKENS.SCREEN_CONNECTION_LIST, ListContacts)
+    this._container.registerInstance(TOKENS.SCREEN_WHAT_ARE_CONTACTS, WhatAreContacts)
+    this._container.registerInstance(TOKENS.SCREEN_CHAT, Chat)
     this._container.registerInstance(TOKENS.STACK_ONBOARDING, OnboardingStack)
     this._container.registerInstance(TOKENS.STACK_TAB, TabStack)
     this._container.registerInstance(TOKENS.STACK_HOME, HomeStack)

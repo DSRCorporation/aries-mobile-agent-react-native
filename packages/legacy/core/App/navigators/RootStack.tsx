@@ -20,7 +20,6 @@ import { DispatchAction } from '../contexts/reducers/store'
 import { useStore } from '../contexts/store'
 import { useTheme } from '../contexts/theme'
 import HistoryStack from '../modules/history/navigation/HistoryStack'
-import Chat from '../screens/Chat'
 import { BifoldError } from '../types/error'
 import { AuthenticateStackParams, Screens, Stacks, TabStacks } from '../types/navigators'
 import { connectFromScanOrDeepLink } from '../utils/helpers'
@@ -57,6 +56,7 @@ const RootStack: React.FC = () => {
     logger,
     loadState,
     useDeeplinks,
+    Chat,
   ] = useServices([
     TOKENS.SCREEN_SPLASH,
     TOKENS.STACK_TAB,
@@ -66,6 +66,7 @@ const RootStack: React.FC = () => {
     TOKENS.UTIL_LOGGER,
     TOKENS.LOAD_STATE,
     TOKENS.HOOK_USE_DEEPLINKS,
+    TOKENS.SCREEN_CHAT,
   ])
 
   useDeeplinks()

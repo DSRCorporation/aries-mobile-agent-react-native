@@ -5,10 +5,7 @@ import { useTranslation } from 'react-i18next'
 import HeaderRightHome from '../components/buttons/HeaderHome'
 import { TOKENS, useServices } from '../container-api'
 import { useTheme } from '../contexts/theme'
-import Chat from '../screens/Chat'
-import ListContacts from '../screens/ListContacts'
 import RenameContact from '../screens/RenameContact'
-import WhatAreContacts from '../screens/WhatAreContacts'
 import { ContactStackParams, Screens } from '../types/navigators'
 
 import { useDefaultStackOptions } from './defaultStackOptions'
@@ -19,17 +16,20 @@ const ContactStack: React.FC = () => {
   const { t } = useTranslation()
   const defaultStackOptions = useDefaultStackOptions(theme)
 
-  const [ContactDetails, CredentialDetails, CredentialOffer, ProofRequest, ProofDetails] = useServices([
+  const [ContactDetails, ContactList, CredentialDetails, CredentialOffer, ProofRequest, ProofDetails, WhatAreContacts, Chat] = useServices([
     TOKENS.SCREEN_CONNECTION_DETAILS,
+    TOKENS.SCREEN_CONNECTION_LIST,
     TOKENS.SCREEN_CREDENTIAL_DETAILS,
     TOKENS.SCREEN_CREDENTIAL_OFFER,
     TOKENS.SCREEN_PROOF_REQUEST,
     TOKENS.SCREEN_PROOF_DETAILS,
+    TOKENS.SCREEN_WHAT_ARE_CONTACTS,
+    TOKENS.SCREEN_CHAT,
   ])
 
   return (
     <Stack.Navigator screenOptions={{ ...defaultStackOptions }}>
-      <Stack.Screen name={Screens.Contacts} component={ListContacts} options={{ title: t('Screens.Contacts') }} />
+      <Stack.Screen name={Screens.Contacts} component={ContactList} options={{ title: t('Screens.Contacts') }} />
       <Stack.Screen
         name={Screens.ContactDetails}
         component={ContactDetails}
