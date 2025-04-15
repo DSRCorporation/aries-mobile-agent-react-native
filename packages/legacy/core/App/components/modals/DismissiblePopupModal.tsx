@@ -49,8 +49,8 @@ const DismissiblePopupModal: React.FC<DismissiblePopupModalProps> = ({
       minWidth: width,
     },
     container: {
-      backgroundColor: ColorPallet.notification.info,
-      borderColor: ColorPallet.notification.infoBorder,
+      backgroundColor: ColorPallet.brand.modalPrimaryBackground,
+      borderColor: ColorPallet.brand.modalSecondaryBackground,
       borderRadius: 5,
       borderWidth: 1,
       padding: 10,
