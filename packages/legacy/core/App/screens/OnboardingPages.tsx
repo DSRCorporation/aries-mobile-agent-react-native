@@ -15,9 +15,7 @@ import { GenericFn } from '../types/fn'
 import { OnboardingStackParams, Screens } from '../types/navigators'
 import { testIdWithKey } from '../utils/testable'
 
-import { OnboardingStyleSheet } from './Onboarding'
-
-export const createCarouselStyle = (OnboardingTheme: any): OnboardingStyleSheet => {
+export const createCarouselStyle = (OnboardingTheme: any) => {
   return StyleSheet.create({
     container: {
       ...OnboardingTheme.container,
