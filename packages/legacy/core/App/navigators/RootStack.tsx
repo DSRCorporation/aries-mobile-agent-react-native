@@ -36,7 +36,7 @@ import { useDefaultStackOptions } from './defaultStackOptions'
 const RootStack: React.FC = () => {
   const [state, dispatch] = useStore()
   const { removeSavedWalletSecret } = useAuth()
-  const { agent, setAgent } = useAgent()
+  const { agent } = useAgent()
   const appState = useRef(AppState.currentState)
   const [backgroundTime, setBackgroundTime] = useState<number | undefined>(undefined)
   const [prevAppStateVisible, setPrevAppStateVisible] = useState<string>('')
@@ -96,11 +96,6 @@ const RootStack: React.FC = () => {
         logger.info('Closed agent wallet')
       } catch (error) {
         logger.error(`Error closing agent wallet, ${error}`)
-      }
-      finally {
-        // @ts-ignore
-        // FIXME: Apply proper patch for allowing empty agent value
-        setAgent(null)
       }
 
       dispatch({
