@@ -1,6 +1,6 @@
 {
   "name": "@DSRCorporation/aries-bifold-core",
-  "version": "1.0.0-alpha-dsrw.13",
+  "version": "1.0.0-alpha-dsrw.14",
   "main": "lib/commonjs/index.js",
   "module": "lib/module/index.js",
   "react-native": "App/index.ts",
