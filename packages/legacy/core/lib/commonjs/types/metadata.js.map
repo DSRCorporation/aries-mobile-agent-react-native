@@ -1,0 +1,1 @@
+{"version":3,"names":["CredentialMetadata","exports","BasicMessageMetadata"],"sourceRoot":"../../../App","sources":["types/metadata.ts"],"mappings":";;;;;;IAAYA,kBAAkB,GAAAC,OAAA,CAAAD,kBAAA,0BAAlBA,kBAAkB;EAAlBA,kBAAkB;EAAA,OAAlBA,kBAAkB;AAAA;AAAA,IASlBE,oBAAoB,GAAAD,OAAA,CAAAC,oBAAA,0BAApBA,oBAAoB;EAApBA,oBAAoB;EAAA,OAApBA,oBAAoB;AAAA","ignoreList":[]}

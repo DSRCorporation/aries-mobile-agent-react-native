@@ -1,0 +1,1 @@
+{"version":3,"file":"metadata.d.ts","sourceRoot":"","sources":["../../../../App/types/metadata.ts"],"names":[],"mappings":"AAAA,oBAAY,kBAAkB;IAC5B,cAAc,mBAAmB;CAClC;AAED,MAAM,WAAW,wBAAwB;IACvC,YAAY,CAAC,EAAE,OAAO,CAAA;IACtB,wBAAwB,CAAC,EAAE,OAAO,CAAA;CACnC;AAED,oBAAY,oBAAoB;IAC9B,cAAc,mBAAmB;CAClC;AAED,MAAM,WAAW,0BAA0B;IACzC,IAAI,CAAC,EAAE,OAAO,CAAA;CACf"}

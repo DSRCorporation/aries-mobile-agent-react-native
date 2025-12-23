@@ -1,0 +1,1 @@
+{"version":3,"file":"WhatAreContacts.d.ts","sourceRoot":"","sources":["../../../../App/screens/WhatAreContacts.tsx"],"names":[],"mappings":"AAAA,OAAO,EAAE,cAAc,EAAE,aAAa,EAAE,MAAM,0BAA0B,CAAA;AACxE,OAAO,KAAK,MAAM,OAAO,CAAA;AAQzB,UAAU,oBAAoB;IAC5B,UAAU,EAAE,cAAc,CAAC,aAAa,CAAC,CAAA;CAC1C;AAED,QAAA,MAAM,eAAe,EAAE,KAAK,CAAC,EAAE,CAAC,oBAAoB,CA0DnD,CAAA;AAED,eAAe,eAAe,CAAA"}

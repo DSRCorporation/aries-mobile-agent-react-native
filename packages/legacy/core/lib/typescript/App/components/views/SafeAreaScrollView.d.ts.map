@@ -1,0 +1,1 @@
+{"version":3,"file":"SafeAreaScrollView.d.ts","sourceRoot":"","sources":["../../../../../App/components/views/SafeAreaScrollView.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAK,MAAM,OAAO,CAAA;AAMzB,UAAU,uBAAuB;IAC/B,QAAQ,EAAE,KAAK,CAAC,SAAS,CAAA;CAC1B;AAED,QAAA,MAAM,kBAAkB,EAAE,KAAK,CAAC,EAAE,CAAC,uBAAuB,CAiBzD,CAAA;AAED,eAAe,kBAAkB,CAAA"}

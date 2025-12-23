@@ -1,0 +1,1 @@
+{"version":3,"file":"connections.d.ts","sourceRoot":"","sources":["../../../../App/hooks/connections.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,gBAAgB,EAAE,eAAe,EAAE,MAAM,gBAAgB,CAAA;AAIlE,eAAO,MAAM,0BAA0B,gBAAiB,MAAM,KAAG,gBAAgB,GAAG,SAMnF,CAAA;AAED,eAAO,MAAM,gBAAgB,UAAW,MAAM,KAAG,eAAe,GAAG,SAWlE,CAAA;AAED,eAAO,MAAM,0BAA0B,iBAAkB,MAAM,KAAG,eAAe,GAAG,SAGnF,CAAA"}

@@ -1,0 +1,93 @@
+/// <reference types="react" />
+import { BaseLogger } from '@credo-ts/core';
+import { DependencyContainer } from 'tsyringe';
+import { Container, TokenMapping } from './container-api';
+export declare const defaultConfig: {
+    PINSecurity: {
+        rules: import("./types/security").PINValidationRules;
+        displayHelper: boolean;
+    };
+    settings: never[];
+    enableTours: boolean;
+    supportedLanguages: string[];
+    showPreface: boolean;
+    disableOnboardingSkip: boolean;
+    whereToUseWalletUrl: string;
+    showScanHelp: boolean;
+    showScanButton: boolean;
+    showDetailsInfo: boolean;
+};
+export declare class MainContainer implements Container {
+    static readonly TOKENS: {
+        readonly FN_LOAD_HISTORY: "fn.loadHistory";
+        readonly HISTORY_ENABLED: "history.enabled";
+        readonly CONFIG: "config";
+        readonly UTIL_LOGGER: "utility.logger";
+        readonly UTIL_OCA_RESOLVER: "utility.oca-resolver";
+        readonly UTIL_LEDGERS: "utility.ledgers";
+        readonly UTIL_PROOF_TEMPLATE: "utility.proof-template";
+        readonly UTIL_ATTESTATION_MONITOR: "utility.attestation-monitor";
+        readonly CACHE_CRED_DEFS: "cache.cred-defs";
+        readonly CACHE_SCHEMAS: "cache.schemas";
+        readonly OBJECT_ONBOARDING_CONFIG: "object.onboarding-config";
+        readonly LOAD_STATE: "state.load";
+        readonly COMP_BUTTON: "comp.button";
+        readonly COMP_CREDENTIAL_CARD: "comp.credentialCard";
+        readonly HOOK_USE_DEEPLINKS: "hook.useDeeplinks";
+        readonly FN_ONBOARDING_DONE: "fn.onboardingDone";
+        readonly COMPONENT_CRED_LIST_HEADER_RIGHT: "fn.credListHeaderRight";
+        readonly COMPONENT_CRED_LIST_OPTIONS: "fn.credListOptions";
+        readonly NOTIFICATIONS: "notification.list";
+        readonly NOTIFICATIONS_LIST_ITEM: "notification.list-item";
+        readonly STACK_ONBOARDING: "stack.onboarding";
+        readonly STACK_TAB: "stack.tab";
+        readonly STACK_HOME: "stack.home";
+        readonly STACK_CREDENTIAL: "stack.credential";
+        readonly SERVICE_TERMS: "screen.terms";
+        readonly SCREEN_PREFACE: "screen.preface";
+        readonly SCREEN_TERMS: "screen.terms";
+        readonly SCREEN_ONBOARDING: "screen.onboarding";
+        readonly SCREEN_DEVELOPER: "screen.developer";
+        readonly SCREEN_SETTINGS: "screen.settings";
+        readonly SCREEN_CONNECTION: "screen.connection";
+        readonly SCREEN_CONNECTION_DETAILS: "screen.connection.details";
+        readonly SCREEN_CONNECTION_LIST: "screen.connection.list";
+        readonly SCREEN_ONBOARDING_ITEM: "screen.onboarding.item";
+        readonly SCREEN_CREDENTIAL_LIST: "screen.credential.list";
+        readonly SCREEN_CREDENTIAL_DETAILS: "screen.credential.details";
+        readonly SCREEN_CREDENTIAL_OFFER: "screen.credential.offer";
+        readonly SCREEN_PROOF_REQUEST: "screen.proof.request";
+        readonly SCREEN_ONBOARDING_PAGES: "screen.onboarding.pages";
+        readonly SCREEN_SPLASH: "screen.splash";
+        readonly SCREEN_SCAN: "screen.scan";
+        readonly SCREEN_USE_BIOMETRY: "screen.use-biometry";
+        readonly SCREEN_PIN_CREATE: "screen.pin-create";
+        readonly SCREEN_PIN_ENTER: "screen.pin-enter";
+        readonly SCREEN_ATTEMPT_LOCKOUT: "screen.attempt-lockout";
+        readonly SCREEN_LANGUAGE: "screen.language";
+        readonly SCREEN_PROOF_DETAILS: "screen.proof.details";
+        readonly SCREEN_WHAT_ARE_CONTACTS: "screen.what-are-contacts";
+        readonly SCREEN_CHAT: "screen.chat";
+        readonly COMPONENT_HOME_HEADER: "component.home.header";
+        readonly COMPONENT_HOME_NOTIFICATIONS_EMPTY_LIST: "component.home.notifications-empty-list";
+        readonly COMPONENT_HOME_FOOTER: "component.home.footer";
+        readonly COMPONENT_CRED_EMPTY_LIST: "component.cred.empty-list";
+        readonly COMPONENT_RECORD: "component.record";
+        readonly COMPONENT_PIN_CREATE_HEADER: "component.pin-create-header";
+        readonly GROUP_BY_REFERENT: "proof.groupByReferant";
+        readonly CRED_HELP_ACTION_OVERRIDES: "proof.credHelpActionOverride";
+    };
+    private _container;
+    private log?;
+    constructor(container: DependencyContainer, log?: BaseLogger);
+    get container(): DependencyContainer;
+    init(): Container;
+    resolve<K extends keyof TokenMapping>(token: K): TokenMapping[K];
+    resolveAll<K extends keyof TokenMapping, T extends K[]>(tokens: [...T]): {
+        [I in keyof T]: TokenMapping[T[I]];
+    };
+}
+export declare const SystemContext: import("react").Context<Container | undefined>;
+export declare const SystemProvider: import("react").Provider<Container | undefined>;
+export declare const useSystem: () => Container;
+//# sourceMappingURL=container-impl.d.ts.map

@@ -1,0 +1,37 @@
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { StyleSheet, useWindowDimensions } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { InfoBoxType } from '../../components/misc/InfoBox';
+import PopupModal from './PopupModal';
+const AlertModal = ({
+  title,
+  message,
+  submit
+}) => {
+  const {
+    t
+  } = useTranslation();
+  const {
+    height
+  } = useWindowDimensions();
+  const styles = StyleSheet.create({
+    container: {
+      minHeight: height,
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center'
+    }
+  });
+  return /*#__PURE__*/React.createElement(SafeAreaView, {
+    style: styles.container
+  }, /*#__PURE__*/React.createElement(PopupModal, {
+    notificationType: InfoBoxType.Info,
+    title: title,
+    description: message,
+    onCallToActionLabel: t('Global.Okay'),
+    onCallToActionPressed: submit ? () => submit() : () => undefined
+  }));
+};
+export default AlertModal;
+//# sourceMappingURL=AlertModal.js.map

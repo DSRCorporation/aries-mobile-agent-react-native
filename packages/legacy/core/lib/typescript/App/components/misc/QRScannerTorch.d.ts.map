@@ -1,0 +1,1 @@
+{"version":3,"file":"QRScannerTorch.d.ts","sourceRoot":"","sources":["../../../../../App/components/misc/QRScannerTorch.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAK,MAAM,OAAO,CAAA;AAUzB,UAAU,KAAM,SAAQ,KAAK,CAAC,iBAAiB;IAC7C,MAAM,EAAE,OAAO,CAAA;IACf,OAAO,CAAC,EAAE,MAAM,IAAI,CAAA;CACrB;AAoDD,QAAA,MAAM,cAAc,EAAE,KAAK,CAAC,EAAE,CAAC,KAAK,CAMnC,CAAA;AAED,eAAe,cAAc,CAAA"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"Settings.d.ts","sourceRoot":"","sources":["../../../../App/screens/Settings.tsx"],"names":[],"mappings":"AAAA,OAAO,EAAE,gBAAgB,EAAE,MAAM,yBAAyB,CAAA;AAC1D,OAAO,KAAiB,MAAM,OAAO,CAAA;AAqBrC,OAAO,EAAW,kBAAkB,EAAU,MAAM,qBAAqB,CAAA;AAKzE,KAAK,aAAa,GAAG,gBAAgB,CAAC,kBAAkB,CAAC,CAAA;AAIzD,QAAA,MAAM,QAAQ,EAAE,KAAK,CAAC,EAAE,CAAC,aAAa,CA+VrC,CAAA;AAED,eAAe,QAAQ,CAAA"}

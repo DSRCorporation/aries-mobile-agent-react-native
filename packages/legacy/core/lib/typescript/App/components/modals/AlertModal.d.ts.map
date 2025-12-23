@@ -1,0 +1,1 @@
+{"version":3,"file":"AlertModal.d.ts","sourceRoot":"","sources":["../../../../../App/components/modals/AlertModal.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAK,MAAM,OAAO,CAAA;AASzB,UAAU,eAAe;IACvB,KAAK,EAAE,MAAM,CAAA;IACb,OAAO,EAAE,MAAM,CAAA;IACf,MAAM,CAAC,EAAE,MAAM,IAAI,CAAA;CACpB;AAED,QAAA,MAAM,UAAU,EAAE,KAAK,CAAC,EAAE,CAAC,eAAe,CAwBzC,CAAA;AAED,eAAe,UAAU,CAAA"}
