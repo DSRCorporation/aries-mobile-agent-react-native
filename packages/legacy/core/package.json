@@ -1,6 +1,6 @@
 {
   "name": "@DSRCorporation/aries-bifold-core",
-  "version": "1.0.0-alpha-dsrw.14",
+  "version": "1.0.0-alpha-dsrw.15",
   "main": "lib/commonjs/index.js",
   "module": "lib/module/index.js",
   "react-native": "App/index.ts",
@@ -22,11 +22,9 @@
   ],
   "scripts": {
     "android": "react-native run-android",
-    "postinstall": "npx patch-package",
     "ios": "npx react-native run-ios --device",
     "lint": "eslint --color .",
     "build": "bob build",
-    "prepack": "bob build",
     "pre-commit-lint": "npx lint-staged",
     "prettier": "prettier --ignore-path .gitignore '**/*.+(js|jsx|json|ts|tsx|md|yml|yaml)'",
     "setup": "cd .. && husky install .husky",
