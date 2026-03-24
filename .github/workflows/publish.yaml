@@ -1,25 +1,30 @@
-name: Publish
+name: Update Release PR or Publish
 on:
   push:
     branches:
       - main
     paths:
+      - '.github/workflows/main.yaml'
+      - '.github/workflows/publish.yaml'
+      - '.github/actions/setup-node/action.yaml'
       - 'packages/**'
-  workflow_dispatch:
-env:
-  NPM_PKG: '@hyperledger/aries-oca'
-  NPM_TAG: 'alpha'
-jobs:
-  release-canary:
-    name: Alpha Release
-    runs-on: ubuntu-22.04
-    timeout-minutes: 7
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+      - 'package.json'
+      - 'yarn.lock'
 
-      - uses: actions/setup-python@v4
+permissions:
+  pull-requests: write
+  contents: write
+  id-token: write
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout bifold-wallet
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
         with:
           python-version: '3.11'
 
@@ -27,34 +32,31 @@ jobs:
         uses: ./.github/actions/setup-node
 
       - name: Install dependencies
-        run: yarn install --immutable
-
-      # On push to main, release unstable version
-      - name: Release ${{ env.NPM_TAG }}
         run: |
-          git update-index --assume-unchanged $(find . -type d -name node_modules -prune -o -name 'package.json' -print | tr "\n" " ")
-          #export NEXT_VERSION_BUMP=$(yarn next-version-bump)
-          export NEXT_VERSION_BUMP="major"
-          npx lerna publish --no-private --loglevel=silly --canary $NEXT_VERSION_BUMP --dist-tag $NPM_TAG --force-publish --yes
+          yarn install --immutable
+
+      - name: Upgrade npm for Trusted Publishers support
+        run: |
+          npm install -g npm@^11
+
+      - name: Update release PR or publish to npm
+        id: changesets
+        uses: changesets/action@e0145edc7d9d8679003495b11f87bd8ef63c0cba # v1.5.3
+        with:
+          title: 'chore(release): new version'
+          commit: 'chore(release): new version'
+          publish: yarn release
+          version: yarn changeset-version
         env:
-          NPM_TOKEN: ${{ secrets.NPM_PUBLISH }}
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_CONFIG_PROVENANCE: true
 
-      - name: Fetch current published version
-        id: get-version
-        run: |
-          LAST_RELEASED_VERSION=$(npm view $NPM_PKG@$NPM_TAG version)
-          echo "last_released_version=$LAST_RELEASED_VERSION" >> $GITHUB_OUTPUT
+      - name: Get current package version
+        id: get_version
+        run: echo "version=$(node -p "require('./packages/core/package.json').version")" >> $GITHUB_OUTPUT
 
-      - name: Config git
-        run: |
-          git config --global user.name "GitHub Action"
-          git config --global user.email "github-action@users.noreply.github.com"
-
-      - name: Set current git tag
-        run: |
-          git tag v${{ steps.get-version.outputs.last_released_version }}
-          git push origin v${{ steps.get-version.outputs.last_released_version}} --no-verify
-
-# Release will be triggerd by
-# if: "${{ startsWith(github.event.head_commit.message, 'chore(release): v') }}"
+      - name: Create GitHub release
+        if: "startsWith(github.event.head_commit.message, 'chore(release): new version')"
+        uses: softprops/action-gh-release@da05d552573ad5aba039eaac05058a918a7bf631 # v2.2.2
+        with:
+          tag_name: v${{ steps.get_version.outputs.version }}

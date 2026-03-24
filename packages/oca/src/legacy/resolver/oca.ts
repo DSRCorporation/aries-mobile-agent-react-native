@@ -24,11 +24,13 @@ import { parseCredDefFromId } from '../../utils/credential-definition'
 
 import { Field } from './record'
 
-export enum BrandingOverlayType {
-  Branding01 = OverlayType.Branding01,
-  Branding10 = OverlayType.Branding10,
-}
+export const BrandingOverlayType = {
+  Branding01: OverlayType.Branding01,
+  Branding10: OverlayType.Branding10,
+  Branding11: OverlayType.Branding11,
+} as const
 
+export type BrandingOverlayType = (typeof BrandingOverlayType)[keyof typeof BrandingOverlayType]
 export interface CredentialOverlay<T> {
   bundle?: OCABundle
   presentationFields?: Field[]
@@ -49,27 +51,40 @@ interface LanguageOverlay {
   language: string
 }
 
+export type OCABundleResolveParams = {
+  identifiers: Identifiers
+  language?: string
+}
+
+export type OCABundleResolveDefaultParams = {
+  identifiers: Identifiers
+  meta?: Meta
+  language?: string
+}
+
+export type OCABundleResolveAllParams = {
+  identifiers: Identifiers
+  attributes?: Array<Field>
+  meta?: Meta
+  language?: string
+}
+
+export type OCABundleResolvePresentationFieldsParams = {
+  identifiers: Identifiers
+  attributes: Array<Field>
+  language?: string
+}
+
 export interface OCABundleResolverType {
-  resolve(params: { identifiers: Identifiers; language?: string }): Promise<OCABundle | undefined>
+  resolve(params: OCABundleResolveParams): Promise<OCABundle | undefined>
 
-  resolveDefaultBundle(params: {
-    identifiers: Identifiers
-    meeta?: Meta
-    language?: string
-  }): Promise<OCABundle | undefined>
+  resolveDefaultBundle(params: OCABundleResolveDefaultParams): Promise<OCABundle | undefined>
 
-  presentationFields(params: {
-    identifiers: Identifiers
-    attributes: Array<Field>
-    language?: string
-  }): Promise<Field[]>
+  presentationFields(params: OCABundleResolvePresentationFieldsParams): Promise<Field[]>
 
-  resolveAllBundles(params: {
-    identifiers: Identifiers
-    attributes?: Array<Field>
-    meta?: Meta
-    language?: string
-  }): Promise<CredentialOverlay<BaseOverlay | BrandingOverlay | LegacyBrandingOverlay>>
+  resolveAllBundles(
+    params: OCABundleResolveAllParams
+  ): Promise<CredentialOverlay<BaseOverlay | BrandingOverlay | LegacyBrandingOverlay>>
 
   getBrandingOverlayType(): BrandingOverlayType
 }
@@ -89,6 +104,7 @@ export interface Meta {
   alias?: string
   credName?: string
   credConnectionId?: string
+  logo?: string
 }
 
 export class OCABundle implements OCABundleType {
@@ -101,6 +117,12 @@ export class OCABundle implements OCABundleType {
       brandingOverlayType: options?.brandingOverlayType ?? BrandingOverlayType.Branding10,
       language: options?.language ?? defaultBundleLanguage,
     }
+    // Make bundle overlay type come from options.brandingOverlayType
+    this.bundle.overlays.forEach((o) => {
+      if (o.type === BrandingOverlayType.Branding10 || o.type === BrandingOverlayType.Branding11) {
+        o.type = this.options.brandingOverlayType!
+      }
+    })
   }
 
   public get captureBase(): CaptureBase {
@@ -215,7 +237,7 @@ export class DefaultOCABundleResolver implements OCABundleResolverType {
     return this.options.brandingOverlayType ?? BrandingOverlayType.Branding10
   }
 
-  private getDefaultBundle(params: { language?: string; identifiers?: Identifiers; meta?: Meta }) {
+  private getDefaultBundle(params: OCABundleResolveDefaultParams) {
     if (!params.language) {
       params.language = defaultBundleLanguage
     }
@@ -243,16 +265,30 @@ export class DefaultOCABundleResolver implements OCABundleResolverType {
       colorHash = metaOverlay.issuer
     }
 
-    const brandingoOverlay01: ILegacyBrandingOverlayData = {
+    const brandingOverlay01: ILegacyBrandingOverlayData = {
       capture_base: '',
       type: OverlayType.Branding01,
       background_color: generateColor(colorHash),
     }
 
-    const brandingoOverlay10: IBrandingOverlayData = {
+    const brandingOverlay10: IBrandingOverlayData = {
       capture_base: '',
       type: OverlayType.Branding10,
       primary_background_color: generateColor(colorHash),
+    }
+
+    const brandingOverlay11: IBrandingOverlayData = {
+      capture_base: '',
+      type: OverlayType.Branding11,
+      primary_background_color: '#FFFFFF',
+      secondary_background_color: generateColor(colorHash),
+    }
+
+    let brandingOverlay =
+      this.getBrandingOverlayType() === BrandingOverlayType.Branding01 ? brandingOverlay01 : brandingOverlay10
+
+    if (this.getBrandingOverlayType() === BrandingOverlayType.Branding11) {
+      brandingOverlay = brandingOverlay11
     }
 
     const bundle: OverlayBundle = new OverlayBundle(params.identifiers?.credentialDefinitionId as string, {
@@ -262,10 +298,7 @@ export class DefaultOCABundleResolver implements OCABundleResolverType {
         type: OverlayType.CaptureBase10,
         flagged_attributes: [],
       },
-      overlays: [
-        metaOverlay,
-        this.getBrandingOverlayType() === BrandingOverlayType.Branding01 ? brandingoOverlay01 : brandingoOverlay10,
-      ],
+      overlays: [metaOverlay, brandingOverlay],
     })
 
     return Promise.resolve(
@@ -273,15 +306,11 @@ export class DefaultOCABundleResolver implements OCABundleResolverType {
     )
   }
 
-  public resolveDefaultBundle(params: {
-    identifiers: Identifiers
-    meta?: Meta
-    language?: string
-  }): Promise<OCABundle | undefined> {
+  public resolveDefaultBundle(params: OCABundleResolveDefaultParams): Promise<OCABundle | undefined> {
     return this.getDefaultBundle(params)
   }
 
-  public resolve(params: { identifiers: Identifiers; language?: string }): Promise<OCABundle | undefined> {
+  public resolve(params: OCABundleResolveParams): Promise<OCABundle | undefined> {
     const language = params.language || defaultBundleLanguage
     for (const item of [
       params.identifiers?.credentialDefinitionId,
@@ -302,11 +331,7 @@ export class DefaultOCABundleResolver implements OCABundleResolverType {
     return Promise.resolve(undefined)
   }
 
-  public async presentationFields(params: {
-    identifiers: Identifiers
-    attributes: Array<Field>
-    language?: string
-  }): Promise<Field[]> {
+  public async presentationFields(params: OCABundleResolvePresentationFieldsParams): Promise<Field[]> {
     const bundle = await this.resolve(params)
     let presentationFields = [...params.attributes]
     if (bundle?.captureBase?.attributes) {
@@ -327,12 +352,9 @@ export class DefaultOCABundleResolver implements OCABundleResolverType {
     return presentationFields
   }
 
-  public async resolveAllBundles(params: {
-    identifiers: Identifiers
-    attributes?: Array<Field>
-    meta?: Meta
-    language?: string
-  }): Promise<CredentialOverlay<BaseOverlay | BrandingOverlay | LegacyBrandingOverlay>> {
+  public async resolveAllBundles(
+    params: OCABundleResolveAllParams
+  ): Promise<CredentialOverlay<BaseOverlay | BrandingOverlay | LegacyBrandingOverlay>> {
     const [bundle, defaultBundle] = await Promise.all([this.resolve(params), this.resolveDefaultBundle(params)])
 
     const fields = params.attributes
@@ -345,6 +367,10 @@ export class DefaultOCABundleResolver implements OCABundleResolverType {
     const overlayBundle = bundle ?? defaultBundle
     const metaOverlay = overlayBundle?.metaOverlay
     const brandingOverlay = overlayBundle?.brandingOverlay
+
+    if (brandingOverlay && 'logo' in brandingOverlay && params.meta?.logo) {
+      brandingOverlay.logo = params.meta.logo
+    }
 
     return { bundle: overlayBundle, presentationFields: fields, metaOverlay, brandingOverlay }
   }

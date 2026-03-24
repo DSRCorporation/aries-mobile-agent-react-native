@@ -2,17 +2,17 @@ import globals from 'globals'
 import pluginJs from '@eslint/js'
 import tseslint from 'typescript-eslint'
 import reactPlugin from 'eslint-plugin-react'
-import importPlugin from 'eslint-plugin-import';
-import reactHooks from 'eslint-plugin-react-hooks';
+import importPlugin from 'eslint-plugin-import'
+import reactHooks from 'eslint-plugin-react-hooks'
 import jestPlugin from 'eslint-plugin-jest'
 
 export default [
   {
     settings: {
-      "react": {
-        "version": "detect"
-      }
-    }
+      react: {
+        version: 'detect',
+      },
+    },
   },
   { files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'] },
   { files: ['**/*.js'], languageOptions: { sourceType: 'commonjs' } },
@@ -39,27 +39,37 @@ export default [
       },
     },
     rules: {
+      ...reactHooks.configs.recommended.rules,
       ...reactPlugin.configs.flat.recommended.rules,
       'react/react-in-jsx-scope': 'off',
+      'react/prop-types': 'off',
+      'react-hooks/exhaustive-deps': 'error',
+      'no-console': 'error',
+      '@typescript-eslint/no-unused-expressions': ['error', { 
+        allowShortCircuit: true, 
+        allowTernary: true,
+        allowTaggedTemplates: true 
+      }],
     },
   },
   {
     ignores: [
-      'commitlint.config.js',
       'eslint.config.mjs',
       '.eslintrc-common.js',
       '**/.eslintrc.js',
       'scripts/make-blocks.js',
-      'scripts/get-next-bump.ts',
       '**/jest.config.js',
-      '**/babel.config.js',
       '**/metro.config.js',
+      '.changeset/commit.js',
       '.yarn/',
       'packages/verifier/build/',
       'packages/oca/build/',
       'packages/remote-logs/build/',
       'packages/react-native-attestation/build/',
-      'packages/legacy/core/lib/',
+      'packages/core/lib/',
+      'packages/legacy/core/lib',
+      'packages/react-hooks/build/',
+      'samples/app/lib/',
     ],
   },
   {
@@ -78,30 +88,27 @@ export default [
       'jest/no-identical-title': 'error',
       'jest/prefer-to-have-length': 'warn',
       'jest/valid-expect': 'error',
+      '@typescript-eslint/no-require-imports': 'off',
     },
   },
   {
-    files: ['packages/legacy/core/**/*.{js,mjs,cjs,ts,jsx,tsx}'],
+    files: ['**/app.config.js', '**/cli.js', '**/jestSetup.js'],
+    rules: {
+      '@typescript-eslint/no-require-imports': 'off',
+    },
+  },
+  // For images, inline require statements that metro needs
+  {
+    files: ['**/theme.ts', '**/theme.tsx'],
+    rules: {
+      '@typescript-eslint/no-require-imports': 'off',
+    },
+  },
+  {
+    files: ['packages/core/**/*.{js,mjs,cjs,ts,jsx,tsx}'],
     rules: {
       '@typescript-eslint/no-explicit-any': 'off',
-      'no-unsafe-optional-chaining': 'warn',
       '@typescript-eslint/explicit-function-return-type': 'off',
-      '@typescript-eslint/ban-ts-comment': 'warn',
-      "react-hooks/exhaustive-deps": "warn",
-    }
+    },
   },
-  {
-    files: ['packages/react-native-attestation/**/*.{js,mjs,cjs,ts,jsx,tsx}'],
-    rules: {
-      "@typescript-eslint/no-var-requires": "warn",
-      "@typescript-eslint/ban-ts-comment": "warn",
-    }
-  },
-  {
-    files: ['packages/verifier/**/*.{js,mjs,cjs,ts,jsx,tsx}'],
-    rules: {
-      "@typescript-eslint/no-var-requires": "warn",
-      "@typescript-eslint/ban-ts-comment": "warn",
-    }
-  }
 ]

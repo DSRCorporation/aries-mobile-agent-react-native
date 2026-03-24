@@ -5,7 +5,7 @@ Mobile app attestation
 ## Installation
 
 ```sh
-yarn add @hyperledger/react-native-attestation
+yarn add @bifold/react-native-attestation
 ```
 
 ## Usage
@@ -14,25 +14,26 @@ yarn add @hyperledger/react-native-attestation
 import {
   generateKey,
   appleAttestation,
+  getAppStoreReceipt,
   isPlayIntegrityAvailable,
   googleAttestation,
-} from '@hyperledger/aries-react-native-attestation';
+} from '@bifold/react-native-attestation';
 
 // ...
 if (Platform.OS === 'ios') {
+  // Modern DeviceCheck attestation
   const keyId = await generateKey();
   const attestationAsBuffer = await appleAttestation(keyId, nonce);
+
+  // Legacy App Store receipt (for compatibility)
+  const appStoreReceipt = await getAppStoreReceipt();
 } else if (Platform.OS === 'android') {
-  const available = await isPlayIntegrityAvailable()
+  const available = await isPlayIntegrityAvailable();
   if (available) {
-    const integrityToken = await googleAttestation(nonce)
+    const integrityToken = await googleAttestation(nonce);
   }
 }
 ```
-
-## Contributing
-
-See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
 
 ## License
 

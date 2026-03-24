@@ -2,28 +2,18 @@
 
 ## Active Maintainers
 
-<!-- Please keep this sorted alphabetically by github -->
-
-| Name                   | Github        | LFID |
-| ---------------------- | ------------- | ---- |
-| Akiff Manji            | amanji        |      |
-| Bryce McMath           | bryce-mcmath  |      |
-| Clécio Varjão          | cvarjao       |      |
-| James Ebert            | JamesKEbert   |      |
-| Jean-Christophe Drouin | jcdrouin21    |      |
-| Jason C. Leach         | jleach        |      |
-| Mostafa Gamal          | MosCD3        |      |
-| Ryan Koch              | ryankoch13    |      |
-| Thiago Romano          | thiagoromanos |      |
-| Wade King              | wadeking98    |      |
+Active maintainers can be found [here](https://github.com/orgs/openwallet-foundation/teams/bifold-wallet-maintainers) as defined in OWF governance [here](https://github.com/openwallet-foundation/governance)
 
 ## Emeritus Maintainers
 
-| Name               | Github            | LFID |
-| ------------------ | ----------------- | ---- |
-| Karim Stekelenburg | karimStekelenburg |      |
-| Sam Curren         | TelegramSam       |      |
-| Timo Glastra       | TimoGlastra       |      |
+| Name               | Github            |
+| ------------------ | ----------------- |
+| Karim Stekelenburg | karimStekelenburg |
+| Sam Curren         | TelegramSam       |
+| James Ebert        | JamesKEbert       |
+| Timo Glastra       | TimoGlastra       |
+| Wade King          | wadeking98        |
+| Ryan Koch          | ryankoch13        |
 
 ## Becoming a Maintainer
 
