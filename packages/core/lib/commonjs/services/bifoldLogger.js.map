@@ -1,0 +1,1 @@
+{"version":3,"names":["_logger","require","bifoldLoggerInstance","exports","BifoldLogger"],"sourceRoot":"../../../src","sources":["services/bifoldLogger.ts"],"mappings":";;;;;;AAAA,IAAAA,OAAA,GAAAC,OAAA;AAEO,MAAMC,oBAAoB,GAAAC,OAAA,CAAAD,oBAAA,GAAG,IAAIE,oBAAY,CAAC,CAAC","ignoreList":[]}

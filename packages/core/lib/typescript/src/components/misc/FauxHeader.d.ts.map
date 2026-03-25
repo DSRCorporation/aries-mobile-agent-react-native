@@ -1,0 +1,1 @@
+{"version":3,"file":"FauxHeader.d.ts","sourceRoot":"","sources":["../../../../../src/components/misc/FauxHeader.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAK,MAAM,OAAO,CAAA;AASzB,UAAU,eAAe;IACvB,KAAK,EAAE,MAAM,CAAA;IACb,aAAa,CAAC,EAAE,MAAM,IAAI,CAAA;IAC1B,cAAc,CAAC,EAAE,OAAO,CAAA;CACzB;AAGD,QAAA,MAAM,UAAU,EAAE,KAAK,CAAC,EAAE,CAAC,eAAe,CAuDzC,CAAA;AAED,eAAe,UAAU,CAAA"}

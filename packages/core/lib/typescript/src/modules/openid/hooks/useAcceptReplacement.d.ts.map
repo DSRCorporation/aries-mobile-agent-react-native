@@ -1,0 +1,1 @@
+{"version":3,"file":"useAcceptReplacement.d.ts","sourceRoot":"","sources":["../../../../../../src/modules/openid/hooks/useAcceptReplacement.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,aAAa,EAAE,mBAAmB,EAAE,UAAU,EAAE,qBAAqB,EAAE,MAAM,gBAAgB,CAAA;AAOtG,KAAK,OAAO,GAAG,mBAAmB,GAAG,aAAa,GAAG,UAAU,GAAG,qBAAqB,CAAA;AAGvF;;GAEG;AAEH,wBAAgB,oBAAoB;mCAWhB,OAAO;wBAyCT,MAAM;EAYvB"}

@@ -1,0 +1,9 @@
+import { useCredentials } from '@bifold/react-hooks';
+import { useMemo } from 'react';
+export const useCredentialsByConnectionId = connectionId => {
+  const {
+    records: credentials
+  } = useCredentials();
+  return useMemo(() => credentials.filter(credential => credential.connectionId === connectionId), [credentials, connectionId]);
+};
+//# sourceMappingURL=credentials.js.map

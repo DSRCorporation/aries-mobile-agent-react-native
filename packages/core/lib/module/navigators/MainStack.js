@@ -1,0 +1,156 @@
+import { ProofMetadata } from '@bifold/verifier';
+import { useAgent, useProofByState } from '@bifold/react-hooks';
+import { DidCommProofState } from '@credo-ts/didcomm';
+import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
+import React, { useEffect, useMemo } from 'react';
+import { View } from 'react-native';
+import { useTranslation } from 'react-i18next';
+import IconButton, { ButtonLocation } from '../components/buttons/IconButton';
+import { TOKENS, useServices } from '../container-api';
+import { useTheme } from '../contexts/theme';
+import HistoryStack from '../modules/history/navigation/HistoryStack';
+import { Screens, Stacks, TabStacks } from '../types/navigators';
+import { testIdWithKey } from '../utils/testable';
+import { useStore } from '../contexts/store';
+import { useTour } from '../contexts/tour/tour-context';
+import { useDeepLinks } from '../hooks/deep-links';
+import OpenIDCredentialDetails from '../modules/openid/screens/OpenIDCredentialDetails';
+import ConnectStack from './ConnectStack';
+import ContactStack from './ContactStack';
+import DeliveryStack from './DeliveryStack';
+import NotificationStack from './NotificationStack';
+import ProofRequestStack from './ProofRequestStack';
+import SettingStack from './SettingStack';
+import TabStack from './TabStack';
+import { useDefaultStackOptions } from './defaultStackOptions';
+const MainStack = () => {
+  const {
+    t
+  } = useTranslation();
+  const theme = useTheme();
+  const {
+    currentStep
+  } = useTour();
+  const [store] = useStore();
+  const {
+    agent
+  } = useAgent();
+  const defaultStackOptions = useDefaultStackOptions(theme);
+  const [CustomNavStack1, ScreenOptionsDictionary, Chat, CredentialDetails] = useServices([TOKENS.CUSTOM_NAV_STACK_1, TOKENS.OBJECT_SCREEN_CONFIG, TOKENS.SCREEN_CHAT, TOKENS.SCREEN_CREDENTIAL_DETAILS]);
+  const declinedProofs = useProofByState([DidCommProofState.Declined, DidCommProofState.Abandoned]);
+  useDeepLinks();
+
+  // remove connection on mobile verifier proofs if proof is rejected
+  useEffect(() => {
+    declinedProofs.forEach(proof => {
+      var _proof$metadata;
+      const meta = proof === null || proof === void 0 || (_proof$metadata = proof.metadata) === null || _proof$metadata === void 0 ? void 0 : _proof$metadata.get(ProofMetadata.customMetadata);
+      if (meta !== null && meta !== void 0 && meta.delete_conn_after_seen) {
+        agent === null || agent === void 0 || agent.modules.didcomm.connections.deleteById((proof === null || proof === void 0 ? void 0 : proof.connectionId) ?? '').catch(() => null);
+        proof === null || proof === void 0 || proof.metadata.set(ProofMetadata.customMetadata, {
+          ...meta,
+          delete_conn_after_seen: false
+        });
+      }
+    });
+  }, [declinedProofs, agent, store.preferences.useDataRetention]);
+  const Stack = createStackNavigator();
+
+  // This function is to make the fade in behavior of both iOS and
+  // Android consistent for the settings menu
+  const forFade = ({
+    current
+  }) => ({
+    cardStyle: {
+      opacity: current.progress
+    }
+  });
+  const hideElements = useMemo(() => currentStep === undefined ? 'auto' : 'no-hide-descendants', [currentStep]);
+  return /*#__PURE__*/React.createElement(View, {
+    style: {
+      flex: 1
+    },
+    importantForAccessibility: hideElements
+  }, /*#__PURE__*/React.createElement(Stack.Navigator, {
+    initialRouteName: Stacks.TabStack,
+    screenOptions: {
+      ...defaultStackOptions,
+      headerShown: false
+    }
+  }, /*#__PURE__*/React.createElement(Stack.Screen, {
+    name: Stacks.TabStack,
+    component: TabStack
+  }), /*#__PURE__*/React.createElement(Stack.Screen, {
+    name: Screens.CredentialDetails,
+    component: CredentialDetails,
+    options: {
+      title: t('Screens.CredentialDetails'),
+      headerShown: true,
+      ...ScreenOptionsDictionary[Screens.CredentialDetails]
+    }
+  }), /*#__PURE__*/React.createElement(Stack.Screen, {
+    name: Screens.OpenIDCredentialDetails,
+    component: OpenIDCredentialDetails,
+    options: {
+      title: t('Screens.CredentialDetails'),
+      ...ScreenOptionsDictionary[Screens.OpenIDCredentialDetails]
+    }
+  }), /*#__PURE__*/React.createElement(Stack.Screen, {
+    name: Screens.Chat,
+    component: Chat,
+    options: ({
+      navigation
+    }) => ({
+      headerShown: true,
+      title: t('Screens.CredentialOffer'),
+      headerLeft: () => /*#__PURE__*/React.createElement(IconButton, {
+        buttonLocation: ButtonLocation.Left,
+        accessibilityLabel: t('Global.Back'),
+        testID: testIdWithKey('BackButton'),
+        onPress: () => {
+          navigation.navigate(TabStacks.HomeStack, {
+            screen: Screens.Home
+          });
+        },
+        icon: "arrow-left"
+      })
+    })
+  }), /*#__PURE__*/React.createElement(Stack.Screen, {
+    name: Stacks.ConnectStack,
+    component: ConnectStack
+  }), /*#__PURE__*/React.createElement(Stack.Screen, {
+    name: Stacks.SettingStack,
+    component: SettingStack,
+    options: {
+      cardStyleInterpolator: forFade
+    }
+  }), /*#__PURE__*/React.createElement(Stack.Screen, {
+    name: Stacks.ContactStack,
+    component: ContactStack
+  }), /*#__PURE__*/React.createElement(Stack.Screen, {
+    name: Stacks.NotificationStack,
+    component: NotificationStack
+  }), /*#__PURE__*/React.createElement(Stack.Screen, {
+    name: Stacks.ConnectionStack,
+    component: DeliveryStack,
+    options: {
+      gestureEnabled: false,
+      cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+      presentation: 'modal'
+    }
+  }), /*#__PURE__*/React.createElement(Stack.Screen, {
+    name: Stacks.ProofRequestsStack,
+    component: ProofRequestStack
+  }), /*#__PURE__*/React.createElement(Stack.Screen, {
+    name: Stacks.HistoryStack,
+    component: HistoryStack,
+    options: {
+      cardStyleInterpolator: forFade
+    }
+  }), CustomNavStack1 ? /*#__PURE__*/React.createElement(Stack.Screen, {
+    name: Stacks.CustomNavStack1,
+    component: CustomNavStack1
+  }) : null));
+};
+export default MainStack;
+//# sourceMappingURL=MainStack.js.map

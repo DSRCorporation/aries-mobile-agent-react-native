@@ -1,0 +1,32 @@
+import * as themeContext from '../../src/contexts/theme';
+export declare const mockThemeContext: {
+    themeName: string;
+    Spacing: import("../../src/theme").ISpacing;
+    ColorPalette: import("../../src/theme").IColorPalette;
+    TextTheme: import("../../src/theme.interface").ITextTheme;
+    InputInlineMessage: import("../../src/theme.interface").IInlineInputMessage;
+    Inputs: import("../../src/theme.interface").IInputs;
+    Buttons: import("../../src/theme.interface").IButtons;
+    ListItems: import("../../src/theme.interface").IListItems;
+    TabTheme: import("../../src/theme.interface").ITabTheme;
+    NavigationTheme: import("../../src/theme").INavigationTheme;
+    HomeTheme: import("../../src/theme.interface").IHomeTheme;
+    SettingsTheme: import("../../src/theme.interface").ISettingsTheme;
+    ChatTheme: import("../../src/theme.interface").IChatTheme;
+    OnboardingTheme: import("../../src/theme.interface").IOnboardingTheme;
+    DialogTheme: import("../../src/theme.interface").IDialogTheme;
+    LoadingTheme: import("../../src/theme.interface").ILoadingTheme;
+    PINEnterTheme: import("../../src/theme").IPINEnterTheme;
+    PINInputTheme: import("../../src/theme.interface").IPINInputTheme;
+    SeparatedPINInputTheme: import("../../src/theme.interface").ISeparatedPINInputTheme;
+    CredentialCardShadowTheme: import("react-native").ViewStyle;
+    SelectedCredTheme: import("react-native").ViewStyle;
+    heavyOpacity: typeof import("../../src/theme").heavyOpacity;
+    borderRadius: typeof import("../../src/theme").borderRadius;
+    borderWidth: typeof import("../../src/theme").borderWidth;
+    maxFontSizeMultiplier: number;
+    Assets: import("../../src/theme").IAssets;
+    setTheme: jest.Mock<any, any, any>;
+};
+export declare const useThemeSpy: jest.SpyInstance<themeContext.IThemeContext, [], any>;
+//# sourceMappingURL=theme.d.ts.map

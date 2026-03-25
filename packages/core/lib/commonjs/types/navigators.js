@@ -1,0 +1,88 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.TabStacks = exports.Stacks = exports.Screens = void 0;
+let Screens = exports.Screens = /*#__PURE__*/function (Screens) {
+  Screens["AttemptLockout"] = "Temporarily Locked";
+  Screens["Splash"] = "Splash";
+  Screens["Onboarding"] = "Onboarding";
+  Screens["Terms"] = "Terms";
+  Screens["Preface"] = "Preface";
+  Screens["CreatePIN"] = "Create a PIN";
+  Screens["ChangePIN"] = "Change PIN";
+  Screens["ChangePINConfirmation"] = "Change PIN Confirmation";
+  Screens["ChangePINSuccess"] = "Change PIN Success";
+  Screens["EnterPIN"] = "Enter PIN";
+  Screens["VerifyPIN"] = "Verify PIN";
+  Screens["Home"] = "Home";
+  Screens["Scan"] = "Scan";
+  Screens["PasteUrl"] = "Paste URL";
+  Screens["Credentials"] = "Credentials";
+  Screens["CredentialDetails"] = "Credential Details";
+  Screens["CredentialOffer"] = "Credential Offer";
+  Screens["OpenIDCredentialDetails"] = "Open ID Credential details";
+  Screens["OpenIDCredentialOffer"] = "Open ID Credential offer";
+  Screens["OpenIDProofPresentation"] = "Open ID Proof Presentation";
+  Screens["OpenIDProofCredentialSelect"] = "Open ID Proof Credential Select";
+  Screens["OpenIDConnection"] = "Open ID Connection";
+  Screens["ProofRequest"] = "Proof Request";
+  Screens["ProofRequestDetails"] = "Proof Request Details";
+  Screens["ProofRequestUsageHistory"] = "Proof Request Usage History";
+  Screens["Settings"] = "Settings";
+  Screens["Language"] = "Language";
+  Screens["DataRetention"] = "Data Retention";
+  Screens["Tours"] = "Tours";
+  Screens["Contacts"] = "Contacts";
+  Screens["ContactDetails"] = "Contact Details";
+  Screens["WhatAreContacts"] = "What Are Contacts";
+  Screens["Chat"] = "Chat";
+  Screens["Connection"] = "Connection";
+  Screens["MobileVerifierLoading"] = "Mobile Verifier Loading";
+  Screens["OnTheWay"] = "On The Way";
+  Screens["Declined"] = "Declined";
+  Screens["Biometry"] = "Biometry";
+  Screens["ToggleBiometry"] = "Toggle Biometry";
+  Screens["PushNotifications"] = "Push Notifications";
+  Screens["TogglePushNotifications"] = "Toggle Push Notifications";
+  Screens["Developer"] = "Developer";
+  Screens["CustomNotification"] = "Custom Notification";
+  Screens["ProofChangeCredential"] = "Choose a credential";
+  Screens["ProofRequests"] = "Proof Requests";
+  Screens["ProofRequesting"] = "Proof Requesting";
+  Screens["ProofDetails"] = "Proof Details";
+  Screens["NameWallet"] = "Name Wallet";
+  Screens["RenameWallet"] = "Rename Wallet";
+  Screens["RenameContact"] = "Rename Contact";
+  Screens["JSONDetails"] = "JSON Details";
+  Screens["ScanHelp"] = "Scan Help";
+  Screens["HistorySettings"] = "History Settings";
+  Screens["HistoryPage"] = "History";
+  Screens["HistoryDetails"] = "History details";
+  Screens["AutoLock"] = "AutoLock";
+  Screens["UpdateAvailable"] = "Update Available";
+  Screens["ConfigureMediator"] = "Configure Mediator";
+  return Screens;
+}({});
+let Stacks = exports.Stacks = /*#__PURE__*/function (Stacks) {
+  Stacks["TabStack"] = "Tab Stack";
+  Stacks["HomeStack"] = "Home Stack";
+  Stacks["ConnectStack"] = "Connect Stack";
+  Stacks["CredentialStack"] = "Credentials Stack";
+  Stacks["SettingStack"] = "Settings Stack";
+  Stacks["ContactStack"] = "Contacts Stack";
+  Stacks["ProofRequestsStack"] = "Proof Requests Stack";
+  Stacks["NotificationStack"] = "Notifications Stack";
+  Stacks["ConnectionStack"] = "Connection Stack";
+  Stacks["HistoryStack"] = "History Stack";
+  Stacks["CustomNavStack1"] = "Custom Nav Stack 1";
+  return Stacks;
+}({});
+let TabStacks = exports.TabStacks = /*#__PURE__*/function (TabStacks) {
+  TabStacks["HomeStack"] = "Tab Home Stack";
+  TabStacks["ConnectStack"] = "Tab Connect Stack";
+  TabStacks["CredentialStack"] = "Tab Credential Stack";
+  return TabStacks;
+}({});
+//# sourceMappingURL=navigators.js.map

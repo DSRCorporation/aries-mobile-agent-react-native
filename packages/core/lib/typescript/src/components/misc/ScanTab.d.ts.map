@@ -1,0 +1,1 @@
+{"version":3,"file":"ScanTab.d.ts","sourceRoot":"","sources":["../../../../../src/components/misc/ScanTab.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAK,MAAM,OAAO,CAAA;AAQzB,UAAU,YAAY;IACpB,OAAO,EAAE,MAAM,IAAI,CAAA;IACnB,MAAM,EAAE,OAAO,CAAA;IACf,QAAQ,EAAE,MAAM,CAAA;IAChB,KAAK,EAAE,MAAM,CAAA;CACd;AAED,QAAA,MAAM,OAAO,EAAE,KAAK,CAAC,EAAE,CAAC,YAAY,CA2BnC,CAAA;AAED,eAAe,OAAO,CAAA"}

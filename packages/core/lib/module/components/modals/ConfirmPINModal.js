@@ -1,0 +1,120 @@
+import React, { useState } from 'react';
+import { View, StyleSheet, Keyboard } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useTranslation } from 'react-i18next';
+import FauxHeader from '../../components/misc/FauxHeader';
+import SafeAreaModal from '../../components/modals/SafeAreaModal';
+import AlertModal from '../../components/modals/AlertModal';
+import PINScreenTitleText from '../../components/misc/PINScreenTitleText';
+import PINInput from '../../components/inputs/PINInput';
+import usePreventScreenCapture from '../../hooks/screen-capture';
+import { useAnimatedComponents } from '../../contexts/animated-components';
+import { usePINValidation } from '../../hooks/usePINValidation';
+import { InlineErrorType } from '../../components/inputs/InlineErrorText';
+import { useTheme } from '../../contexts/theme';
+import { TOKENS, useServices } from '../../container-api';
+import { testIdWithKey } from '../../utils/testable';
+import ScreenWrapper from '../views/ScreenWrapper';
+export let ConfirmPINModalUsage = /*#__PURE__*/function (ConfirmPINModalUsage) {
+  ConfirmPINModalUsage[ConfirmPINModalUsage["PIN_CREATE"] = 0] = "PIN_CREATE";
+  ConfirmPINModalUsage[ConfirmPINModalUsage["PIN_CHANGE"] = 1] = "PIN_CHANGE";
+  return ConfirmPINModalUsage;
+}({});
+const ConfirmPINModal = ({
+  errorModalState,
+  modalUsage = ConfirmPINModalUsage.PIN_CREATE,
+  onBackPressed = () => {},
+  onConfirmPIN = () => {},
+  PINOne = '',
+  setPINTwo = () => {},
+  title = '',
+  visible = false,
+  isLoading = false
+}) => {
+  const {
+    ColorPalette,
+    NavigationTheme
+  } = useTheme();
+  const {
+    t
+  } = useTranslation();
+  const [PINHeader, {
+    preventScreenCapture
+  }, inlineMessages] = useServices([TOKENS.COMPONENT_PIN_HEADER, TOKENS.CONFIG, TOKENS.INLINE_ERRORS]);
+  usePreventScreenCapture(preventScreenCapture);
+  const {
+    comparePINEntries
+  } = usePINValidation(PINOne);
+  const customErrorMessage = {
+    message: t('PINCreate.PINsDoNotMatch'),
+    inlineType: InlineErrorType.error,
+    config: inlineMessages
+  };
+  const [errorMessage, setErrorMessage] = useState(undefined);
+  const {
+    LoadingSpinner
+  } = useAnimatedComponents();
+  const style = StyleSheet.create({
+    container: {
+      flex: 1,
+      padding: 20,
+      backgroundColor: ColorPalette.brand.primaryBackground
+    },
+    loadingContainer: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      flex: 1
+    }
+  });
+  return /*#__PURE__*/React.createElement(SafeAreaModal, {
+    style: {
+      backgroundColor: ColorPalette.brand.primaryBackground
+    },
+    visible: visible,
+    transparent: false,
+    animationType: 'none',
+    presentationStyle: 'fullScreen',
+    statusBarTranslucent: true
+  }, /*#__PURE__*/React.createElement(SafeAreaView, {
+    edges: ['top'],
+    style: {
+      backgroundColor: NavigationTheme.colors.primary
+    }
+  }), /*#__PURE__*/React.createElement(FauxHeader, {
+    title: title,
+    onBackPressed: onBackPressed,
+    showBackButton: true
+  }), /*#__PURE__*/React.createElement(ScreenWrapper, {
+    keyboardActive: true
+  }, /*#__PURE__*/React.createElement(View, {
+    style: style.container
+  }, modalUsage === ConfirmPINModalUsage.PIN_CREATE && /*#__PURE__*/React.createElement(PINScreenTitleText, {
+    header: t('PINCreate.Header'),
+    subheader: t('PINCreate.Subheader')
+  }), /*#__PURE__*/React.createElement(PINHeader, null), /*#__PURE__*/React.createElement(PINInput, {
+    label: t('PINCreateConfirm.PINInputLabel'),
+    onPINChanged: async userPinInput => {
+      setPINTwo(userPinInput);
+      setErrorMessage(undefined);
+      if (userPinInput.length === PINOne.length) {
+        Keyboard.dismiss();
+        if (!comparePINEntries(PINOne, userPinInput)) setErrorMessage(customErrorMessage);else await onConfirmPIN(userPinInput);
+      }
+    },
+    testID: testIdWithKey('EnterPIN'),
+    accessibilityLabel: t('PINCreate.EnterPIN'),
+    autoFocus: false,
+    inlineMessage: errorMessage
+  }), isLoading && /*#__PURE__*/React.createElement(View, {
+    style: style.loadingContainer
+  }, /*#__PURE__*/React.createElement(LoadingSpinner, {
+    size: 50,
+    color: ColorPalette.brand.primary
+  })), (errorModalState === null || errorModalState === void 0 ? void 0 : errorModalState.visible) && /*#__PURE__*/React.createElement(AlertModal, {
+    title: errorModalState === null || errorModalState === void 0 ? void 0 : errorModalState.title,
+    message: errorModalState === null || errorModalState === void 0 ? void 0 : errorModalState.message,
+    submit: errorModalState === null || errorModalState === void 0 ? void 0 : errorModalState.onModalDismiss
+  }))));
+};
+export default ConfirmPINModal;
+//# sourceMappingURL=ConfirmPINModal.js.map

@@ -1,0 +1,2 @@
+
+//# sourceMappingURL=WalletCredential.js.map

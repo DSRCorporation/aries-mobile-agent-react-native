@@ -1,0 +1,1 @@
+{"version":3,"names":["React","WalletNameForm","NameWallet","createElement"],"sourceRoot":"../../../src","sources":["screens/NameWallet.tsx"],"mappings":"AAAA,OAAOA,KAAK,MAAM,OAAO;AAEzB,OAAOC,cAAc,MAAM,oCAAoC;AAE/D,MAAMC,UAAoB,GAAGA,CAAA,KAAM;EACjC,oBAAOF,KAAA,CAAAG,aAAA,CAACF,cAAc,MAAE,CAAC;AAC3B,CAAC;AAED,eAAeC,UAAU","ignoreList":[]}
