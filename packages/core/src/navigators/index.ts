@@ -9,6 +9,7 @@ import ProofRequestStack from './ProofRequestStack'
 import RootStack from './RootStack'
 import SettingStack from './SettingStack'
 import TabStack from './TabStack'
+import MainStack from './MainStack'
 import { useDefaultStackOptions } from './defaultStackOptions'
 
 export {
@@ -23,5 +24,6 @@ export {
   RootStack,
   SettingStack,
   TabStack,
+  MainStack,
   useDefaultStackOptions,
 }

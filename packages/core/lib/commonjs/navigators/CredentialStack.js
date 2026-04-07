@@ -36,6 +36,13 @@ const CredentialStack = () => {
       ...ScreenOptionsDictionary[_navigators.Screens.Credentials]
     })
   }), /*#__PURE__*/_react.default.createElement(Stack.Screen, {
+    name: _navigators.Screens.CredentialDetails,
+    component: CredentialDetails,
+    options: () => ({
+      title: t('Screens.CredentialDetails'),
+      ...ScreenOptionsDictionary[_navigators.Screens.JSONDetails]
+    })
+  }), /*#__PURE__*/_react.default.createElement(Stack.Screen, {
     name: _navigators.Screens.JSONDetails,
     component: _JSONDetails.default,
     options: () => ({

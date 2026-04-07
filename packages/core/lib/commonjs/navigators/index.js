@@ -33,6 +33,12 @@ Object.defineProperty(exports, "HomeStack", {
     return _HomeStack.default;
   }
 });
+Object.defineProperty(exports, "MainStack", {
+  enumerable: true,
+  get: function () {
+    return _MainStack.default;
+  }
+});
 Object.defineProperty(exports, "NotificationStack", {
   enumerable: true,
   get: function () {
@@ -86,6 +92,7 @@ var _ProofRequestStack = _interopRequireDefault(require("./ProofRequestStack"));
 var _RootStack = _interopRequireDefault(require("./RootStack"));
 var _SettingStack = _interopRequireDefault(require("./SettingStack"));
 var _TabStack = _interopRequireDefault(require("./TabStack"));
+var _MainStack = _interopRequireDefault(require("./MainStack"));
 var _defaultStackOptions = require("./defaultStackOptions");
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 //# sourceMappingURL=index.js.map

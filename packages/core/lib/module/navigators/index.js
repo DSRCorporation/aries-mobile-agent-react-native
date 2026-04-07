@@ -9,6 +9,7 @@ import ProofRequestStack from './ProofRequestStack';
 import RootStack from './RootStack';
 import SettingStack from './SettingStack';
 import TabStack from './TabStack';
+import MainStack from './MainStack';
 import { useDefaultStackOptions } from './defaultStackOptions';
-export { ConnectStack, ContactStack, CredentialStack, DeliveryStack, HomeStack, NotificationStack, OnboardingStack, ProofRequestStack, RootStack, SettingStack, TabStack, useDefaultStackOptions };
+export { ConnectStack, ContactStack, CredentialStack, DeliveryStack, HomeStack, NotificationStack, OnboardingStack, ProofRequestStack, RootStack, SettingStack, TabStack, MainStack, useDefaultStackOptions };
 //# sourceMappingURL=index.js.map

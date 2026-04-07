@@ -29,6 +29,13 @@ const CredentialStack = () => {
       ...ScreenOptionsDictionary[Screens.Credentials]
     })
   }), /*#__PURE__*/React.createElement(Stack.Screen, {
+    name: Screens.CredentialDetails,
+    component: CredentialDetails,
+    options: () => ({
+      title: t('Screens.CredentialDetails'),
+      ...ScreenOptionsDictionary[Screens.JSONDetails]
+    })
+  }), /*#__PURE__*/React.createElement(Stack.Screen, {
     name: Screens.JSONDetails,
     component: JSONDetails,
     options: () => ({

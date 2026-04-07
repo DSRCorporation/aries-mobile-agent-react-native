@@ -27,7 +27,6 @@ var _DeliveryStack = _interopRequireDefault(require("./DeliveryStack"));
 var _NotificationStack = _interopRequireDefault(require("./NotificationStack"));
 var _ProofRequestStack = _interopRequireDefault(require("./ProofRequestStack"));
 var _SettingStack = _interopRequireDefault(require("./SettingStack"));
-var _TabStack = _interopRequireDefault(require("./TabStack"));
 var _defaultStackOptions = require("./defaultStackOptions");
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
@@ -44,7 +43,7 @@ const MainStack = () => {
     agent
   } = (0, _reactHooks.useAgent)();
   const defaultStackOptions = (0, _defaultStackOptions.useDefaultStackOptions)(theme);
-  const [CustomNavStack1, ScreenOptionsDictionary, Chat, CredentialDetails] = (0, _containerApi.useServices)([_containerApi.TOKENS.CUSTOM_NAV_STACK_1, _containerApi.TOKENS.OBJECT_SCREEN_CONFIG, _containerApi.TOKENS.SCREEN_CHAT, _containerApi.TOKENS.SCREEN_CREDENTIAL_DETAILS]);
+  const [CustomNavStack1, ScreenOptionsDictionary, Chat, CredentialDetails, TabStack] = (0, _containerApi.useServices)([_containerApi.TOKENS.CUSTOM_NAV_STACK_1, _containerApi.TOKENS.OBJECT_SCREEN_CONFIG, _containerApi.TOKENS.SCREEN_CHAT, _containerApi.TOKENS.SCREEN_CREDENTIAL_DETAILS, _containerApi.TOKENS.STACK_TAB]);
   const declinedProofs = (0, _reactHooks.useProofByState)([_didcomm.DidCommProofState.Declined, _didcomm.DidCommProofState.Abandoned]);
   (0, _deepLinks.useDeepLinks)();
 
@@ -87,7 +86,7 @@ const MainStack = () => {
     }
   }, /*#__PURE__*/_react.default.createElement(Stack.Screen, {
     name: _navigators.Stacks.TabStack,
-    component: _TabStack.default
+    component: TabStack
   }), /*#__PURE__*/_react.default.createElement(Stack.Screen, {
     name: _navigators.Screens.CredentialDetails,
     component: CredentialDetails,

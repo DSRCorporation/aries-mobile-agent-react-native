@@ -23,7 +23,6 @@ import DeliveryStack from './DeliveryStack'
 import NotificationStack from './NotificationStack'
 import ProofRequestStack from './ProofRequestStack'
 import SettingStack from './SettingStack'
-import TabStack from './TabStack'
 import { useDefaultStackOptions } from './defaultStackOptions'
 
 const MainStack: React.FC = () => {
@@ -33,11 +32,12 @@ const MainStack: React.FC = () => {
   const [store] = useStore()
   const { agent } = useAgent()
   const defaultStackOptions = useDefaultStackOptions(theme)
-  const [CustomNavStack1, ScreenOptionsDictionary, Chat, CredentialDetails] = useServices([
+  const [CustomNavStack1, ScreenOptionsDictionary, Chat, CredentialDetails, TabStack] = useServices([
     TOKENS.CUSTOM_NAV_STACK_1,
     TOKENS.OBJECT_SCREEN_CONFIG,
     TOKENS.SCREEN_CHAT,
     TOKENS.SCREEN_CREDENTIAL_DETAILS,
+    TOKENS.STACK_TAB
   ])
   const declinedProofs = useProofByState([DidCommProofState.Declined, DidCommProofState.Abandoned])
   useDeepLinks()

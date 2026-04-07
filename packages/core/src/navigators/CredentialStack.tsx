@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next'
 
 import SettingsMenu from '../components/buttons/SettingsMenu'
 import { useTheme } from '../contexts/theme'
-import ListCredentials from '../screens/ListCredentials'
 import { CredentialStackParams, Screens } from '../types/navigators'
 import JSONDetails from '../screens/JSONDetails'
 
@@ -34,6 +33,14 @@ const CredentialStack: React.FC = () => {
           headerRight: () => <CredentialListHeaderRight />,
           headerLeft: () => <SettingsMenu />,
           ...ScreenOptionsDictionary[Screens.Credentials],
+        })}
+      />
+      <Stack.Screen
+        name={Screens.CredentialDetails}
+        component={CredentialDetails}
+        options={() => ({
+          title: t('Screens.CredentialDetails'),
+          ...ScreenOptionsDictionary[Screens.JSONDetails],
         })}
       />
       <Stack.Screen
