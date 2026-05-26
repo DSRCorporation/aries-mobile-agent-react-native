@@ -136,10 +136,15 @@ export class PersistentStorage<T> {
           return
         }
 
-        const parsedValue = JSON.parse(value)
+        try {
+          const parsedValue = JSON.parse(value)
 
-        // @ts-expect-error Fix complicated type error
-        this._state = { ...this._state, [key]: parsedValue }
+          // @ts-expect-error Fix complicated type error
+          this._state = { ...this._state, [key]: parsedValue }
+        }
+        catch (error) {
+          console.warn(`Error on parsing persisted state, key ${key}, value: ${value}. Skipping...`, error)
+        }
       })
     } catch (error) {
       this.log?.error('Error loading state', error as Error)

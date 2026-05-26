@@ -20,9 +20,9 @@ const NotificationStack = () => {
     t
   } = (0, _reactI18next.useTranslation)();
   const defaultStackOptions = (0, _defaultStackOptions.useDefaultStackOptions)(theme);
-  const [CredentialDetails, CredentialOffer, ProofRequest, {
+  const [CredentialDetails, CredentialOffer, ProofRequest, ProofDetails, {
     customNotificationConfig: customNotification
-  }, ScreenOptionsDictionary] = (0, _containerApi.useServices)([_containerApi.TOKENS.SCREEN_CREDENTIAL_DETAILS, _containerApi.TOKENS.SCREEN_CREDENTIAL_OFFER, _containerApi.TOKENS.SCREEN_PROOF_REQUEST, _containerApi.TOKENS.NOTIFICATIONS, _containerApi.TOKENS.OBJECT_SCREEN_CONFIG]);
+  }, ScreenOptionsDictionary] = (0, _containerApi.useServices)([_containerApi.TOKENS.SCREEN_CREDENTIAL_DETAILS, _containerApi.TOKENS.SCREEN_CREDENTIAL_OFFER, _containerApi.TOKENS.SCREEN_PROOF_REQUEST, _containerApi.TOKENS.SCREEN_PROOF_DETAILS, _containerApi.TOKENS.NOTIFICATIONS, _containerApi.TOKENS.OBJECT_SCREEN_CONFIG]);
   return /*#__PURE__*/_react.default.createElement(Stack.Navigator, {
     screenOptions: {
       ...defaultStackOptions
@@ -33,6 +33,27 @@ const NotificationStack = () => {
     options: {
       title: t('Screens.CredentialDetails'),
       ...ScreenOptionsDictionary[_navigators.Screens.CredentialDetails]
+    }
+  }), /*#__PURE__*/_react.default.createElement(Stack.Screen, {
+    name: _navigators.Screens.CredentialOffer,
+    component: CredentialOffer,
+    options: {
+      title: t('Screens.CredentialOffer'),
+      ...ScreenOptionsDictionary[_navigators.Screens.CredentialOffer]
+    }
+  }), /*#__PURE__*/_react.default.createElement(Stack.Screen, {
+    name: _navigators.Screens.ProofRequest,
+    component: ProofRequest,
+    options: {
+      title: t('Screens.ProofRequest'),
+      ...ScreenOptionsDictionary[_navigators.Screens.ProofRequest]
+    }
+  }), /*#__PURE__*/_react.default.createElement(Stack.Screen, {
+    name: _navigators.Screens.ProofDetails,
+    component: ProofDetails,
+    options: {
+      title: t('Screens.ProofDetails'),
+      ...ScreenOptionsDictionary[_navigators.Screens.ProofDetails]
     }
   }), customNotification && /*#__PURE__*/_react.default.createElement(Stack.Screen, {
     name: _navigators.Screens.CustomNotification,

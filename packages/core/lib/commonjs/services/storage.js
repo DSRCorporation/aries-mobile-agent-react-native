@@ -123,13 +123,17 @@ class PersistentStorage {
         if (value === null || value === undefined) {
           return;
         }
-        const parsedValue = JSON.parse(value);
+        try {
+          const parsedValue = JSON.parse(value);
 
-        // @ts-expect-error Fix complicated type error
-        this._state = {
-          ...this._state,
-          [key]: parsedValue
-        };
+          // @ts-expect-error Fix complicated type error
+          this._state = {
+            ...this._state,
+            [key]: parsedValue
+          };
+        } catch (error) {
+          console.warn(`Error on parsing persisted state, key ${key}, value: ${value}. Skipping...`, error);
+        }
       });
     } catch (error) {
       var _this$log5;

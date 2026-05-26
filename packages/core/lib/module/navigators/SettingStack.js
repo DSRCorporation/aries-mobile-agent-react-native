@@ -5,13 +5,10 @@ import { useTranslation } from 'react-i18next';
 import { useTheme } from '../contexts/theme';
 import HistorySettings from '../modules/history/ui/HistorySettings';
 import DataRetention from '../screens/DataRetention';
-import Language from '../screens/Language';
 import RenameWallet from '../screens/RenameWallet';
-import Onboarding from '../screens/Onboarding';
 import { createCarouselStyle } from '../screens/OnboardingPages';
 import PINChange from '../screens/PINChange';
 import TogglePushNotifications from '../screens/TogglePushNotifications';
-import Settings from '../screens/Settings';
 import Tours from '../screens/Tours';
 import AutoLock from '../screens/AutoLock';
 import ConfigureMediator from '../screens/ConfigureMediator';
@@ -28,7 +25,7 @@ const SettingStack = () => {
   } = useTranslation();
   const [pages, {
     screen: terms
-  }, ToggleBiometry, developer, ScreenOptionsDictionary] = useServices([TOKENS.SCREEN_ONBOARDING_PAGES, TOKENS.SCREEN_TERMS, TOKENS.SCREEN_TOGGLE_BIOMETRY, TOKENS.SCREEN_DEVELOPER, TOKENS.OBJECT_SCREEN_CONFIG]);
+  }, ToggleBiometry, developer, Settings, Language, Onboarding, PINCreate, ScreenOptionsDictionary] = useServices([TOKENS.SCREEN_ONBOARDING_PAGES, TOKENS.SCREEN_TERMS, TOKENS.SCREEN_TOGGLE_BIOMETRY, TOKENS.SCREEN_DEVELOPER, TOKENS.SCREEN_SETTINGS, TOKENS.SCREEN_LANGUAGE, TOKENS.SCREEN_ONBOARDING, TOKENS.SCREEN_PIN_CREATE, TOKENS.OBJECT_SCREEN_CONFIG]);
   const defaultStackOptions = useDefaultStackOptions(theme);
   const OnboardingTheme = theme.OnboardingTheme;
   const carousel = createCarouselStyle(OnboardingTheme);
@@ -109,6 +106,16 @@ const SettingStack = () => {
       ...ScreenOptionsDictionary[Screens.ChangePIN]
     }
   }), /*#__PURE__*/React.createElement(Stack.Screen, {
+    /* @ts-expect-error - ignore screens dictionary */
+    name: Screens.CreatePIN
+    /* @ts-expect-error - ignore screens dictionary */,
+    component: PINCreate,
+    options: {
+      title: t('Screens.ChangePIN'),
+      headerBackTestID: testIdWithKey('Back'),
+      ...ScreenOptionsDictionary[Screens.CreatePIN]
+    }
+  }), /*#__PURE__*/React.createElement(Stack.Screen, {
     name: Screens.ChangePINSuccess,
     component: PINChangeSuccessScreen,
     options: {
@@ -144,7 +151,8 @@ const SettingStack = () => {
   }), /*#__PURE__*/React.createElement(Stack.Screen, {
     name: Screens.Onboarding,
     options: {
-      title: t('Screens.Onboarding')
+      title: t('Screens.Onboarding'),
+      headerShown: false
     }
   }, props => /*#__PURE__*/React.createElement(Onboarding, _extends({}, props, {
     nextButtonText: t('Global.Next'),

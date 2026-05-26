@@ -13,9 +13,9 @@ const NotificationStack = () => {
     t
   } = useTranslation();
   const defaultStackOptions = useDefaultStackOptions(theme);
-  const [CredentialDetails, CredentialOffer, ProofRequest, {
+  const [CredentialDetails, CredentialOffer, ProofRequest, ProofDetails, {
     customNotificationConfig: customNotification
-  }, ScreenOptionsDictionary] = useServices([TOKENS.SCREEN_CREDENTIAL_DETAILS, TOKENS.SCREEN_CREDENTIAL_OFFER, TOKENS.SCREEN_PROOF_REQUEST, TOKENS.NOTIFICATIONS, TOKENS.OBJECT_SCREEN_CONFIG]);
+  }, ScreenOptionsDictionary] = useServices([TOKENS.SCREEN_CREDENTIAL_DETAILS, TOKENS.SCREEN_CREDENTIAL_OFFER, TOKENS.SCREEN_PROOF_REQUEST, TOKENS.SCREEN_PROOF_DETAILS, TOKENS.NOTIFICATIONS, TOKENS.OBJECT_SCREEN_CONFIG]);
   return /*#__PURE__*/React.createElement(Stack.Navigator, {
     screenOptions: {
       ...defaultStackOptions
@@ -26,6 +26,27 @@ const NotificationStack = () => {
     options: {
       title: t('Screens.CredentialDetails'),
       ...ScreenOptionsDictionary[Screens.CredentialDetails]
+    }
+  }), /*#__PURE__*/React.createElement(Stack.Screen, {
+    name: Screens.CredentialOffer,
+    component: CredentialOffer,
+    options: {
+      title: t('Screens.CredentialOffer'),
+      ...ScreenOptionsDictionary[Screens.CredentialOffer]
+    }
+  }), /*#__PURE__*/React.createElement(Stack.Screen, {
+    name: Screens.ProofRequest,
+    component: ProofRequest,
+    options: {
+      title: t('Screens.ProofRequest'),
+      ...ScreenOptionsDictionary[Screens.ProofRequest]
+    }
+  }), /*#__PURE__*/React.createElement(Stack.Screen, {
+    name: Screens.ProofDetails,
+    component: ProofDetails,
+    options: {
+      title: t('Screens.ProofDetails'),
+      ...ScreenOptionsDictionary[Screens.ProofDetails]
     }
   }), customNotification && /*#__PURE__*/React.createElement(Stack.Screen, {
     name: Screens.CustomNotification,

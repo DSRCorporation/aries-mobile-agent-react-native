@@ -15,8 +15,8 @@ const NotificationStack: React.FC = () => {
 
   const defaultStackOptions = useDefaultStackOptions(theme)
 
-  const [CredentialDetails, CredentialOffer, ProofRequest, { customNotificationConfig: customNotification }, ScreenOptionsDictionary] = useServices([
-    TOKENS.SCREEN_CREDENTIAL_DETAILS, TOKENS.SCREEN_CREDENTIAL_OFFER, TOKENS.SCREEN_PROOF_REQUEST,  TOKENS.NOTIFICATIONS,
+  const [CredentialDetails, CredentialOffer, ProofRequest, ProofDetails, { customNotificationConfig: customNotification }, ScreenOptionsDictionary] = useServices([
+    TOKENS.SCREEN_CREDENTIAL_DETAILS, TOKENS.SCREEN_CREDENTIAL_OFFER, TOKENS.SCREEN_PROOF_REQUEST, TOKENS.SCREEN_PROOF_DETAILS,  TOKENS.NOTIFICATIONS,
     TOKENS.OBJECT_SCREEN_CONFIG,
   ])
 
@@ -28,6 +28,30 @@ const NotificationStack: React.FC = () => {
         options={{
           title: t('Screens.CredentialDetails'),
           ...ScreenOptionsDictionary[Screens.CredentialDetails],
+        }}
+      />
+      <Stack.Screen
+        name={Screens.CredentialOffer}
+        component={CredentialOffer}
+        options={{
+          title: t('Screens.CredentialOffer'),
+          ...ScreenOptionsDictionary[Screens.CredentialOffer],
+        }}
+      />
+      <Stack.Screen
+        name={Screens.ProofRequest}
+        component={ProofRequest}
+        options={{
+          title: t('Screens.ProofRequest'),
+          ...ScreenOptionsDictionary[Screens.ProofRequest],
+        }}
+      />
+      <Stack.Screen
+        name={Screens.ProofDetails}
+        component={ProofDetails}
+        options={{
+          title: t('Screens.ProofDetails'),
+          ...ScreenOptionsDictionary[Screens.ProofDetails],
         }}
       />
       {customNotification && (

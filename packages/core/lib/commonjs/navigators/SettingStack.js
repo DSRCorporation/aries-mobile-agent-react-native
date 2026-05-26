@@ -10,13 +10,10 @@ var _reactI18next = require("react-i18next");
 var _theme = require("../contexts/theme");
 var _HistorySettings = _interopRequireDefault(require("../modules/history/ui/HistorySettings"));
 var _DataRetention = _interopRequireDefault(require("../screens/DataRetention"));
-var _Language = _interopRequireDefault(require("../screens/Language"));
 var _RenameWallet = _interopRequireDefault(require("../screens/RenameWallet"));
-var _Onboarding = _interopRequireDefault(require("../screens/Onboarding"));
 var _OnboardingPages = require("../screens/OnboardingPages");
 var _PINChange = _interopRequireDefault(require("../screens/PINChange"));
 var _TogglePushNotifications = _interopRequireDefault(require("../screens/TogglePushNotifications"));
-var _Settings = _interopRequireDefault(require("../screens/Settings"));
 var _Tours = _interopRequireDefault(require("../screens/Tours"));
 var _AutoLock = _interopRequireDefault(require("../screens/AutoLock"));
 var _ConfigureMediator = _interopRequireDefault(require("../screens/ConfigureMediator"));
@@ -35,7 +32,7 @@ const SettingStack = () => {
   } = (0, _reactI18next.useTranslation)();
   const [pages, {
     screen: terms
-  }, ToggleBiometry, developer, ScreenOptionsDictionary] = (0, _containerApi.useServices)([_containerApi.TOKENS.SCREEN_ONBOARDING_PAGES, _containerApi.TOKENS.SCREEN_TERMS, _containerApi.TOKENS.SCREEN_TOGGLE_BIOMETRY, _containerApi.TOKENS.SCREEN_DEVELOPER, _containerApi.TOKENS.OBJECT_SCREEN_CONFIG]);
+  }, ToggleBiometry, developer, Settings, Language, Onboarding, PINCreate, ScreenOptionsDictionary] = (0, _containerApi.useServices)([_containerApi.TOKENS.SCREEN_ONBOARDING_PAGES, _containerApi.TOKENS.SCREEN_TERMS, _containerApi.TOKENS.SCREEN_TOGGLE_BIOMETRY, _containerApi.TOKENS.SCREEN_DEVELOPER, _containerApi.TOKENS.SCREEN_SETTINGS, _containerApi.TOKENS.SCREEN_LANGUAGE, _containerApi.TOKENS.SCREEN_ONBOARDING, _containerApi.TOKENS.SCREEN_PIN_CREATE, _containerApi.TOKENS.OBJECT_SCREEN_CONFIG]);
   const defaultStackOptions = (0, _defaultStackOptions.useDefaultStackOptions)(theme);
   const OnboardingTheme = theme.OnboardingTheme;
   const carousel = (0, _OnboardingPages.createCarouselStyle)(OnboardingTheme);
@@ -45,7 +42,7 @@ const SettingStack = () => {
     }
   }, /*#__PURE__*/_react.default.createElement(Stack.Screen, {
     name: _navigators.Screens.Settings,
-    component: _Settings.default,
+    component: Settings,
     options: {
       title: t('Screens.Settings'),
       headerBackTestID: (0, _testable.testIdWithKey)('Back'),
@@ -61,7 +58,7 @@ const SettingStack = () => {
     }
   }), /*#__PURE__*/_react.default.createElement(Stack.Screen, {
     name: _navigators.Screens.Language,
-    component: _Language.default,
+    component: Language,
     options: {
       title: t('Screens.Language'),
       headerBackTestID: (0, _testable.testIdWithKey)('Back'),
@@ -116,6 +113,16 @@ const SettingStack = () => {
       ...ScreenOptionsDictionary[_navigators.Screens.ChangePIN]
     }
   }), /*#__PURE__*/_react.default.createElement(Stack.Screen, {
+    /* @ts-expect-error - ignore screens dictionary */
+    name: _navigators.Screens.CreatePIN
+    /* @ts-expect-error - ignore screens dictionary */,
+    component: PINCreate,
+    options: {
+      title: t('Screens.ChangePIN'),
+      headerBackTestID: (0, _testable.testIdWithKey)('Back'),
+      ...ScreenOptionsDictionary[_navigators.Screens.CreatePIN]
+    }
+  }), /*#__PURE__*/_react.default.createElement(Stack.Screen, {
     name: _navigators.Screens.ChangePINSuccess,
     component: _PINChangeSuccess.default,
     options: {
@@ -151,9 +158,10 @@ const SettingStack = () => {
   }), /*#__PURE__*/_react.default.createElement(Stack.Screen, {
     name: _navigators.Screens.Onboarding,
     options: {
-      title: t('Screens.Onboarding')
+      title: t('Screens.Onboarding'),
+      headerShown: false
     }
-  }, props => /*#__PURE__*/_react.default.createElement(_Onboarding.default, _extends({}, props, {
+  }, props => /*#__PURE__*/_react.default.createElement(Onboarding, _extends({}, props, {
     nextButtonText: t('Global.Next'),
     previousButtonText: t('Global.Back'),
     pages: pages(() => null, OnboardingTheme),
