@@ -1,5 +1,12 @@
 # Change Log
 
+## 4.0.0
+
+### Patch Changes
+
+- Updated dependencies [fc4eeb1]
+  - @bifold/core@4.0.0
+
 ## 3.0.14
 
 ### Patch Changes
