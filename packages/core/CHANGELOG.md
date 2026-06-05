@@ -1,5 +1,17 @@
 # @bifold/core
 
+## 4.0.0
+
+### Minor Changes
+
+- fc4eeb1: Export `FileCache` and `CacheDataFile` from `@bifold/core` so downstream packages can subclass `FileCache` without duplicating the implementation.
+
+  Also corrects `CacheDataFile.updatedAt` from `Date` to `string` — `JSON.parse` returns a string and the previous type was inaccurate.
+
+### Patch Changes
+
+- @bifold/react-hooks@4.0.0
+
 ## 3.0.14
 
 ### Patch Changes
