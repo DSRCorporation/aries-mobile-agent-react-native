@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.AbstractBifoldLogger = void 0;
 var _core = require("@credo-ts/core");
 class AbstractBifoldLogger extends _core.BaseLogger {
-  logLevel = _core.LogLevel.debug;
+  logLevel = _core.LogLevel.Debug;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
   _config = {

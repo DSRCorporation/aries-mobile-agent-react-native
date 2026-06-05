@@ -14,12 +14,15 @@ module.exports = {
     '^uuid$': require.resolve('uuid'),
     '^@bifold/oca$': '<rootDir>/../oca/src/index.ts',
     '^@bifold/verifier$': '<rootDir>/../verifier/src/index.ts',
+    // @verifiables/request-converter is ESM-only (exports.import, no require condition),
+    // so Jest's CJS resolver can't find it — point it at the file and let babel transform it.
+    '^@verifiables/request-converter$': '<rootDir>/node_modules/@verifiables/request-converter/dist/index.js',
   },
   transform: {
     '^.+\\.(js|jsx|ts|tsx|mjs)$': 'babel-jest',
   },
   transformIgnorePatterns: [
-    'node_modules/(?!(.*react-native.*|@credo-ts|@openid4vc|@noble|@stablelib|@digitalcredentials|dcql|valibot|query-string|decode-uri-component|filter-obj|split-on-first|uuid|@bifold)/)',
+    'node_modules/(?!(.*react-native.*|@credo-ts|@openid4vc|@owf|@verifiables|@noble|@scure|@stablelib|@digitalcredentials|cbor-x|dcql|valibot|query-string|decode-uri-component|filter-obj|split-on-first|uuid|@bifold)/)',
   ],
   testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.[jt]sx?$',
   testPathIgnorePatterns: [

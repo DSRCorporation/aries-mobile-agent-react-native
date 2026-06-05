@@ -1,6 +1,6 @@
 import { BaseLogger, LogLevel } from '@credo-ts/core';
 export class AbstractBifoldLogger extends BaseLogger {
-  logLevel = LogLevel.debug;
+  logLevel = LogLevel.Debug;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
   _config = {

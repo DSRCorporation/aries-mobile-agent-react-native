@@ -80,7 +80,7 @@ const AuthProvider = ({
       }
       const validationAgent = new _core.Agent({
         config: {
-          logger: new _core.ConsoleLogger(_core.LogLevel.off),
+          logger: new _core.ConsoleLogger(_core.LogLevel.Off),
           autoUpdateStorageOnStartup: false
         },
         modules: {

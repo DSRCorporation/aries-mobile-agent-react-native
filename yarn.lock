@@ -2004,16 +2004,16 @@ __metadata:
     "@bifold/oca": "npm:3.0.14"
     "@bifold/react-hooks": "npm:3.0.14"
     "@bifold/verifier": "npm:3.0.14"
-    "@credo-ts/anoncreds": "npm:0.6.3"
-    "@credo-ts/askar": "npm:0.6.3"
-    "@credo-ts/core": "npm:0.6.3"
-    "@credo-ts/didcomm": "npm:0.6.3"
-    "@credo-ts/indy-vdr": "npm:0.6.3"
-    "@credo-ts/openid4vc": "npm:0.6.3"
+    "@credo-ts/anoncreds": "npm:0.7.0"
+    "@credo-ts/askar": "npm:0.7.0"
+    "@credo-ts/core": "npm:0.7.0"
+    "@credo-ts/didcomm": "npm:0.7.0"
+    "@credo-ts/indy-vdr": "npm:0.7.0"
+    "@credo-ts/openid4vc": "npm:0.7.0"
     "@credo-ts/push-notifications": "npm:0.7.1"
-    "@credo-ts/question-answer": "npm:0.6.3"
-    "@credo-ts/react-native": "npm:0.6.3"
-    "@credo-ts/webvh": "npm:0.6.3"
+    "@credo-ts/question-answer": "npm:0.7.0"
+    "@credo-ts/react-native": "npm:0.7.0"
+    "@credo-ts/webvh": "npm:0.7.0"
     "@expo/app-integrity": "npm:^55.0.9"
     "@formatjs/intl-datetimeformat": "npm:~6.18.2"
     "@formatjs/intl-displaynames": "npm:~6.8.13"
@@ -2023,9 +2023,9 @@ __metadata:
     "@formatjs/intl-numberformat": "npm:~8.15.6"
     "@formatjs/intl-pluralrules": "npm:~5.4.6"
     "@formatjs/intl-relativetimeformat": "npm:~11.4.13"
-    "@hyperledger/anoncreds-react-native": "npm:0.3.4"
-    "@hyperledger/indy-vdr-react-native": "npm:0.2.4"
-    "@hyperledger/indy-vdr-shared": "npm:0.2.3"
+    "@hyperledger/anoncreds-react-native": "npm:0.4.0"
+    "@hyperledger/indy-vdr-react-native": "npm:0.3.0"
+    "@hyperledger/indy-vdr-shared": "npm:0.3.0"
     "@openwallet-foundation/askar-react-native": "npm:0.6.0"
     "@openwallet-foundation/askar-shared": "npm:0.6.0"
     "@react-native-async-storage/async-storage": "npm:~2.2.0"
@@ -2113,16 +2113,16 @@ __metadata:
   peerDependencies:
     "@animo-id/expo-secure-environment": 0.1.5
     "@bifold/react-hooks": 3.0.14
-    "@credo-ts/anoncreds": 0.6.3
-    "@credo-ts/askar": 0.6.3
-    "@credo-ts/core": 0.6.3
-    "@credo-ts/didcomm": 0.6.3
-    "@credo-ts/indy-vdr": 0.6.3
-    "@credo-ts/openid4vc": 0.6.3
+    "@credo-ts/anoncreds": 0.7.0
+    "@credo-ts/askar": 0.7.0
+    "@credo-ts/core": 0.7.0
+    "@credo-ts/didcomm": 0.7.0
+    "@credo-ts/indy-vdr": 0.7.0
+    "@credo-ts/openid4vc": 0.7.0
     "@credo-ts/push-notifications": 0.7.1
-    "@credo-ts/question-answer": 0.6.3
-    "@credo-ts/react-native": 0.6.3
-    "@credo-ts/webvh": 0.6.3
+    "@credo-ts/question-answer": 0.7.0
+    "@credo-ts/react-native": 0.7.0
+    "@credo-ts/webvh": 0.7.0
     "@formatjs/intl-datetimeformat": ~6.18.2
     "@formatjs/intl-displaynames": ~6.8.13
     "@formatjs/intl-getcanonicallocales": ~2.5.6
@@ -2131,9 +2131,9 @@ __metadata:
     "@formatjs/intl-numberformat": ~8.15.6
     "@formatjs/intl-pluralrules": ~5.4.6
     "@formatjs/intl-relativetimeformat": ~11.4.13
-    "@hyperledger/anoncreds-react-native": 0.3.4
-    "@hyperledger/indy-vdr-react-native": 0.2.4
-    "@hyperledger/indy-vdr-shared": 0.2.3
+    "@hyperledger/anoncreds-react-native": 0.4.0
+    "@hyperledger/indy-vdr-react-native": 0.3.0
+    "@hyperledger/indy-vdr-shared": 0.3.0
     "@openwallet-foundation/askar-react-native": 0.6.0
     "@react-native-async-storage/async-storage": ~2.2.0
     "@react-native-clipboard/clipboard": ~1.16.3
@@ -2192,9 +2192,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@bifold/oca@workspace:packages/oca"
   dependencies:
-    "@credo-ts/anoncreds": "npm:0.6.3"
-    "@credo-ts/core": "npm:0.6.3"
-    "@credo-ts/didcomm": "npm:0.6.3"
+    "@credo-ts/anoncreds": "npm:0.7.0"
+    "@credo-ts/core": "npm:0.7.0"
+    "@credo-ts/didcomm": "npm:0.7.0"
     "@testing-library/jest-native": "npm:~5.4.3"
     "@types/jest": "npm:~29.5.14"
     "@types/lodash.startcase": "npm:~4.4.9"
@@ -2215,9 +2215,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@bifold/react-hooks@workspace:packages/react-hooks"
   dependencies:
-    "@credo-ts/core": "npm:0.6.3"
-    "@credo-ts/didcomm": "npm:0.6.3"
-    "@credo-ts/question-answer": "npm:0.6.3"
+    "@credo-ts/core": "npm:0.7.0"
+    "@credo-ts/didcomm": "npm:0.7.0"
+    "@credo-ts/question-answer": "npm:0.7.0"
     "@jest/types": "npm:^29.6.3"
     "@types/jest": "npm:^29.5.12"
     "@types/react": "npm:^18.2.14"
@@ -2227,9 +2227,9 @@ __metadata:
     ts-jest: "npm:^29.2.5"
     typescript: "npm:~5.3.3"
   peerDependencies:
-    "@credo-ts/core": 0.6.3
-    "@credo-ts/didcomm": 0.6.3
-    "@credo-ts/question-answer": 0.6.3
+    "@credo-ts/core": 0.7.0
+    "@credo-ts/didcomm": 0.7.0
+    "@credo-ts/question-answer": 0.7.0
     react: ">=17.0.0 <19.0.0"
   bin:
     bifold: bin/bifold
@@ -2279,7 +2279,7 @@ __metadata:
     "@babel/preset-typescript": "npm:~7.28.5"
     "@babel/runtime": "npm:~7.28.6"
     "@bifold/core": "npm:3.0.14"
-    "@credo-ts/core": "npm:0.6.3"
+    "@credo-ts/core": "npm:0.7.0"
     "@types/jest": "npm:~29.5.12"
     "@typescript-eslint/parser": "npm:~7.18.0"
     axios: "npm:~1.13.2"
@@ -2295,7 +2295,7 @@ __metadata:
     rimraf: "npm:~5.0.10"
     typescript: "npm:~5.9.2"
   peerDependencies:
-    "@credo-ts/core": 0.6.3
+    "@credo-ts/core": 0.7.0
     axios: ~1.13.2
     buffer: ~6.0.3
     react: ~19.1.4
@@ -2310,10 +2310,10 @@ __metadata:
   dependencies:
     "@babel/core": "npm:~7.28.6"
     "@bifold/react-hooks": "npm:3.0.14"
-    "@credo-ts/anoncreds": "npm:0.6.3"
-    "@credo-ts/core": "npm:0.6.3"
-    "@credo-ts/didcomm": "npm:0.6.3"
-    "@hyperledger/anoncreds-shared": "npm:0.3.4"
+    "@credo-ts/anoncreds": "npm:0.7.0"
+    "@credo-ts/core": "npm:0.7.0"
+    "@credo-ts/didcomm": "npm:0.7.0"
+    "@hyperledger/anoncreds-shared": "npm:0.4.0"
     "@react-native/babel-preset": "npm:~0.81.5"
     "@types/jest": "npm:~29.5.14"
     "@types/react": "npm:~19.1.9"
@@ -2326,12 +2326,54 @@ __metadata:
     typescript: "npm:~5.9.2"
   peerDependencies:
     "@bifold/react-hooks": 3.0.14
-    "@credo-ts/anoncreds": 0.6.3
-    "@credo-ts/core": 0.6.3
-    "@hyperledger/anoncreds-shared": 0.3.4
+    "@credo-ts/anoncreds": 0.7.0
+    "@credo-ts/core": 0.7.0
+    "@hyperledger/anoncreds-shared": 0.4.0
     react: ~19.1.4
   languageName: unknown
   linkType: soft
+
+"@cbor-extract/cbor-extract-darwin-arm64@npm:2.2.2":
+  version: 2.2.2
+  resolution: "@cbor-extract/cbor-extract-darwin-arm64@npm:2.2.2"
+  conditions: os=darwin & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@cbor-extract/cbor-extract-darwin-x64@npm:2.2.2":
+  version: 2.2.2
+  resolution: "@cbor-extract/cbor-extract-darwin-x64@npm:2.2.2"
+  conditions: os=darwin & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@cbor-extract/cbor-extract-linux-arm64@npm:2.2.2":
+  version: 2.2.2
+  resolution: "@cbor-extract/cbor-extract-linux-arm64@npm:2.2.2"
+  conditions: os=linux & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@cbor-extract/cbor-extract-linux-arm@npm:2.2.2":
+  version: 2.2.2
+  resolution: "@cbor-extract/cbor-extract-linux-arm@npm:2.2.2"
+  conditions: os=linux & cpu=arm
+  languageName: node
+  linkType: hard
+
+"@cbor-extract/cbor-extract-linux-x64@npm:2.2.2":
+  version: 2.2.2
+  resolution: "@cbor-extract/cbor-extract-linux-x64@npm:2.2.2"
+  conditions: os=linux & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@cbor-extract/cbor-extract-win32-x64@npm:2.2.2":
+  version: 2.2.2
+  resolution: "@cbor-extract/cbor-extract-win32-x64@npm:2.2.2"
+  conditions: os=win32 & cpu=x64
+  languageName: node
+  linkType: hard
 
 "@changesets/apply-release-plan@npm:^7.0.14":
   version: 7.0.14
@@ -2774,43 +2816,42 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@credo-ts/anoncreds@npm:0.6.3":
-  version: 0.6.3
-  resolution: "@credo-ts/anoncreds@npm:0.6.3"
+"@credo-ts/anoncreds@npm:0.7.0":
+  version: 0.7.0
+  resolution: "@credo-ts/anoncreds@npm:0.7.0"
   dependencies:
     "@astronautlabs/jsonpath": "npm:^1.1.2"
-    "@credo-ts/core": "npm:0.6.3"
-    "@credo-ts/didcomm": "npm:0.6.3"
+    "@credo-ts/core": "npm:0.7.0"
+    "@credo-ts/didcomm": "npm:0.7.0"
     "@sphereon/pex-models": "npm:^2.3.2"
     class-transformer: "npm:0.5.1"
     class-validator: "npm:^0.14.3"
     reflect-metadata: "npm:0.2.2"
   peerDependencies:
-    "@hyperledger/anoncreds-shared": ^0.3.4
-  checksum: 10c0/a9897f2a8bc71e6d36b6527d985f12d6fbee5a0e33de9a96323b13c7b9821e2b8d418ee04ec03a84b7d7a3ed171f9c58cb9441481b040f5e6a567d07a4da32e5
+    "@hyperledger/anoncreds-shared": ^0.4.0
+  checksum: 10c0/6dbc5bdbbba2a1cc32de7909fbab7f1a605523eed9417cb05bede0b211821cafe6048c81f4895079336ab597e1a7b7601ed885c28fa8aebfee9ff6e6304de2ed
   languageName: node
   linkType: hard
 
-"@credo-ts/askar@npm:0.6.3":
-  version: 0.6.3
-  resolution: "@credo-ts/askar@npm:0.6.3"
+"@credo-ts/askar@npm:0.7.0":
+  version: 0.7.0
+  resolution: "@credo-ts/askar@npm:0.7.0"
   dependencies:
-    "@credo-ts/core": "npm:0.6.3"
+    "@credo-ts/core": "npm:0.7.0"
     class-transformer: "npm:0.5.1"
     class-validator: "npm:^0.14.3"
     rxjs: "npm:^7.8.2"
     tsyringe: "npm:^4.10.0"
   peerDependencies:
-    "@openwallet-foundation/askar-shared": ^0.4.3
-  checksum: 10c0/42ceff70826656a511b65146e989b127b31aa0db2203e9c11224717e1d3fcd361ce2d76a1238d458aeab14b323944382a042792ab7dd0194ecc3fec89d389f76
+    "@openwallet-foundation/askar-shared": ^0.4.3 || ^0.5.0 || ^0.6.0
+  checksum: 10c0/2d4ce540e5b03f8c507c4ec3b3ce3400aa6429c69ee44977a53636fa11fef25ab3dcc8eb272e4901026acb265ea9f67272d865311f2772849209d80f96fc6491
   languageName: node
   linkType: hard
 
-"@credo-ts/core@npm:0.6.3":
-  version: 0.6.3
-  resolution: "@credo-ts/core@npm:0.6.3"
+"@credo-ts/core@npm:0.7.0":
+  version: 0.7.0
+  resolution: "@credo-ts/core@npm:0.7.0"
   dependencies:
-    "@animo-id/mdoc": "npm:^0.5.2"
     "@animo-id/pex": "npm:^6.1.1"
     "@astronautlabs/jsonpath": "npm:^1.1.2"
     "@digitalcredentials/jsonld": "npm:^9.0.0"
@@ -2819,11 +2860,13 @@ __metadata:
     "@multiformats/base-x": "npm:^4.0.1"
     "@noble/curves": "npm:^2.0.1"
     "@noble/hashes": "npm:^2.0.1"
+    "@owf/mdoc": "npm:^0.6.0"
     "@peculiar/asn1-ecc": "npm:^2.6.0"
     "@peculiar/asn1-rsa": "npm:^2.6.0"
     "@peculiar/asn1-schema": "npm:^2.6.0"
-    "@peculiar/asn1-x509": "npm:^2.6.0"
+    "@peculiar/asn1-x509": "npm:^2.6.1"
     "@peculiar/x509": "npm:^1.14.3"
+    "@scure/base": "npm:^2.0.0"
     "@sd-jwt/core": "npm:^0.19.0"
     "@sd-jwt/decode": "npm:^0.19.0"
     "@sd-jwt/jwt-status-list": "npm:^0.19.0"
@@ -2835,7 +2878,7 @@ __metadata:
     "@sphereon/ssi-types": "npm:0.33.0"
     "@stablelib/ed25519": "npm:^2.0.2"
     "@types/ws": "npm:^8.18.1"
-    buffer: "npm:^6.0.3"
+    "@verifiables/request-converter": "npm:^0.2.0"
     class-transformer: "npm:0.5.1"
     class-validator: "npm:^0.14.3"
     dcql: "npm:^3.0.0"
@@ -2852,41 +2895,41 @@ __metadata:
     web-did-resolver: "npm:^2.0.32"
     webcrypto-core: "npm:^1.8.1"
     zod: "npm:^4.3.6"
-  checksum: 10c0/736ac6955e6b989184eea37c3fc82202408bcc885026e4aff76481f7f89a3d78c25b85fc31e62d1cc7aadb7df8a72084bf9bd158c304c8205a9e9121a5636f87
+  checksum: 10c0/37c664f5a2028235aa1599f61f0b06483788be148084dfcf455dc08492d1c13503338bd676c31f1d6b14295e2c387a078fd7dd78e723386f7128e3e564ec2ce9
   languageName: node
   linkType: hard
 
-"@credo-ts/didcomm@npm:0.6.3":
-  version: 0.6.3
-  resolution: "@credo-ts/didcomm@npm:0.6.3"
+"@credo-ts/didcomm@npm:0.7.0":
+  version: 0.7.0
+  resolution: "@credo-ts/didcomm@npm:0.7.0"
   dependencies:
-    "@credo-ts/core": "npm:0.6.3"
+    "@credo-ts/core": "npm:0.7.0"
     class-transformer: "npm:0.5.1"
     class-validator: "npm:^0.14.3"
     luxon: "npm:^3.7.2"
     query-string: "npm:^9.3.1"
     rxjs: "npm:^7.8.2"
-  checksum: 10c0/f7e10dddafca428c9aa8a910cb681bab9842c6934f61083f3bc9d6133e2e2f754063596326cf49b3f48658972757d7af6ab3deb3082531543bb62b80c33f36b3
+  checksum: 10c0/079b5b440bceb9c8a62abf9de3f10f90e29f6288a35dd43fc9c949531cde875afc95fa35cac5198dd64d4c4ce0b9abf9c484f205a1257d224d8f37c64fd23382
   languageName: node
   linkType: hard
 
-"@credo-ts/indy-vdr@npm:0.6.3":
-  version: 0.6.3
-  resolution: "@credo-ts/indy-vdr@npm:0.6.3"
+"@credo-ts/indy-vdr@npm:0.7.0":
+  version: 0.7.0
+  resolution: "@credo-ts/indy-vdr@npm:0.7.0"
   dependencies:
-    "@credo-ts/anoncreds": "npm:0.6.3"
-    "@credo-ts/core": "npm:0.6.3"
+    "@credo-ts/anoncreds": "npm:0.7.0"
+    "@credo-ts/core": "npm:0.7.0"
   peerDependencies:
-    "@hyperledger/indy-vdr-shared": ^0.2.3
-  checksum: 10c0/71d200356bf763a5fd49a5da612341635073c56ec540b2042eb1a563ad01fc27269fbd26545ecec265559a9c7de669076502bdf883bc007a066b7f30469c2917
+    "@hyperledger/indy-vdr-shared": ^0.3.0
+  checksum: 10c0/9f6a4f8f8aafa65bec3d76dfa7b9c9e0332698a2f9be4ccb603426a68236bc78ddd4812751d01351a821d667a8b11e37d3000b31716a75ce9ff7be7a58e012d3
   languageName: node
   linkType: hard
 
-"@credo-ts/openid4vc@npm:0.6.3":
-  version: 0.6.3
-  resolution: "@credo-ts/openid4vc@npm:0.6.3"
+"@credo-ts/openid4vc@npm:0.7.0":
+  version: 0.7.0
+  resolution: "@credo-ts/openid4vc@npm:0.7.0"
   dependencies:
-    "@credo-ts/core": "npm:0.6.3"
+    "@credo-ts/core": "npm:0.7.0"
     "@openid4vc/oauth2": "npm:^0.4.6"
     "@openid4vc/openid4vci": "npm:^0.4.6"
     "@openid4vc/openid4vp": "npm:^0.4.6"
@@ -2896,7 +2939,7 @@ __metadata:
     express: "npm:^5.2.1"
     rxjs: "npm:^7.8.2"
     zod: "npm:^4.3.6"
-  checksum: 10c0/64ba14d9acacf35fd4b4dc3bbb58c30624309f8faedfda98fd9baefcbb95450932ac8be9d5891f8da0c19606cfdbccfcb627ad535c034704757172eccd970f9e
+  checksum: 10c0/be05c05d223bd178b0da9c9657825bbcb45aa0ca29d4c9cf1d76764b490ccf6d6bec6af1c9ea19866fe6366d2f1c048eeb728eb0ba75a6137899ed7265b47c25
   languageName: node
   linkType: hard
 
@@ -2913,69 +2956,79 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@credo-ts/question-answer@npm:0.6.3":
-  version: 0.6.3
-  resolution: "@credo-ts/question-answer@npm:0.6.3"
+"@credo-ts/question-answer@npm:0.7.0":
+  version: 0.7.0
+  resolution: "@credo-ts/question-answer@npm:0.7.0"
   dependencies:
-    "@credo-ts/core": "npm:0.6.3"
-    "@credo-ts/didcomm": "npm:0.6.3"
+    "@credo-ts/core": "npm:0.7.0"
+    "@credo-ts/didcomm": "npm:0.7.0"
     class-transformer: "npm:0.5.1"
     class-validator: "npm:^0.14.3"
     rxjs: "npm:^7.8.2"
-  checksum: 10c0/0382fb776059d0a1559af437c119c3428e57045321dda6050f6a30161e790a7d28a932af5e292065393c38dacac087ed0ab53bef7cc23c60ad4d53d273268ccd
+  checksum: 10c0/a8424babb8952d15e5f9563c834846a4855c975cf7aa9d1799144082103a1110eb54de191cb3075526dd3564462554c5626783f1365acafcfd63a35b15d463b2
   languageName: node
   linkType: hard
 
-"@credo-ts/react-native@npm:0.6.3":
-  version: 0.6.3
-  resolution: "@credo-ts/react-native@npm:0.6.3"
+"@credo-ts/react-native@npm:0.7.0":
+  version: 0.7.0
+  resolution: "@credo-ts/react-native@npm:0.7.0"
   dependencies:
-    "@credo-ts/core": "npm:0.6.3"
+    "@credo-ts/core": "npm:0.7.0"
     events: "npm:^3.3.0"
   peerDependencies:
     "@animo-id/expo-secure-environment": ^0.1.1
+    "@dr.pogodin/react-native-fs": ">= 2.37.0"
     expo-crypto: ^15.0.7
     react-native: ">=0.71.4"
-    react-native-fs: ^2.20.0
+    react-native-fs: ">= 2"
     react-native-get-random-values: ">=1.11.0 <3.0.0"
   peerDependenciesMeta:
     "@animo-id/expo-secure-environment":
       optional: true
-  checksum: 10c0/73297d185f6dc6bcbade2494a0ad1a2dd4530556a418e635b18519303a2e984ea5677b4f734b00f7b03bd96acc253d35fbda5de80c9ec8fe3d0e39bf6e1e9acd
+    "@dr.pogodin/react-native-fs":
+      optional: true
+    react-native-fs:
+      optional: true
+  checksum: 10c0/7f3d00d05b230031b4fc915ef967144e7a28b34b8611278010c1836c2e1b1cccc3f54fbf32e3c8836e2e852127b7eb5897a88fa3c927bb1a8a84d8bd17154ff9
   languageName: node
   linkType: hard
 
-"@credo-ts/react-native@patch:@credo-ts/react-native@npm%3A0.6.3#~/.yarn/patches/@credo-ts-react-native-npm-0.6.3-secure-environment-biometrics.patch":
-  version: 0.6.3
-  resolution: "@credo-ts/react-native@patch:@credo-ts/react-native@npm%3A0.6.3#~/.yarn/patches/@credo-ts-react-native-npm-0.6.3-secure-environment-biometrics.patch::version=0.6.3&hash=324d01"
+"@credo-ts/react-native@patch:@credo-ts/react-native@npm%3A0.7.0#~/.yarn/patches/@credo-ts-react-native-npm-0.7.0-secure-environment-biometrics.patch":
+  version: 0.7.0
+  resolution: "@credo-ts/react-native@patch:@credo-ts/react-native@npm%3A0.7.0#~/.yarn/patches/@credo-ts-react-native-npm-0.7.0-secure-environment-biometrics.patch::version=0.7.0&hash=4fc4d3"
   dependencies:
-    "@credo-ts/core": "npm:0.6.3"
+    "@credo-ts/core": "npm:0.7.0"
     events: "npm:^3.3.0"
   peerDependencies:
     "@animo-id/expo-secure-environment": ^0.1.1
+    "@dr.pogodin/react-native-fs": ">= 2.37.0"
     expo-crypto: ^15.0.7
     react-native: ">=0.71.4"
-    react-native-fs: ^2.20.0
+    react-native-fs: ">= 2"
     react-native-get-random-values: ">=1.11.0 <3.0.0"
   peerDependenciesMeta:
     "@animo-id/expo-secure-environment":
       optional: true
-  checksum: 10c0/28099216e58067fb5c57f893c1ac82b0edd9ed243b119a0a05521ecbd92b646a8c38be4eff2a901738956a5de4f560465a4caf51e73fd92624d0e4f045974465
+    "@dr.pogodin/react-native-fs":
+      optional: true
+    react-native-fs:
+      optional: true
+  checksum: 10c0/f88674dfd21639d38bcf5b2a7b70daa335c3c6937649a873f7fee746f91b94f4d52a9f7259dd9c332872e1081fd5a7b44fea63370dc0efcb90644335657a900b
   languageName: node
   linkType: hard
 
-"@credo-ts/webvh@npm:0.6.3":
-  version: 0.6.3
-  resolution: "@credo-ts/webvh@npm:0.6.3"
+"@credo-ts/webvh@npm:0.7.0":
+  version: 0.7.0
+  resolution: "@credo-ts/webvh@npm:0.7.0"
   dependencies:
-    "@credo-ts/anoncreds": "npm:0.6.3"
-    "@credo-ts/core": "npm:0.6.3"
+    "@credo-ts/anoncreds": "npm:0.7.0"
+    "@credo-ts/core": "npm:0.7.0"
     class-transformer: "npm:0.5.1"
     class-validator: "npm:^0.14.3"
     didwebvh-ts: "npm:^2.7.2"
     json-canonicalize: "npm:^2.0.0"
     tsyringe: "npm:^4.10.0"
-  checksum: 10c0/d2be3abeac176779fae34a765c02144cd23d4e8d6d5b0c31f64d62b182df6e446ecde24effb2d66d1977ce69a472a020e15e2629cb7ac4ebbba44117d968792f
+  checksum: 10c0/3efd5f8caa92f2f55228ea7b4457ffc071cbff84c82f885cd85242bc5546515bdf738ff4814d622b76a5a458156ba28e2dda621a761c3c67430a0a2b3206636a
   languageName: node
   linkType: hard
 
@@ -3723,66 +3776,45 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hyperledger/anoncreds-react-native@npm:0.3.4":
-  version: 0.3.4
-  resolution: "@hyperledger/anoncreds-react-native@npm:0.3.4"
+"@hyperledger/anoncreds-react-native@npm:0.4.0":
+  version: 0.4.0
+  resolution: "@hyperledger/anoncreds-react-native@npm:0.4.0"
   dependencies:
-    "@hyperledger/anoncreds-shared": "npm:0.3.4"
+    "@hyperledger/anoncreds-shared": "npm:0.4.0"
   peerDependencies:
     react: ">= 16"
     react-native: ">= 0.71"
-  checksum: 10c0/34136790d87f963c85dd46376f62526fadb4c6709c9c08cc515c8163b19ecc028444a07b7203f35f104f90acd7242855bdfa81e587199b129e2155d1d5f5cf76
+  checksum: 10c0/70a0e4a166f1b724733545d072c546440b96643257bd43656b227420146bce66826298ef2f699c559b230a60f7d7305956ea27988a934930db214743d9a1260c
   languageName: node
   linkType: hard
 
-"@hyperledger/anoncreds-shared@npm:0.3.4":
-  version: 0.3.4
-  resolution: "@hyperledger/anoncreds-shared@npm:0.3.4"
+"@hyperledger/anoncreds-shared@npm:0.4.0":
+  version: 0.4.0
+  resolution: "@hyperledger/anoncreds-shared@npm:0.4.0"
   dependencies:
     tar: "npm:^7.4.3"
-  checksum: 10c0/9c13ad6080cbef64821406fa414b6a9596c3131fb1677ba46123b1fa70d0216aae5f2658d09a4cd25550efbc1a109e462cdfca55f9639a0c618a65cb6cab0810
+  checksum: 10c0/57b4ebd3adfcc189d4a8a739fafb492fcaff915bdcca80633484fbe19abd8cf9c4efea13aaa4a34f459924796534417abc64ba2a62d830a4b3e85c9a40b7e325
   languageName: node
   linkType: hard
 
-"@hyperledger/indy-vdr-react-native@npm:0.2.4":
-  version: 0.2.4
-  resolution: "@hyperledger/indy-vdr-react-native@npm:0.2.4"
+"@hyperledger/indy-vdr-react-native@npm:0.3.0":
+  version: 0.3.0
+  resolution: "@hyperledger/indy-vdr-react-native@npm:0.3.0"
   dependencies:
-    "@hyperledger/indy-vdr-shared": "npm:0.2.4"
+    "@hyperledger/indy-vdr-shared": "npm:0.3.0"
   peerDependencies:
     react: ">= 16"
     react-native: ">= 0.71"
-  checksum: 10c0/f8583f417045a4044c09c7878268ada7e583968faa49d73ff4a0bc63d6fd6f1f244c3df26e58a1e5b6623d5d6932972727204ffb6d8f118c7b691e8533da5027
+  checksum: 10c0/3462970f8840cd09bc34154550b17b53f0eb5936f4b12b65b4d4daae871fed67efb19eb15c6c6459cff9ad90dee74479992516b0612a4f0d47ecd839e794de65
   languageName: node
   linkType: hard
 
-"@hyperledger/indy-vdr-react-native@patch:@hyperledger/indy-vdr-react-native@npm%3A0.2.4#~/.yarn/patches/@hyperledger-indy-vdr-react-native-npm-0.2.4-d7ed0b15da.patch":
-  version: 0.2.4
-  resolution: "@hyperledger/indy-vdr-react-native@patch:@hyperledger/indy-vdr-react-native@npm%3A0.2.4#~/.yarn/patches/@hyperledger-indy-vdr-react-native-npm-0.2.4-d7ed0b15da.patch::version=0.2.4&hash=076916"
-  dependencies:
-    "@hyperledger/indy-vdr-shared": "npm:0.2.4"
-  peerDependencies:
-    react: ">= 16"
-    react-native: ">= 0.71"
-  checksum: 10c0/5d5acf3b267681f5897a3cbb91e8655a493586695969ced3d78234e8ae0d6d4b9febdc8608d1cae89266349278597347d85b527355c3ad1df99f904bc3994184
-  languageName: node
-  linkType: hard
-
-"@hyperledger/indy-vdr-shared@npm:0.2.3":
-  version: 0.2.3
-  resolution: "@hyperledger/indy-vdr-shared@npm:0.2.3"
+"@hyperledger/indy-vdr-shared@npm:0.3.0":
+  version: 0.3.0
+  resolution: "@hyperledger/indy-vdr-shared@npm:0.3.0"
   dependencies:
     tar: "npm:^7.4.3"
-  checksum: 10c0/3edf38099371684ee6302a55f8a8321bff61811cb56d895af31cdbba490f4dd8f95840b1f4f58afcdca3bedccb67e1c377da1d691c855b4bd72aa6d626b6624e
-  languageName: node
-  linkType: hard
-
-"@hyperledger/indy-vdr-shared@npm:0.2.4":
-  version: 0.2.4
-  resolution: "@hyperledger/indy-vdr-shared@npm:0.2.4"
-  dependencies:
-    tar: "npm:^7.4.3"
-  checksum: 10c0/a6d0f8b73088b75983812e69d21e0c046c9e152e627ccf7f6e50f8da091c3112d317c51e6329de1da6ed7891eeae8aa7a005694570b119eeca4bae4f6c2257f7
+  checksum: 10c0/620cf5325051ec8b3f22266f65b578662511fc75ea84ddc477351817f8365612975dda3fe968a7c1b3f06834411caa8a031f601a2fb9275c4ed3d2e3b939f2b6
   languageName: node
   linkType: hard
 
@@ -4402,6 +4434,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@owf/mdoc@npm:^0.6.0":
+  version: 0.6.0
+  resolution: "@owf/mdoc@npm:0.6.0"
+  dependencies:
+    cbor-x: "npm:^1.6.4"
+    zod: "npm:^4.3.6"
+    zod-validation-error: "npm:^5.0.0"
+  checksum: 10c0/6cb0f32eab2bd87b4b86eba8972cd8193039af27163f5c4842d72003d52d05c3caa5767e6b5f473dd9db8e098f22f84b21fba000f37ed2ef7f5ed81b0ac55060
+  languageName: node
+  linkType: hard
+
 "@peculiar/asn1-cms@npm:^2.6.0":
   version: 2.6.0
   resolution: "@peculiar/asn1-cms@npm:2.6.0"
@@ -4539,7 +4582,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@peculiar/asn1-x509@npm:^2.3.8, @peculiar/asn1-x509@npm:^2.7.0":
+"@peculiar/asn1-x509@npm:^2.3.8, @peculiar/asn1-x509@npm:^2.6.1, @peculiar/asn1-x509@npm:^2.7.0":
   version: 2.7.0
   resolution: "@peculiar/asn1-x509@npm:2.7.0"
   dependencies:
@@ -5180,6 +5223,13 @@ __metadata:
     react-native-safe-area-context: ">= 3.0.0"
     react-native-screens: ">= 3.0.0"
   checksum: 10c0/983943cf305f73e9e4637aa7f43bbe228473b4736eb80a238906b7ae5ddf7a9f421ad2ecb09a7220f7a6a5848e724d371483fbe09f3b77f8cd9bb2d52706a83b
+  languageName: node
+  linkType: hard
+
+"@scure/base@npm:^2.0.0":
+  version: 2.2.0
+  resolution: "@scure/base@npm:2.2.0"
+  checksum: 10c0/30158ccf5da86b0f06928f1cfe24a29fbea22824adf6f8895222910cade1ad4fe7593958aacf563287e6b4c55746f47395178e7a4763b059c22d6ee8e6f76387
   languageName: node
   linkType: hard
 
@@ -6539,6 +6589,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@verifiables/request-converter@npm:^0.2.0":
+  version: 0.2.0
+  resolution: "@verifiables/request-converter@npm:0.2.0"
+  peerDependencies:
+    dcql: ">=2.0.0"
+  peerDependenciesMeta:
+    dcql:
+      optional: true
+  checksum: 10c0/ea61aa7887b4821844e1a24bb9454faf926fd2dc72e1e86923b03e4377eaf8e59f8b647f140f7ab1c9aaec2fcf7b2a325310cd1207c1a290dad51d814313413e
+  languageName: node
+  linkType: hard
+
 "@vscode/sudo-prompt@npm:^9.0.0":
   version: 9.3.2
   resolution: "@vscode/sudo-prompt@npm:9.3.2"
@@ -7302,15 +7364,15 @@ __metadata:
     "@bifold/core": "npm:3.0.14"
     "@bifold/oca": "npm:3.0.14"
     "@bifold/react-hooks": "npm:3.0.14"
-    "@credo-ts/anoncreds": "npm:0.6.3"
-    "@credo-ts/askar": "npm:0.6.3"
-    "@credo-ts/core": "npm:0.6.3"
-    "@credo-ts/indy-vdr": "npm:0.6.3"
-    "@credo-ts/openid4vc": "npm:0.6.3"
+    "@credo-ts/anoncreds": "npm:0.7.0"
+    "@credo-ts/askar": "npm:0.7.0"
+    "@credo-ts/core": "npm:0.7.0"
+    "@credo-ts/indy-vdr": "npm:0.7.0"
+    "@credo-ts/openid4vc": "npm:0.7.0"
     "@credo-ts/push-notifications": "npm:0.7.1"
-    "@credo-ts/question-answer": "npm:0.6.3"
-    "@credo-ts/react-native": "npm:0.6.3"
-    "@credo-ts/webvh": "npm:0.6.3"
+    "@credo-ts/question-answer": "npm:0.7.0"
+    "@credo-ts/react-native": "npm:0.7.0"
+    "@credo-ts/webvh": "npm:0.7.0"
     "@expo/app-integrity": "npm:^55.0.9"
     "@formatjs/intl-datetimeformat": "npm:~6.18.2"
     "@formatjs/intl-displaynames": "npm:~6.8.13"
@@ -7320,8 +7382,8 @@ __metadata:
     "@formatjs/intl-numberformat": "npm:~8.15.6"
     "@formatjs/intl-pluralrules": "npm:~5.4.6"
     "@formatjs/intl-relativetimeformat": "npm:~11.4.13"
-    "@hyperledger/anoncreds-react-native": "npm:0.3.4"
-    "@hyperledger/indy-vdr-react-native": "npm:0.2.4"
+    "@hyperledger/anoncreds-react-native": "npm:0.4.0"
+    "@hyperledger/indy-vdr-react-native": "npm:0.3.0"
     "@openwallet-foundation/askar-react-native": "npm:0.6.0"
     "@react-native-async-storage/async-storage": "npm:~2.2.0"
     "@react-native-clipboard/clipboard": "npm:~1.16.3"
@@ -7715,6 +7777,49 @@ __metadata:
   version: 1.0.8
   resolution: "canonicalize@npm:1.0.8"
   checksum: 10c0/6fafcfa73855a49c86eed26d2f23734713a542a3107a23a6ab16fb22b6cee6bb2d92ad32b2244d52594bd69bc08bec820413911cd566dcc5399048012ce26a83
+  languageName: node
+  linkType: hard
+
+"cbor-extract@npm:^2.2.2":
+  version: 2.2.2
+  resolution: "cbor-extract@npm:2.2.2"
+  dependencies:
+    "@cbor-extract/cbor-extract-darwin-arm64": "npm:2.2.2"
+    "@cbor-extract/cbor-extract-darwin-x64": "npm:2.2.2"
+    "@cbor-extract/cbor-extract-linux-arm": "npm:2.2.2"
+    "@cbor-extract/cbor-extract-linux-arm64": "npm:2.2.2"
+    "@cbor-extract/cbor-extract-linux-x64": "npm:2.2.2"
+    "@cbor-extract/cbor-extract-win32-x64": "npm:2.2.2"
+    node-gyp: "npm:latest"
+    node-gyp-build-optional-packages: "npm:5.1.1"
+  dependenciesMeta:
+    "@cbor-extract/cbor-extract-darwin-arm64":
+      optional: true
+    "@cbor-extract/cbor-extract-darwin-x64":
+      optional: true
+    "@cbor-extract/cbor-extract-linux-arm":
+      optional: true
+    "@cbor-extract/cbor-extract-linux-arm64":
+      optional: true
+    "@cbor-extract/cbor-extract-linux-x64":
+      optional: true
+    "@cbor-extract/cbor-extract-win32-x64":
+      optional: true
+  bin:
+    download-cbor-prebuilds: bin/download-prebuilds.js
+  checksum: 10c0/2559078c8c6ad2f25424fd50b9f81ce59138bb1ab483b82f2fd43c9531699a5cf3c87fe9e5ab2ffc244967bc2ff9546afa712fcedde485c617a34ff14f8fd90a
+  languageName: node
+  linkType: hard
+
+"cbor-x@npm:^1.6.4":
+  version: 1.6.4
+  resolution: "cbor-x@npm:1.6.4"
+  dependencies:
+    cbor-extract: "npm:^2.2.2"
+  dependenciesMeta:
+    cbor-extract:
+      optional: true
+  checksum: 10c0/fa8fc366063fbaa56b4e3930633873becf38ba087824f7dbc77700b0c352c2ffe1b8cf72954659bda29ea2765c63eed494aaf0b5219534d77fdf7ceaec40d286
   languageName: node
   linkType: hard
 
@@ -8722,7 +8827,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"detect-libc@npm:^2.0.3":
+"detect-libc@npm:^2.0.1, detect-libc@npm:^2.0.3":
   version: 2.1.2
   resolution: "detect-libc@npm:2.1.2"
   checksum: 10c0/acc675c29a5649fa1fb6e255f993b8ee829e510b6b56b0910666949c80c364738833417d0edb5f90e4e46be17228b0f2b66a010513984e18b15deeeac49369c4
@@ -13686,6 +13791,19 @@ __metadata:
   version: 1.3.3
   resolution: "node-forge@npm:1.3.3"
   checksum: 10c0/9c6f53b0ebb34865872cf62a35b0aef8fb337e2efc766626c2e3a0040f4c02933bf29a62ba999eb44a2aca73bd512c4eda22705a47b94654b9fb8ed53db9a1db
+  languageName: node
+  linkType: hard
+
+"node-gyp-build-optional-packages@npm:5.1.1":
+  version: 5.1.1
+  resolution: "node-gyp-build-optional-packages@npm:5.1.1"
+  dependencies:
+    detect-libc: "npm:^2.0.1"
+  bin:
+    node-gyp-build-optional-packages: bin.js
+    node-gyp-build-optional-packages-optional: optional.js
+    node-gyp-build-optional-packages-test: build-test.js
+  checksum: 10c0/f9fad2061c48fb0fc90831cd11d6a7670d731d22a5b00c7d3441b43b4003543299ff64ff2729afe2cefd7d14928e560d469336e5bb00f613932ec2cd56b3665b
   languageName: node
   linkType: hard
 

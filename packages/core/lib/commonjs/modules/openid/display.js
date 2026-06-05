@@ -204,7 +204,7 @@ function getMdocCredentialDisplay(credentialPayload, openId4VcMetadata) {
 }
 function safeCalculateJwkThumbprint(jwk) {
   try {
-    const thumbprint = _core.TypedArrayEncoder.toBase64URL(_core.Hasher.hash(JSON.stringify({
+    const thumbprint = _core.TypedArrayEncoder.toBase64Url(_core.Hasher.hash(JSON.stringify({
       k: jwk.k,
       e: jwk.e,
       crv: jwk.crv,
