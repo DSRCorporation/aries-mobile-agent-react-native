@@ -15,7 +15,7 @@ const renderInputToolbar = (props, theme) => /*#__PURE__*/_react.default.createE
     justifyContent: 'center',
     shadowOffset: {
       width: 0,
-      height: 1
+      height: -1
     },
     shadowOpacity: 0.1,
     shadowRadius: 5,
@@ -23,17 +23,17 @@ const renderInputToolbar = (props, theme) => /*#__PURE__*/_react.default.createE
   }
 }));
 exports.renderInputToolbar = renderInputToolbar;
-const renderComposer = (props, theme, placeholder) => /*#__PURE__*/_react.default.createElement(_reactNativeGiftedChat.Composer, _extends({}, props, {
-  textInputStyle: {
-    ...theme.inputText
-  },
+const renderComposer = (props, theme, placeholder, disabled) => /*#__PURE__*/_react.default.createElement(_reactNativeGiftedChat.Composer, _extends({}, props, {
   placeholder: placeholder,
   placeholderTextColor: theme.placeholderText
   // the placeholder is read by accessibility features when multiline is enabled so a label is not necessary (results in double announcing if used)
   ,
   textInputProps: {
+    ...props.textInputProps,
     accessibilityLabel: '',
-    maxFontSizeMultiplier: 1.2
+    maxFontSizeMultiplier: 1.2,
+    editable: !disabled,
+    style: theme.inputText
   }
 }));
 exports.renderComposer = renderComposer;

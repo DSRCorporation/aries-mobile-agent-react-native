@@ -70,7 +70,7 @@ const CredentialOffer = ({
     presentationFields: []
   });
   const credential = (0, _reactHooks.useCredentialById)(credentialId);
-  const credentialConnectionLabel = (0, _helpers.useCredentialConnectionLabel)(credential);
+  const credentialConnectionLabel = (0, _helpers.useCredentialConnectionLabel)(credential, overlay);
   const [store, dispatch] = (0, _store2.useStore)();
   const {
     start

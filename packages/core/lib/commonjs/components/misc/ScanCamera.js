@@ -36,6 +36,7 @@ const ScanCamera = ({
     [_reactNativeOrientationLocker.OrientationType['LANDSCAPE-RIGHT']]: '90deg'
   };
   const [invalidQrCodes, setInvalidQrCodes] = (0, _react.useState)(new Set());
+  const hasFiredRef = (0, _react.useRef)(false);
   const [focusPoint, setFocusPoint] = (0, _react.useState)(null);
   const focusOpacity = (0, _react.useRef)(new _reactNative.Animated.Value(0)).current;
   const focusScale = (0, _react.useRef)(new _reactNative.Animated.Value(1)).current;
@@ -64,10 +65,15 @@ const ScanCamera = ({
     if ((error === null || error === void 0 ? void 0 : error.data) === value) {
       setInvalidQrCodes(prev => new Set([...prev, value]));
       if (enableCameraOnError) {
+        hasFiredRef.current = false;
         return setCameraActive(true);
       }
     }
+    if (hasFiredRef.current) {
+      return;
+    }
     if (cameraActive) {
+      hasFiredRef.current = true;
       _reactNative.Vibration.vibrate();
       handleCodeScan(value);
       return setCameraActive(false);
@@ -114,6 +120,7 @@ const ScanCamera = ({
   };
   (0, _react.useEffect)(() => {
     if (error !== null && error !== void 0 && error.data && enableCameraOnError) {
+      hasFiredRef.current = false;
       setCameraActive(true);
     }
   }, [error, enableCameraOnError]);
@@ -136,6 +143,7 @@ const ScanCamera = ({
     codeScanner: codeScanner,
     format: format
   }), /*#__PURE__*/_react.default.createElement(_reactNative.Pressable, {
+    accessible: false,
     testID: (0, _testable.testIdWithKey)('ScanCameraTapArea'),
     style: _reactNative.StyleSheet.absoluteFill,
     onPressIn: e => {

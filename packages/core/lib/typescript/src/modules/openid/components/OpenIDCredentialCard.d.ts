@@ -2,10 +2,10 @@ import React from 'react';
 import { W3cCredentialDisplay } from '../types';
 import { GenericFn } from '../../../types/fn';
 import { ViewStyle } from 'react-native';
-import { MdocRecord, SdJwtVcRecord, W3cCredentialRecord } from '@credo-ts/core';
+import { OpenIDCredentialRecord } from '../credentialRecord';
 interface CredentialCardProps {
     credentialDisplay?: W3cCredentialDisplay;
-    credentialRecord?: W3cCredentialRecord | SdJwtVcRecord | MdocRecord;
+    credentialRecord?: OpenIDCredentialRecord;
     onPress?: GenericFn;
     style?: ViewStyle;
 }

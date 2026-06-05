@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { useTheme } from '../../contexts/theme';
-import { ButtonType } from './Button-api';
 import { ThemedText } from '../texts/ThemedText';
+import { ButtonType } from './Button-api';
 const ButtonImpl = ({
   title,
   buttonType,
@@ -85,9 +85,7 @@ const ButtonImpl = ({
     onPressIn: () => setIsActive(!disabled && true),
     onPressOut: () => setIsActive(false),
     testID: testID,
-    style: [buttonStyles[buttonType].color, disabled && buttonStyles[buttonType].colorDisabled, isActive && (buttonType === ButtonType.Secondary || buttonType === ButtonType.Tertiary) && {
-      backgroundColor: Buttons.primary.backgroundColor
-    }],
+    style: [buttonStyles[buttonType].color, disabled && buttonStyles[buttonType].colorDisabled],
     disabled: disabled,
     activeOpacity: heavyOpacity,
     ref: ref
@@ -101,11 +99,10 @@ const ButtonImpl = ({
     maxFontSizeMultiplier: maxfontSizeMultiplier,
     style: [buttonStyles[buttonType].text, disabled && buttonStyles[buttonType].textDisabled, isActive && {
       textDecorationLine: 'underline'
-    }, isActive && buttonType === ButtonType.Secondary && {
-      color: Buttons.primaryText.color
     }]
   }, title)));
 };
 export default ButtonImpl;
-export { ButtonType, ButtonImpl };
+export { ButtonType } from './Button-api';
+export { ButtonImpl };
 //# sourceMappingURL=Button.js.map

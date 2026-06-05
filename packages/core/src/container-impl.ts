@@ -22,7 +22,7 @@ import { Locales } from './localization'
 import { IHistoryManager } from './modules/history'
 import HistoryManager from './modules/history/context/historyManager'
 import { RefreshOrchestrator } from './modules/openid/refresh/refreshOrchestrator'
-import { IRefreshOrchestrator } from './modules/openid/refresh/types'
+import { IRefreshOrchestrator, OpenIDCredentialRefreshFlowType } from './modules/openid/refresh/types'
 import OnboardingStack from './navigators/OnboardingStack'
 import { DefaultScreenLayoutOptions } from './navigators/defaultLayoutOptions'
 import { DefaultScreenOptionsDictionary } from './navigators/defaultStackOptions'
@@ -112,6 +112,8 @@ export const defaultConfig: Config = {
   },
   showGenericErrors: false,
   enableFullScreenErrorModal: false,
+  enableHardwareBackedHolderBinding: true,
+  enableAttestation: false,
 }
 
 export const defaultHistoryEventsLogger: HistoryEventsLoggerConfig = {
@@ -192,6 +194,7 @@ export class MainContainer implements Container {
     this._container.registerInstance(TOKENS.UTIL_PROOF_TEMPLATE, getProofRequestTemplates)
     this._container.registerInstance(TOKENS.UTIL_ATTESTATION_MONITOR, { useValue: undefined })
     this._container.registerInstance(TOKENS.UTIL_APP_VERSION_MONITOR, { useValue: undefined })
+    this._container.registerInstance(TOKENS.UTIL_CREDENTIAL_PROVISIONING_MONITOR, { useValue: undefined })
     this._container.registerInstance(TOKENS.NOTIFICATIONS, {
       useNotifications,
     })
@@ -276,15 +279,19 @@ export class MainContainer implements Container {
       this._container.resolve(TOKENS.UTIL_AGENT_BRIDGE) as AgentBridge,
       {
         autoStart: false,
+        runOnStart: true,
         intervalMs: undefined,
+        flowType: OpenIDCredentialRefreshFlowType.FullReplacement,
         listRecords: async () => {
           const agent = (this._container.resolve(TOKENS.UTIL_AGENT_BRIDGE) as AgentBridge).current
           if (!agent) return []
-          const [w3c, sdjwt] = await Promise.all([
+          const [w3c, w3cV2, sdjwt, mdoc] = await Promise.all([
             agent.w3cCredentials.getAll(),
+            agent.w3cV2Credentials.getAll(),
             agent.sdJwtVc.getAll(),
+            agent.mdoc.getAll(),
           ])
-          return [...w3c, ...sdjwt]
+          return [...w3c, ...w3cV2, ...sdjwt, ...mdoc]
         },
       }
     )
@@ -294,6 +301,9 @@ export class MainContainer implements Container {
     this._container.registerInstance(TOKENS.FN_PIN_HASH_ALGORITHM, (PIN: string, salt: string) => {
       return hashPIN(PIN, salt)
     })
+
+    this._container.registerInstance(TOKENS.FN_ATTESTATION_GET_CHALLENGE, () => {})
+    this._container.registerInstance(TOKENS.FN_ATTESTATION_GET_JWT, () => {})
 
     return this
   }

@@ -21,6 +21,7 @@ const SVGOverlay = ({
   maskType = MaskType.OVAL,
   customPath,
   strokeColor = undefined,
+  strokeWidth = 2,
   overlayColor = 'black',
   overlayOpacity = 0.6
 }) => {
@@ -35,11 +36,12 @@ const SVGOverlay = ({
       case MaskType.OVAL:
         return /*#__PURE__*/_react.default.createElement(_reactNativeSvg.Ellipse, {
           cx: centerX,
-          cy: centerY - 10,
+          cy: centerY - 30,
           rx: screenWidth * 0.45,
           ry: screenHeight * 0.28,
           fill: fill,
-          stroke: strokeColor
+          stroke: strokeColor,
+          strokeWidth: strokeWidth
         });
       case MaskType.RECTANGLE:
         {
@@ -66,7 +68,7 @@ const SVGOverlay = ({
             ry: 15,
             fill: fill,
             stroke: strokeColor,
-            strokeWidth: 2
+            strokeWidth: strokeWidth
           });
         }
       case MaskType.QR_CODE:
@@ -79,7 +81,7 @@ const SVGOverlay = ({
             height: qrSize,
             fill: fill,
             stroke: strokeColor,
-            strokeWidth: 2
+            strokeWidth: strokeWidth
           });
         }
       case MaskType.CUSTOM:

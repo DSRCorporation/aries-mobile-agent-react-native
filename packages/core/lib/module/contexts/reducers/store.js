@@ -80,6 +80,10 @@ var AppStatusDispatchAction = /*#__PURE__*/function (AppStatusDispatchAction) {
   AppStatusDispatchAction["SET_VERSION_INFO"] = "appStatus/checkVersionUpdate";
   return AppStatusDispatchAction;
 }(AppStatusDispatchAction || {});
+var AttestationDispatchAction = /*#__PURE__*/function (AttestationDispatchAction) {
+  AttestationDispatchAction["SET_ATTESTATION_COMPLETED"] = "attestation/setAttestationCompleted";
+  return AttestationDispatchAction;
+}(AttestationDispatchAction || {});
 export const DispatchAction = {
   ...StateDispatchAction,
   ...OnboardingDispatchAction,
@@ -90,7 +94,8 @@ export const DispatchAction = {
   ...AuthenticationDispatchAction,
   ...DeepLinkDispatchAction,
   ...MigrationDispatchAction,
-  ...AppStatusDispatchAction
+  ...AppStatusDispatchAction,
+  ...AttestationDispatchAction
 };
 export const reducer = (state, action) => {
   switch (action.type) {
@@ -750,6 +755,16 @@ export const reducer = (state, action) => {
         return {
           ...state,
           deepLink: value
+        };
+      }
+    case AttestationDispatchAction.SET_ATTESTATION_COMPLETED:
+      {
+        const isAttestationComplete = ((action === null || action === void 0 ? void 0 : action.payload) || []).pop() ?? false;
+        return {
+          ...state,
+          attestation: {
+            isAttestationComplete
+          }
         };
       }
     default:

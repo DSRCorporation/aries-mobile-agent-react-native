@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, useWindowDimensions, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { useTranslation } from 'react-i18next';
+import { hitSlop } from '../../constants';
 import { useTheme } from '../../contexts/theme';
 import { testIdWithKey } from '../../utils/testable';
 import Toast from 'react-native-toast-message';
@@ -18,6 +20,9 @@ const BaseToast = ({
   toastType,
   onPress = () => null
 }) => {
+  const {
+    t
+  } = useTranslation();
   const {
     TextTheme,
     borderRadius,
@@ -92,7 +97,10 @@ const BaseToast = ({
   }
   return /*#__PURE__*/React.createElement(TouchableOpacity, {
     activeOpacity: 1,
-    onPress: () => onPress()
+    onPress: () => onPress(),
+    accessibilityLabel: title,
+    accessibilityRole: "alert",
+    testID: testIdWithKey('Toast')
   }, /*#__PURE__*/React.createElement(View, {
     style: [styles.container, {
       backgroundColor,
@@ -124,7 +132,11 @@ const BaseToast = ({
   }, body))), /*#__PURE__*/React.createElement(View, null, /*#__PURE__*/React.createElement(TouchableOpacity, {
     onPress: () => {
       Toast.hide();
-    }
+    },
+    accessibilityLabel: t('Global.CloseNotification'),
+    accessibilityRole: "button",
+    testID: testIdWithKey('ToastClose'),
+    hitSlop: hitSlop
   }, /*#__PURE__*/React.createElement(Icon, {
     style: styles.icon,
     name: 'close',

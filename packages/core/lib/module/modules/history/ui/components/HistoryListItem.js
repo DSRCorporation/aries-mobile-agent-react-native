@@ -2,8 +2,24 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useTheme } from '../../../../contexts/theme';
+import { testIdWithKey } from '../../../../utils/testable';
 import { HistoryCardType } from '../../types';
 import { ThemedText } from '../../../../components/texts/ThemedText';
+const cardTitleKeys = {
+  [HistoryCardType.CardAccepted]: 'History.CardTitle.CardAccepted',
+  [HistoryCardType.CardDeclined]: 'History.CardTitle.CardDeclined',
+  [HistoryCardType.CardExpired]: 'History.CardTitle.CardExpired',
+  [HistoryCardType.CardRemoved]: 'History.CardTitle.CardRemoved',
+  [HistoryCardType.CardRevoked]: 'History.CardTitle.CardRevoked',
+  [HistoryCardType.CardUpdates]: 'History.CardTitle.CardUpdates',
+  [HistoryCardType.PinChanged]: 'History.CardTitle.WalletPinUpdated',
+  [HistoryCardType.InformationSent]: 'History.CardTitle.InformationSent',
+  [HistoryCardType.InformationNotSent]: 'History.CardTitle.InformationNotSent',
+  [HistoryCardType.Connection]: 'History.CardTitle.Connection',
+  [HistoryCardType.ConnectionRemoved]: 'History.CardTitle.ConnectionRemoved',
+  [HistoryCardType.ActivateBiometry]: 'History.CardTitle.ActivateBiometry',
+  [HistoryCardType.DeactivateBiometry]: 'History.CardTitle.DeactivateBiometry'
+};
 const styles = StyleSheet.create({
   card: {
     padding: 16,
@@ -61,7 +77,7 @@ const HistoryListItem = ({
             icon: /*#__PURE__*/React.createElement(Assets.svg.historyCardAcceptedIcon, null),
             title: /*#__PURE__*/React.createElement(ThemedText, {
               variant: "headingThree"
-            }, t('History.CardTitle.CardAccepted')),
+            }, t(cardTitleKeys[HistoryCardType.CardAccepted])),
             description: /*#__PURE__*/React.createElement(ThemedText, null, item.content.correspondenceName)
           };
         }
@@ -74,7 +90,7 @@ const HistoryListItem = ({
               style: {
                 color: styles.historyCardRevoked.color
               }
-            }, t('History.CardTitle.CardDeclined')),
+            }, t(cardTitleKeys[HistoryCardType.CardDeclined])),
             description: /*#__PURE__*/React.createElement(ThemedText, null, item.content.correspondenceName)
           };
         }
@@ -84,7 +100,7 @@ const HistoryListItem = ({
             icon: /*#__PURE__*/React.createElement(Assets.svg.historyCardExpiredIcon, null),
             title: /*#__PURE__*/React.createElement(ThemedText, {
               variant: "headerTitle"
-            }, t('History.CardTitle.CardExpired')),
+            }, t(cardTitleKeys[HistoryCardType.CardExpired])),
             description: /*#__PURE__*/React.createElement(ThemedText, null, t('History.CardDescription.CardExpired', {
               cardName: item.content.correspondenceName
             }))
@@ -99,7 +115,7 @@ const HistoryListItem = ({
               style: {
                 color: styles.historyCardRevoked.color
               }
-            }, t('History.CardTitle.CardRemoved')),
+            }, t(cardTitleKeys[HistoryCardType.CardRemoved])),
             description: /*#__PURE__*/React.createElement(ThemedText, null, item.content.correspondenceName)
           };
         }
@@ -112,7 +128,7 @@ const HistoryListItem = ({
               style: {
                 color: styles.historyCardRevoked.color
               }
-            }, t('History.CardTitle.CardRevoked')),
+            }, t(cardTitleKeys[HistoryCardType.CardRevoked])),
             description: /*#__PURE__*/React.createElement(ThemedText, null, t('History.CardDescription.CardRevoked', {
               cardName: item.content.correspondenceName
             }))
@@ -124,7 +140,7 @@ const HistoryListItem = ({
             icon: /*#__PURE__*/React.createElement(Assets.svg.historyCardUpdatesIcon, null),
             title: /*#__PURE__*/React.createElement(ThemedText, {
               variant: "headingThree"
-            }, t('History.CardTitle.CardUpdates')),
+            }, t(cardTitleKeys[HistoryCardType.CardUpdates])),
             description: /*#__PURE__*/React.createElement(ThemedText, null, item.content.correspondenceName)
           };
         }
@@ -137,7 +153,7 @@ const HistoryListItem = ({
               style: {
                 color: styles.infoBox.color
               }
-            }, t('History.CardTitle.WalletPinUpdated')),
+            }, t(cardTitleKeys[HistoryCardType.PinChanged])),
             description: /*#__PURE__*/React.createElement(ThemedText, null, t('History.CardDescription.WalletPinUpdated'))
           };
         }
@@ -150,7 +166,7 @@ const HistoryListItem = ({
               style: {
                 color: styles.successColor.color
               }
-            }, t('History.CardTitle.InformationSent')),
+            }, t(cardTitleKeys[HistoryCardType.InformationSent])),
             description: /*#__PURE__*/React.createElement(ThemedText, null, item.content.correspondenceName)
           };
         }
@@ -163,7 +179,7 @@ const HistoryListItem = ({
               style: {
                 color: styles.historyCardRevoked.color
               }
-            }, t('History.CardTitle.InformationNotSent')),
+            }, t(cardTitleKeys[HistoryCardType.InformationNotSent])),
             description: /*#__PURE__*/React.createElement(ThemedText, null, item.content.correspondenceName)
           };
         }
@@ -173,7 +189,7 @@ const HistoryListItem = ({
             icon: /*#__PURE__*/React.createElement(Assets.svg.historyConnectionIcon, null),
             title: /*#__PURE__*/React.createElement(ThemedText, {
               variant: "headingThree"
-            }, t('History.CardTitle.Connection')),
+            }, t(cardTitleKeys[HistoryCardType.Connection])),
             description: /*#__PURE__*/React.createElement(ThemedText, null, item.content.correspondenceName)
           };
         }
@@ -186,7 +202,7 @@ const HistoryListItem = ({
               style: {
                 color: styles.historyCardRevoked.color
               }
-            }, t('History.CardTitle.ConnectionRemoved')),
+            }, t(cardTitleKeys[HistoryCardType.ConnectionRemoved])),
             description: /*#__PURE__*/React.createElement(ThemedText, null, item.content.correspondenceName)
           };
         }
@@ -196,7 +212,7 @@ const HistoryListItem = ({
             icon: /*#__PURE__*/React.createElement(Assets.svg.historyActivateBiometryIcon, null),
             title: /*#__PURE__*/React.createElement(ThemedText, {
               variant: "headingThree"
-            }, t('History.CardTitle.ActivateBiometry')),
+            }, t(cardTitleKeys[HistoryCardType.ActivateBiometry])),
             description: /*#__PURE__*/React.createElement(ThemedText, null, item.content.correspondenceName)
           };
         }
@@ -209,7 +225,7 @@ const HistoryListItem = ({
               style: {
                 color: styles.historyCardRevoked.color
               }
-            }, t('History.CardTitle.DeactivateBiometry')),
+            }, t(cardTitleKeys[HistoryCardType.DeactivateBiometry])),
             description: /*#__PURE__*/React.createElement(ThemedText, null, item.content.correspondenceName)
           };
         }
@@ -262,7 +278,10 @@ const HistoryListItem = ({
   return /*#__PURE__*/React.createElement(TouchableOpacity, {
     onPress: () => {
       //TODO: navigate to history details
-    }
+    },
+    accessibilityLabel: `${item.content.type && item.content.type in cardTitleKeys ? t(cardTitleKeys[item.content.type]) : ''} ${'correspondenceName' in item.content ? item.content.correspondenceName ?? '' : ''}`.trim(),
+    accessibilityRole: "button",
+    testID: testIdWithKey('HistoryItem')
   }, renderCard(item));
 };
 export default HistoryListItem;

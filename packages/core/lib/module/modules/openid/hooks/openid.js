@@ -3,8 +3,9 @@ import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DeviceEventEmitter } from 'react-native';
 import { EventTypes } from '../../../constants';
+import { TOKENS, useServices } from '../../../container-api';
 import { BifoldError } from '../../../types/error';
-import { acquirePreAuthorizedAccessToken, receiveCredentialFromOpenId4VciOffer, resolveOpenId4VciOffer } from '../offerResolve';
+import { acquirePreAuthorizedAccessToken, createHolderBindingKey, getDpopSignatureAlgorithm, receiveCredentialFromOpenId4VciOffer, resolveOpenId4VciOffer } from '../offerResolve';
 import { getCredentialsForProofRequest } from '../resolverProof';
 import { getCredentialConfigurationIds } from '../utils/utils';
 import { setRefreshCredentialMetadata } from '../metadata';
@@ -21,6 +22,9 @@ export const useOpenID = ({
   const {
     t
   } = useTranslation();
+  const [{
+    enableHardwareBackedHolderBinding
+  }] = useServices([TOKENS.CONFIG]);
   const resolveOpenIDCredential = useCallback(async uri => {
     if (!agent) {
       return;
@@ -41,28 +45,41 @@ export const useOpenID = ({
       if (!configID) {
         throw new Error('No credential configuration ID found in the credential offer metadata');
       }
-      if (!authServer) {
-        throw new Error('No authorization server found in the credential offer metadata');
-      }
       if (!credentialIssuer) {
         throw new Error('No credential issuer found in the credential offer metadata');
       }
+      const dpopSigningAlgValuesSupported = [authServer.dpop_signing_alg_values_supported, issuerMetadata.dpop_signing_alg_values_supported].find(Array.isArray);
+      const dpopSignatureAlgorithm = getDpopSignatureAlgorithm({
+        dpopSigningAlgValuesSupported,
+        enableHardwareBackedHolderBinding
+      });
+      const holderBindingKey = dpopSignatureAlgorithm ? await createHolderBindingKey({
+        agent,
+        signatureAlgorithm: dpopSignatureAlgorithm,
+        enableHardwareBackedHolderBinding
+      }) : undefined;
       const tokenResponse = await acquirePreAuthorizedAccessToken({
         agent,
-        resolvedCredentialOffer
+        resolvedCredentialOffer,
+        dpop: holderBindingKey && dpopSignatureAlgorithm ? {
+          jwk: holderBindingKey,
+          alg: dpopSignatureAlgorithm
+        } : undefined
       });
       const refreshToken = tokenResponse.refreshToken;
       temporaryMetaVanillaObject.tokenResponse = tokenResponse;
       const credential = await receiveCredentialFromOpenId4VciOffer({
         agent,
         resolvedCredentialOffer,
-        tokenResponse: tokenResponse
+        tokenResponse: tokenResponse,
+        enableHardwareBackedHolderBinding,
+        holderBindingKey
       });
-      if (refreshToken && authServer) {
+      if (refreshToken) {
         setRefreshCredentialMetadata(credential, {
-          authServer: tokenEndpoint,
           tokenEndpoint: tokenEndpoint,
           refreshToken: refreshToken,
+          authorizationServer: tokenResponse.authorizationServer,
           issuerMetadataCache: {
             credential_issuer: credentialIssuer,
             credential_endpoint: credentialEndpoint,
@@ -72,6 +89,12 @@ export const useOpenID = ({
           },
           credentialIssuer: credentialIssuer,
           credentialConfigurationId: configID,
+          tokenBinding: tokenResponse.dpop ? 'DPoP' : 'Bearer',
+          dpop: tokenResponse.dpop ? {
+            alg: tokenResponse.dpop.alg,
+            jwk: tokenResponse.dpop.jwk.toJson(),
+            nonce: tokenResponse.dpop.nonce
+          } : undefined,
           lastCheckedAt: Date.now(),
           lastCheckResult: RefreshStatus.Valid,
           attemptCount: 0,
@@ -80,10 +103,11 @@ export const useOpenID = ({
       }
       return credential;
     } catch (err) {
-      const error = new BifoldError(t('Error.Title1024'), t('Error.Message1024'), (err === null || err === void 0 ? void 0 : err.message) ?? err, 1043);
+      const errorMessage = err instanceof Error ? err.message : String(err);
+      const error = new BifoldError(t('Error.Title1024'), errorMessage, errorMessage, 1043);
       DeviceEventEmitter.emit(EventTypes.OPENID_CONNECTION_ERROR, error);
     }
-  }, [agent, t]);
+  }, [agent, enableHardwareBackedHolderBinding, t]);
   const resolveOpenIDPresentationRequest = useCallback(async uri => {
     if (!agent) {
       return;
@@ -91,11 +115,12 @@ export const useOpenID = ({
     try {
       const record = await getCredentialsForProofRequest({
         agent: agent,
-        uri: uri
+        request: uri
       });
       return record;
     } catch (err) {
-      const error = new BifoldError(t('Error.Title1043'), t('Error.Message1043'), (err === null || err === void 0 ? void 0 : err.message) ?? err, 1043);
+      const errorMessage = err instanceof Error ? err.message : String(err);
+      const error = new BifoldError(t('Error.Title1043'), errorMessage, errorMessage, 1043);
       DeviceEventEmitter.emit(EventTypes.OPENID_CONNECTION_ERROR, error);
     }
   }, [agent, t]);

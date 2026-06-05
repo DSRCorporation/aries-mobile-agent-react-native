@@ -6,7 +6,7 @@ import { CredentialErrors, GenericCredentialExchangeRecord } from '../types/cred
 import { IColorPalette } from '../theme';
 export declare const brandingOverlayTypeString: (type: BrandingOverlayType) => "Branding01" | "Branding10" | "Branding11";
 export declare function mapAnonCredsToCard(rec: CredentialExchangeRecord, bundle: AnonCredsBundleLite, opts?: MapOpts): WalletCredentialCardData;
-export declare function mapW3CToCard(input: W3CInput, id: string): WalletCredentialCardData;
+export declare function mapW3CToCard(input: W3CInput, id: string, opts?: Pick<MapOpts, 'proofContext' | 'displayItems'>): WalletCredentialCardData;
 /**
  * Generic map function to convert a CredentialExchangeRecord (AnonCreds or W3C) to WalletCredentialCardData
  * Uses OCA bundle resolver to fetch overlays as needed.

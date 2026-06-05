@@ -166,7 +166,7 @@ const Settings = ({
     }, {
       title: t('Settings.Language'),
       value: currentLanguage,
-      accessibilityLabel: t('Settings.Language'),
+      accessibilityLabel: `${t('Settings.Language')} ${currentLanguage}`,
       testID: (0, _testable.testIdWithKey)('Language'),
       onPress: () => navigation.navigate(_navigators.Screens.Language)
     }, {
@@ -431,7 +431,8 @@ const Settings = ({
       style: styles.footer
     }, /*#__PURE__*/_react.default.createElement(_reactNative.TouchableWithoutFeedback, {
       onPress: incrementDeveloperMenuCounter,
-      disabled: store.preferences.developerModeEnabled
+      disabled: store.preferences.developerModeEnabled,
+      accessibilityLabel: t('Settings.VersionInfo')
     }, /*#__PURE__*/_react.default.createElement(_reactNative.View, null, /*#__PURE__*/_react.default.createElement(_ThemedText.ThemedText, {
       testID: (0, _testable.testIdWithKey)('Version')
     }, `${t('Settings.Version')} ${(0, _reactNativeDeviceInfo.getVersion)()} ${t('Settings.Build')} (${(0, _reactNativeDeviceInfo.getBuildNumber)()})`), /*#__PURE__*/_react.default.createElement(Assets.svg.logo, {

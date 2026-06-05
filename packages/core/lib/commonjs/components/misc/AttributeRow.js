@@ -8,6 +8,7 @@ var _react = _interopRequireDefault(require("react"));
 var _reactNative = require("react-native");
 var _MaterialIcons = _interopRequireDefault(require("react-native-vector-icons/MaterialIcons"));
 var _ThemedText = require("../texts/ThemedText");
+var _theme = require("../../contexts/theme");
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 function isDataImage(value) {
   return typeof value === 'string' && /^data:image\//.test(value);
@@ -20,6 +21,10 @@ const CredentialAttributeRow = ({
   styles
 }) => {
   var _item$predicate, _item$predicate2;
+  const {
+    ColorPalette,
+    ListItems
+  } = (0, _theme.useTheme)();
   const warn = showPiiWarning && (item.isPII ?? false) && !((_item$predicate = item.predicate) !== null && _item$predicate !== void 0 && _item$predicate.present);
   const predicateFailed = ((_item$predicate2 = item.predicate) === null || _item$predicate2 === void 0 ? void 0 : _item$predicate2.present) && item.predicate.satisfied === false;
   const hasError = Boolean(isNotInWallet || item.hasError || predicateFailed);
@@ -38,6 +43,7 @@ const CredentialAttributeRow = ({
         paddingHorizontal: 2
       },
       name: "close",
+      color: ListItems.proofError.color,
       size: styles.recordAttributeText.fontSize
     }), /*#__PURE__*/_react.default.createElement(_ThemedText.ThemedText, {
       variant: "labelSubtitle",
@@ -64,6 +70,7 @@ const CredentialAttributeRow = ({
       paddingHorizontal: 2
     },
     name: "warning",
+    color: ColorPalette.notification.warnIcon,
     size: styles.recordAttributeText.fontSize
   }), /*#__PURE__*/_react.default.createElement(_ThemedText.ThemedText, {
     variant: "labelSubtitle",

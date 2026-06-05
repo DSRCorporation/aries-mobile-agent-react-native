@@ -15,9 +15,10 @@ const HomeFooterView = ({
   } = useOpenIDCredentials();
   const {
     w3cCredentialRecords,
-    sdJwtVcRecords
+    sdJwtVcRecords,
+    mdocVcRecords
   } = openIdState;
-  const credentials = [...useCredentialByState(DidCommCredentialState.CredentialReceived), ...useCredentialByState(DidCommCredentialState.Done), ...w3cCredentialRecords, ...sdJwtVcRecords];
+  const credentials = [...useCredentialByState(DidCommCredentialState.CredentialReceived), ...useCredentialByState(DidCommCredentialState.Done), ...w3cCredentialRecords, ...sdJwtVcRecords, ...mdocVcRecords];
   const {
     HomeTheme,
     TextTheme,

@@ -1,6 +1,6 @@
 import { AnonCredsCredentialMetadataKey } from '@credo-ts/anoncreds';
 import { useCredentialByState } from '@bifold/react-hooks';
-import { SdJwtVcRecord, W3cCredentialRecord } from '@credo-ts/core';
+import { MdocRecord, SdJwtVcRecord, W3cCredentialRecord } from '@credo-ts/core';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -36,10 +36,11 @@ const ListCredentials = () => {
   const {
     openIdState: {
       w3cCredentialRecords,
-      sdJwtVcRecords
+      sdJwtVcRecords,
+      mdocVcRecords
     }
   } = useOpenIDCredentials();
-  let credentials = [...useCredentialByState(DidCommCredentialState.CredentialReceived), ...useCredentialByState(DidCommCredentialState.Done), ...w3cCredentialRecords, ...sdJwtVcRecords];
+  let credentials = [...useCredentialByState(DidCommCredentialState.CredentialReceived), ...useCredentialByState(DidCommCredentialState.Done), ...w3cCredentialRecords, ...sdJwtVcRecords, ...mdocVcRecords];
   const CredentialEmptyList = credentialEmptyList;
   const CredentialListFooter = credentialListFooter;
 
@@ -81,6 +82,11 @@ const ListCredentials = () => {
           navigation.navigate(Screens.OpenIDCredentialDetails, {
             credentialId: cred.id,
             type: OpenIDCredentialType.SdJwtVc
+          });
+        } else if (cred instanceof MdocRecord) {
+          navigation.navigate(Screens.OpenIDCredentialDetails, {
+            credentialId: cred.id,
+            type: OpenIDCredentialType.Mdoc
           });
         } else {
           navigation.navigate(Screens.CredentialDetails, {

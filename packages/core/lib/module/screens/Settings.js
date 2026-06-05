@@ -158,7 +158,7 @@ const Settings = ({
     }, {
       title: t('Settings.Language'),
       value: currentLanguage,
-      accessibilityLabel: t('Settings.Language'),
+      accessibilityLabel: `${t('Settings.Language')} ${currentLanguage}`,
       testID: testIdWithKey('Language'),
       onPress: () => navigation.navigate(Screens.Language)
     }, {
@@ -423,7 +423,8 @@ const Settings = ({
       style: styles.footer
     }, /*#__PURE__*/React.createElement(TouchableWithoutFeedback, {
       onPress: incrementDeveloperMenuCounter,
-      disabled: store.preferences.developerModeEnabled
+      disabled: store.preferences.developerModeEnabled,
+      accessibilityLabel: t('Settings.VersionInfo')
     }, /*#__PURE__*/React.createElement(View, null, /*#__PURE__*/React.createElement(ThemedText, {
       testID: testIdWithKey('Version')
     }, `${t('Settings.Version')} ${getVersion()} ${t('Settings.Build')} (${getBuildNumber()})`), /*#__PURE__*/React.createElement(Assets.svg.logo, {

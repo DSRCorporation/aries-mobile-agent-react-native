@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { StyleSheet, View, TextInput, ScrollView, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Button, { ButtonType } from '../components/buttons/Button';
+import { hitSlop } from '../constants';
 import InfoBox, { InfoBoxType } from '../components/misc/InfoBox';
 import SafeAreaModal from '../components/modals/SafeAreaModal';
 import { TOKENS, useServices } from '../container-api';
@@ -92,6 +93,7 @@ const PasteUrl = ({
     style: styles.description
   }, t('PasteUrl.PasteUrlDescription')), /*#__PURE__*/React.createElement(TextInput, {
     testID: testIdWithKey('PastedUrl'),
+    accessibilityLabel: t('PasteUrl.PasteUrlInput'),
     style: styles.textBox,
     numberOfLines: 15,
     multiline: true,
@@ -101,6 +103,9 @@ const PasteUrl = ({
     style: styles.buttonContainer
   }, /*#__PURE__*/React.createElement(TouchableOpacity, {
     testID: testIdWithKey('ScanPastedUrlDisabled'),
+    accessibilityLabel: t('PasteUrl.ScanDisabled'),
+    accessibilityRole: "button",
+    hitSlop: hitSlop,
     disabled: pastedContent.length > 0,
     onPress: () => {
       setErrorMessage({

@@ -8,14 +8,16 @@ var _react = _interopRequireWildcard(require("react"));
 var _reactI18next = require("react-i18next");
 var _reactNative = require("react-native");
 var _reactNativePermissions = require("react-native-permissions");
+var _reactNativeKeychain = _interopRequireWildcard(require("react-native-keychain"));
+var _reactNativeSafeAreaContext = require("react-native-safe-area-context");
 var _ToggleButton = _interopRequireDefault(require("../buttons/ToggleButton"));
 var _DismissiblePopupModal = _interopRequireDefault(require("../modals/DismissiblePopupModal"));
 var _ThemedText = require("../texts/ThemedText");
 var _auth = require("../../contexts/auth");
 var _theme = require("../../contexts/theme");
 var _testable = require("../../utils/testable");
-var _reactNativeKeychain = require("react-native-keychain");
-var _reactNativeSafeAreaContext = require("react-native-safe-area-context");
+var _error = require("../../types/error");
+var _constants = require("../../constants");
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
 const BIOMETRY_PERMISSION = _reactNativePermissions.PERMISSIONS.IOS.FACE_ID;
@@ -53,10 +55,32 @@ const BiometryControl = ({
     }
   });
   (0, _react.useEffect)(() => {
-    isBiometricsActive().then(result => {
-      setBiometryAvailable(result);
+    isBiometricsActive().then(res => {
+      setBiometryAvailable(res);
+    }).catch(err => {
+      const error = new _error.BifoldError(t('Error.Title1050'), t('Error.Message1050'), (err === null || err === void 0 ? void 0 : err.message) ?? err, 1050);
+      _reactNative.DeviceEventEmitter.emit(_constants.EventTypes.ERROR_ADDED, error);
     });
-  }, [isBiometricsActive]);
+  }, [isBiometricsActive, t]);
+  (0, _react.useEffect)(() => {
+    const checkBiometrics = async () => {
+      try {
+        const active = await _reactNativeKeychain.default.getSupportedBiometryType();
+        setBiometryAvailable(Boolean(active));
+      } catch (err) {
+        const error = new _error.BifoldError(t('Error.Title1050'), t('Error.Message1050'), (err === null || err === void 0 ? void 0 : err.message) ?? err, 1050);
+        _reactNative.DeviceEventEmitter.emit(_constants.EventTypes.ERROR_ADDED, error);
+      }
+    };
+    const appStateListener = _reactNative.AppState.addEventListener('change', async nextAppState => {
+      if (nextAppState === 'active') {
+        await checkBiometrics();
+      }
+    });
+    return () => {
+      appStateListener.remove();
+    };
+  }, [isBiometricsActive, setBiometryAvailable, t]);
   const onOpenSettingsTouched = async () => {
     await _reactNative.Linking.openSettings();
     onOpenSettingsDismissed();

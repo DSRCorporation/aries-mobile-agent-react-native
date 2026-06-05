@@ -181,7 +181,10 @@ const VerifierCredentialCard = ({
       onBlur: () => {
         onChangeValue(schemaId, item.label || item.name || '', item.name || '', currentValue);
       },
-      testID: testIdWithKey('PredicateInput')
+      testID: testIdWithKey('PredicateInput'),
+      accessibilityLabel: t('ProofRequest.PredicateInput', {
+        label: ylabel
+      })
     }, currentValue) : /*#__PURE__*/React.createElement(ThemedText, {
       variant: "bold",
       style: styles.textContainer,

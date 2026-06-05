@@ -1,5 +1,92 @@
 # @bifold/verifier
 
+## 3.0.14
+
+### Patch Changes
+
+- @bifold/react-hooks@3.0.14
+
+## 3.0.13
+
+### Patch Changes
+
+- @bifold/react-hooks@3.0.13
+
+## 3.0.12
+
+### Patch Changes
+
+- @bifold/react-hooks@3.0.12
+
+## 3.0.11
+
+### Patch Changes
+
+- Updated dependencies [e99b6d9]
+  - @bifold/react-hooks@3.0.11
+
+## 3.0.10
+
+### Patch Changes
+
+- @bifold/react-hooks@3.0.10
+
+## 3.0.9
+
+### Patch Changes
+
+- @bifold/react-hooks@3.0.9
+
+## 3.0.8
+
+### Patch Changes
+
+- @bifold/react-hooks@3.0.8
+
+## 3.0.7
+
+### Patch Changes
+
+- @bifold/react-hooks@3.0.7
+
+## 3.0.6
+
+### Patch Changes
+
+- @bifold/react-hooks@3.0.6
+
+## 3.0.5
+
+### Patch Changes
+
+- @bifold/react-hooks@3.0.5
+
+## 3.0.4
+
+### Patch Changes
+
+- @bifold/react-hooks@3.0.4
+
+## 3.0.3
+
+### Patch Changes
+
+- @bifold/react-hooks@3.0.3
+
+## 3.0.2
+
+### Patch Changes
+
+- @bifold/react-hooks@3.0.2
+
+## 3.0.1
+
+### Patch Changes
+
+- 6ff5dbb: updated credo ts packages to 0.6.3
+- Updated dependencies [6ff5dbb]
+  - @bifold/react-hooks@3.0.1
+
 ## 3.0.0
 
 ### Major Changes

@@ -62,7 +62,7 @@ const CredentialOffer = ({
     presentationFields: []
   });
   const credential = useCredentialById(credentialId);
-  const credentialConnectionLabel = useCredentialConnectionLabel(credential);
+  const credentialConnectionLabel = useCredentialConnectionLabel(credential, overlay);
   const [store, dispatch] = useStore();
   const {
     start

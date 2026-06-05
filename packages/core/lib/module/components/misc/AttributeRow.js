@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { ThemedText } from '../texts/ThemedText';
+import { useTheme } from '../../contexts/theme';
 function isDataImage(value) {
   return typeof value === 'string' && /^data:image\//.test(value);
 }
@@ -13,6 +14,10 @@ export const CredentialAttributeRow = ({
   styles
 }) => {
   var _item$predicate, _item$predicate2;
+  const {
+    ColorPalette,
+    ListItems
+  } = useTheme();
   const warn = showPiiWarning && (item.isPII ?? false) && !((_item$predicate = item.predicate) !== null && _item$predicate !== void 0 && _item$predicate.present);
   const predicateFailed = ((_item$predicate2 = item.predicate) === null || _item$predicate2 === void 0 ? void 0 : _item$predicate2.present) && item.predicate.satisfied === false;
   const hasError = Boolean(isNotInWallet || item.hasError || predicateFailed);
@@ -31,6 +36,7 @@ export const CredentialAttributeRow = ({
         paddingHorizontal: 2
       },
       name: "close",
+      color: ListItems.proofError.color,
       size: styles.recordAttributeText.fontSize
     }), /*#__PURE__*/React.createElement(ThemedText, {
       variant: "labelSubtitle",
@@ -57,6 +63,7 @@ export const CredentialAttributeRow = ({
       paddingHorizontal: 2
     },
     name: "warning",
+    color: ColorPalette.notification.warnIcon,
     size: styles.recordAttributeText.fontSize
   }), /*#__PURE__*/React.createElement(ThemedText, {
     variant: "labelSubtitle",

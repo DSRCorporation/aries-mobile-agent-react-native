@@ -22,7 +22,9 @@ const Record = ({
   footer,
   fields,
   hideFieldValues = false,
-  field = null
+  field = null,
+  scrollEnabled = true,
+  isProofRequest = false
 }) => {
   const {
     t
@@ -30,16 +32,18 @@ const Record = ({
   const [shown, setShown] = (0, _react.useState)([]);
   const {
     ListItems,
-    TextTheme
+    TextTheme,
+    Spacing
   } = (0, _theme.useTheme)();
   const [bundleResolver] = (0, _containerApi.useServices)([_containerApi.TOKENS.UTIL_OCA_RESOLVER]);
   const styles = _reactNative.StyleSheet.create({
     linkContainer: {
       ...ListItems.recordContainer,
       flexDirection: 'row',
-      justifyContent: 'flex-end',
+      justifyContent: 'space-between',
       paddingHorizontal: bundleResolver.getBrandingOverlayType() === _legacy.BrandingOverlayType.Branding10 ? 25 : 16,
-      paddingVertical: 16
+      paddingVertical: Spacing.sm,
+      paddingBottom: Spacing.lg
     },
     link: {
       minHeight: TextTheme.normal.fontSize,
@@ -54,6 +58,7 @@ const Record = ({
   }, [hideAll]);
   return /*#__PURE__*/_react.default.createElement(_reactNative.FlatList, {
     data: fields,
+    scrollEnabled: scrollEnabled,
     keyExtractor: ({
       name
     }, index) => name || index.toString(),
@@ -74,7 +79,9 @@ const Record = ({
     }),
     ListHeaderComponent: header ? /*#__PURE__*/_react.default.createElement(_RecordHeader.default, null, header(), hideFieldValues ? /*#__PURE__*/_react.default.createElement(_reactNative.View, {
       style: styles.linkContainer
-    }, /*#__PURE__*/_react.default.createElement(_reactNative.TouchableOpacity, {
+    }, isProofRequest && /*#__PURE__*/_react.default.createElement(_reactNative.Text, {
+      style: TextTheme.headingFour
+    }, t('ProofRequest.DetailsHeader')), /*#__PURE__*/_react.default.createElement(_reactNative.TouchableOpacity, {
       style: styles.link,
       activeOpacity: 1,
       onPress: hideAll,

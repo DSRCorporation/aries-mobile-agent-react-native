@@ -1,9 +1,9 @@
-import { MdocRecord, SdJwtVcRecord, W3cCredentialRecord, W3cV2CredentialRecord } from '@credo-ts/core';
 import { OpenId4VPRequestRecord } from '../types';
+import { OpenIDCredentialRecord } from '../credentialRecord';
 type OpenIDContextProps = {
     openIDUri?: string;
     openIDPresentationUri?: string;
 };
-export declare const useOpenID: ({ openIDUri, openIDPresentationUri, }: OpenIDContextProps) => SdJwtVcRecord | W3cCredentialRecord | MdocRecord | OpenId4VPRequestRecord | W3cV2CredentialRecord | undefined;
+export declare const useOpenID: ({ openIDUri, openIDPresentationUri, }: OpenIDContextProps) => OpenIDCredentialRecord | OpenId4VPRequestRecord | undefined;
 export {};
 //# sourceMappingURL=openid.d.ts.map

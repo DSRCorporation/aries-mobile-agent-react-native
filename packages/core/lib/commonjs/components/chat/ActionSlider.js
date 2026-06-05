@@ -70,6 +70,7 @@ const ActionSlider = ({
     transparent: true,
     onRequestClose: onDismiss
   }, /*#__PURE__*/_react.default.createElement(_reactNative.TouchableOpacity, {
+    accessible: false,
     style: styles.outsideListener,
     onPress: onDismiss
   }), /*#__PURE__*/_react.default.createElement(_reactNative.View, {

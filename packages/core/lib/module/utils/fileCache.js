@@ -16,7 +16,7 @@ export class FileCache {
     this._fileEtag = value;
     this.saveCacheData({
       fileEtag: value,
-      updatedAt: new Date()
+      updatedAt: new Date().toISOString()
     }).catch(error => {
       var _this$log;
       (_this$log = this.log) === null || _this$log === void 0 || _this$log.error(`Failed to save cache data, ${error}`);

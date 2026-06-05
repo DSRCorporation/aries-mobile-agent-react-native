@@ -7,6 +7,8 @@ exports.default = exports.ToastType = void 0;
 var _react = _interopRequireDefault(require("react"));
 var _reactNative = require("react-native");
 var _MaterialIcons = _interopRequireDefault(require("react-native-vector-icons/MaterialIcons"));
+var _reactI18next = require("react-i18next");
+var _constants = require("../../constants");
 var _theme = require("../../contexts/theme");
 var _testable = require("../../utils/testable");
 var _reactNativeToastMessage = _interopRequireDefault(require("react-native-toast-message"));
@@ -25,6 +27,9 @@ const BaseToast = ({
   toastType,
   onPress = () => null
 }) => {
+  const {
+    t
+  } = (0, _reactI18next.useTranslation)();
   const {
     TextTheme,
     borderRadius,
@@ -99,7 +104,10 @@ const BaseToast = ({
   }
   return /*#__PURE__*/_react.default.createElement(_reactNative.TouchableOpacity, {
     activeOpacity: 1,
-    onPress: () => onPress()
+    onPress: () => onPress(),
+    accessibilityLabel: title,
+    accessibilityRole: "alert",
+    testID: (0, _testable.testIdWithKey)('Toast')
   }, /*#__PURE__*/_react.default.createElement(_reactNative.View, {
     style: [styles.container, {
       backgroundColor,
@@ -131,7 +139,11 @@ const BaseToast = ({
   }, body))), /*#__PURE__*/_react.default.createElement(_reactNative.View, null, /*#__PURE__*/_react.default.createElement(_reactNative.TouchableOpacity, {
     onPress: () => {
       _reactNativeToastMessage.default.hide();
-    }
+    },
+    accessibilityLabel: t('Global.CloseNotification'),
+    accessibilityRole: "button",
+    testID: (0, _testable.testIdWithKey)('ToastClose'),
+    hitSlop: _constants.hitSlop
   }, /*#__PURE__*/_react.default.createElement(_MaterialIcons.default, {
     style: styles.icon,
     name: 'close',

@@ -111,7 +111,7 @@ const credentialRegistry = exports.credentialRegistry = (0, _vanilla.createStore
   shouldSkip: id => {
     const s = get();
     if (s.refreshing[id]) return true; // in-progress
-    if (s.expired.includes(id)) return true; // replacement already queued
+    if (s.expired.includes(id) && Boolean(s.replacements[id])) return true; // replacement already queued
     if (s.blocked[id]) return true; // previously succeeded/failed
     return false;
   },

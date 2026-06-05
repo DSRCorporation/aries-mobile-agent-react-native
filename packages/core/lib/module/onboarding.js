@@ -59,10 +59,10 @@ export const isAttemptLockoutComplete = servedPenalty => {
     completed: servedPenalty !== false
   };
 };
-export const isAgentInitializationComplete = agent => {
+export const isAgentInitializationComplete = (agent, isAttestationComplete) => {
   return {
     name: Screens.Splash,
-    completed: !!agent
+    completed: !!agent && isAttestationComplete
   };
 };
 export const generateOnboardingWorkflowSteps = (state, config, termsVersion, agent) => {
@@ -85,9 +85,12 @@ export const generateOnboardingWorkflowSteps = (state, config, termsVersion, age
     enableWalletNaming
   } = state.preferences;
   const {
+    isAttestationComplete
+  } = state.attestation;
+  const {
     showPreface,
     enablePushNotifications
   } = config;
-  return [isPrefaceComplete(didSeePreface, showPreface ?? false), isUpdateCheckComplete(), isOnboardingTutorialComplete(didCompleteTutorial), isTermsComplete(Number(didAgreeToTerms), termsVersion), isPINCreationComplete(didCreatePIN), isBiometryComplete(didConsiderBiometry), isPushNotificationComplete(didConsiderPushNotifications, enablePushNotifications), isNameWalletComplete(didNameWallet, enableWalletNaming), isAttemptLockoutComplete(servedPenalty), isAuthenticationComplete(didCreatePIN, didAuthenticate), isAgentInitializationComplete(agent)];
+  return [isPrefaceComplete(didSeePreface, showPreface ?? false), isUpdateCheckComplete(), isOnboardingTutorialComplete(didCompleteTutorial), isTermsComplete(Number(didAgreeToTerms), termsVersion), isPINCreationComplete(didCreatePIN), isBiometryComplete(didConsiderBiometry), isPushNotificationComplete(didConsiderPushNotifications, enablePushNotifications), isNameWalletComplete(didNameWallet, enableWalletNaming), isAttemptLockoutComplete(servedPenalty), isAuthenticationComplete(didCreatePIN, didAuthenticate), isAgentInitializationComplete(agent, isAttestationComplete)];
 };
 //# sourceMappingURL=onboarding.js.map

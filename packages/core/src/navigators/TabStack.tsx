@@ -173,7 +173,7 @@ const TabStack: React.FC = () => {
               </AttachTourStep>
             ),
             tabBarShowLabel: false,
-            tabBarAccessibilityLabel: `${t('TabStack.Home')} (${notifications.length ?? 0})`,
+            tabBarAccessibilityLabel: t('TabStackAccessibility.Home', { notifications: notifications?.length ?? 0 }),
             tabBarTestID: testIdWithKey(t('TabStack.Home')),
             tabBarBadge: notifications.length || undefined,
             tabBarBadgeStyle: {
@@ -247,7 +247,7 @@ const TabStack: React.FC = () => {
               </View>
             ),
             tabBarShowLabel: false,
-            tabBarAccessibilityLabel: t('TabStack.Scan'),
+            tabBarAccessibilityLabel: t('TabStackAccessibility.Scan'),
             tabBarTestID: testIdWithKey(t('TabStack.Scan')),
           }}
           listeners={({ navigation }) => ({
@@ -290,7 +290,7 @@ const TabStack: React.FC = () => {
               </AttachTourStep>
             ),
             tabBarShowLabel: false,
-            tabBarAccessibilityLabel: t('TabStack.Credentials'),
+            tabBarAccessibilityLabel: t('TabStackAccessibility.Credentials'),
             tabBarTestID: testIdWithKey(t('TabStack.Credentials')),
           }}
         />

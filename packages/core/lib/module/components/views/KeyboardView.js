@@ -1,8 +1,8 @@
 function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
-import React from 'react';
-import { Platform, KeyboardAvoidingView } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
 import { useHeaderHeight } from '@react-navigation/elements';
+import React from 'react';
+import { KeyboardAvoidingView, Platform } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
 const useSafeHeaderHeight = () => {
   try {
     return useHeaderHeight();
@@ -23,7 +23,8 @@ const useSafeHeaderHeight = () => {
  */
 const KeyboardView = ({
   children,
-  scrollViewProps
+  scrollViewProps,
+  scrollViewRef
 }) => {
   const safeHeaderHeight = useSafeHeaderHeight();
   return /*#__PURE__*/React.createElement(KeyboardAvoidingView, {
@@ -37,7 +38,8 @@ const KeyboardView = ({
     contentContainerStyle: [{
       flexGrow: 1
     }, scrollViewProps === null || scrollViewProps === void 0 ? void 0 : scrollViewProps.contentContainerStyle],
-    showsVerticalScrollIndicator: false
+    showsVerticalScrollIndicator: false,
+    ref: scrollViewRef
   }, scrollViewProps), children));
 };
 export default KeyboardView;

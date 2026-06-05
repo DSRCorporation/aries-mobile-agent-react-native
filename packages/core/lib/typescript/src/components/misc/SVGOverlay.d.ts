@@ -10,6 +10,7 @@ interface ISVGOverlay {
     maskType?: MaskType;
     customPath?: string;
     strokeColor?: string;
+    strokeWidth?: number;
     overlayColor?: string;
     overlayOpacity?: number;
 }

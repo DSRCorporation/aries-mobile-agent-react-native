@@ -44,7 +44,13 @@ const SingleSelectBlock = ({
     key: item.id,
     style: styles.row,
     onPress: () => handleSelect(item),
-    hitSlop: _constants.hitSlop
+    hitSlop: _constants.hitSlop,
+    accessibilityLabel: item.value,
+    accessibilityRole: "radio",
+    accessibilityState: {
+      selected: item.id === selected.id
+    },
+    testID: item.id
   }, /*#__PURE__*/_react.default.createElement(_ThemedText.ThemedText, {
     style: Inputs.singleSelectText
   }, item.value), item.id === selected.id ? /*#__PURE__*/_react.default.createElement(_MaterialIcons.default, {

@@ -6,6 +6,8 @@ export interface RecordProps {
     fields: Field[];
     hideFieldValues?: boolean;
     field?: (field: Field, index: number, fields: Field[]) => React.ReactElement | null;
+    scrollEnabled?: boolean;
+    isProofRequest?: boolean;
 }
 declare const Record: React.FC<RecordProps>;
 export default Record;

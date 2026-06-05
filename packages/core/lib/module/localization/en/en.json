@@ -45,6 +45,7 @@
     "Requested": "Requested",
     "Updated": "Updated",
     "Close": "Close",
+    "CloseNotification": "Close notification",
     "Remove": "Remove",
     "GotIt": "Got it",
     "Send": "Send",
@@ -159,6 +160,8 @@
     "Message1048": "There was a problem with the proof request.",
     "Title1049": "Unable to change PIN.",
     "Message1049": "There was a problem while attempting to change your PIN.",
+    "Title1050": "Unable to access biometrics",
+    "Message1050": "There was a problem while attempting to access this device' biometrics",
     "GenericError": {
       "Title": "Something went wrong",
       "Message": "There was an unexpected error, please try again later."
@@ -322,7 +325,8 @@
     "ForgotPINLink": "Forgot your PIN?",
     "ForgotPINModalTitle": "Forgot your PIN?",
     "ForgotPINModalDescription": "Forgot your PIN? You'll need to reinstall and setup your wallet again.",
-    "Loading": "Logging in"
+    "Loading": "Logging in",
+    "DeveloperMenuTrigger": "App information"
   },
   "AttemptLockout": {
     "Title": "Your wallet is temporarily locked",
@@ -618,7 +622,9 @@
     "ErrorTextboxEmpty": "Textbox Empty",
     "ErrorTextboxEmptyDescription": "Please add a URL intended for digital wallets and try again.",
     "ErrorInvalidUrl": "URL not recognized",
-    "ErrorInvalidUrlDescription": "Check if the URL is intended for digital wallets and if it was copied correctly, then try again."
+    "ErrorInvalidUrlDescription": "Check if the URL is intended for digital wallets and if it was copied correctly, then try again.",
+    "PasteUrlInput": "URL input",
+    "ScanDisabled": "Submit disabled, enter a URL first"
   },
   "Connection": {
     "JustAMoment": "Just a moment while we make a secure connection...",
@@ -704,6 +710,8 @@
     "RequestProcessing": "Just a moment...",
     "OfferDelay": "Offer delay",
     "ChangeCredential": "Change credential",
+    "SelectCredential": "Select credential",
+    "PredicateInput": "Enter value for {{label}}",
     "GetThisCredential": "Get this credential",
     "RejectThisProof?": "Reject this Proof Request?",
     "DeclineThisProof?": "Decline this Proof Request?",
@@ -760,7 +768,10 @@
     "CredentialForProofIsRevoked": "revoked credential",
     "ProofRequestStateError": "The proof request received is in: {{state}}, decline this proof and try again.",
     "ProofRequestErrorMessage": "Something went wrong with the proof request.",
-    "PleaseAddress": " Please address them before continuing."
+    "PleaseAddress": " Please address them before continuing.",
+    "DetailsHeader": "Information Requested",
+    "OID4VCTitle": "Information Request",
+    "UseDifferentCard": "Use different card"
   },
   "UnsatisfiedProofRequest": {
     "Title": "Information Request",
@@ -794,7 +805,8 @@
     "ConfigureMediator": "Configure Mediator",
     "ChangeMediator": "Change Mediator",
     "ChangeMediatorDescription": "Changing the mediator will restart the app. Do you want to continue?",
-    "GenericErrorMessages": "Generic error messages"
+    "GenericErrorMessages": "Generic error messages",
+    "VersionInfo": "Version information"
   },
   "AutoLockTimes": {
     "FiveMinutes": "Five Minutes",
@@ -807,6 +819,11 @@
     "Home": "Notifications",
     "Scan": "Scan",
     "Credentials": "Credentials"
+  },
+  "TabStackAccessibility": {
+    "Home": "Notifications tab {{notifications}} notifications",
+    "Scan": "Scan tab",
+    "Credentials": "Credentials tab"
   },
   "RootStack": {
     "Contacts": "Contacts",

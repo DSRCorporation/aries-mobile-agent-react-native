@@ -19,7 +19,6 @@ import { Role } from '../types/chat';
 import { BasicMessageMetadata } from '../types/metadata';
 import { Screens, Stacks } from '../types/navigators';
 import { getConnectionName } from '../utils/helpers';
-import { KeyboardAvoidingView, Platform } from 'react-native';
 const Chat = ({
   route
 }) => {
@@ -48,8 +47,6 @@ const Chat = ({
   const [showActionSlider, setShowActionSlider] = useState(false);
   const theme = useTheme();
   const {
-    ColorPalette,
-    ChatTheme,
     Assets
   } = theme;
   const [theirLabel, setTheirLabel] = useState(getConnectionName(connection, store.preferences.alternateContactNames));
@@ -80,7 +77,7 @@ const Chat = ({
           ...meta,
           seen: true
         });
-        const basicMessageRepository = agent.context.dependencyManager.resolve(DidCommBasicMessageRepository); // Should maybe be resolved differently
+        const basicMessageRepository = agent.context.dependencyManager.resolve(DidCommBasicMessageRepository);
         basicMessageRepository.update(agent.context, msg);
       }
     });
@@ -115,40 +112,35 @@ const Chat = ({
   return /*#__PURE__*/React.createElement(SafeAreaView, {
     edges: ['bottom', 'left', 'right'],
     style: {
-      flex: 1,
-      backgroundColor: ColorPalette.grayscale.white,
-      borderRadius: 24
-    }
-  }, /*#__PURE__*/React.createElement(KeyboardAvoidingView, {
-    style: {
       flex: 1
-    },
-    behavior: Platform.OS === 'ios' ? undefined : 'padding',
-    keyboardVerticalOffset: headerHeight
+    }
   }, /*#__PURE__*/React.createElement(GiftedChat, {
-    keyboardShouldPersistTaps: 'handled',
     messages: chatMessages,
-    showAvatarForEveryMessage: true,
-    alignTop: true,
+    isAvatarVisibleForEveryMessage: true,
     renderAvatar: () => null,
     messageIdGenerator: msg => (msg === null || msg === void 0 ? void 0 : msg._id.toString()) || '0',
     renderMessage: props => /*#__PURE__*/React.createElement(ChatMessage, {
       messageProps: props
     }),
-    renderInputToolbar: props => renderInputToolbar(props, ChatTheme),
-    renderSend: props => renderSend(props, ChatTheme),
-    renderComposer: props => renderComposer(props, ChatTheme, t('Contacts.TypeHere')),
-    disableComposer: !silentAssertConnectedNetwork(),
+    renderInputToolbar: props => renderInputToolbar(props, theme),
+    renderSend: props => renderSend(props, theme),
+    renderComposer: props => renderComposer(props, theme, t('Contacts.TypeHere'), !silentAssertConnectedNetwork()),
     onSend: onSend,
     user: {
       _id: Role.me
     },
-    renderActions: props => renderActions(props, ChatTheme, actions),
-    onPressActionButton: actions ? () => setShowActionSlider(true) : undefined
+    renderActions: props => renderActions(props, theme, actions),
+    onPressActionButton: actions ? () => setShowActionSlider(true) : undefined,
+    keyboardAvoidingViewProps: {
+      keyboardVerticalOffset: headerHeight
+    },
+    listProps: {
+      keyboardShouldPersistTaps: 'handled'
+    }
   }), showActionSlider && /*#__PURE__*/React.createElement(ActionSlider, {
     onDismiss: onDismiss,
     actions: actions
-  })));
+  }));
 };
 export default Chat;
 //# sourceMappingURL=Chat.js.map

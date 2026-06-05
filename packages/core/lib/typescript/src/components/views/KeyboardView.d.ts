@@ -1,5 +1,5 @@
-import React from 'react';
-import { ScrollViewProps } from 'react-native';
+import React, { RefObject } from 'react';
+import { ScrollView, ScrollViewProps } from 'react-native';
 /**
  * A wrapper component that provides keyboard-aware scrolling and safe area handling
  *
@@ -13,6 +13,7 @@ import { ScrollViewProps } from 'react-native';
 declare const KeyboardView: React.FC<{
     children: React.ReactNode;
     scrollViewProps?: ScrollViewProps;
+    scrollViewRef?: RefObject<ScrollView | null>;
 }>;
 export default KeyboardView;
 //# sourceMappingURL=KeyboardView.d.ts.map

@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { hitSlop } from '../../constants';
 import { useTheme } from '../../contexts/theme';
 import { testIdWithKey } from '../../utils/testable';
 import { ThemedText } from '../texts/ThemedText';
@@ -38,7 +39,10 @@ const CredentialActionFooter = ({
   }), /*#__PURE__*/React.createElement(View, null, /*#__PURE__*/React.createElement(TouchableOpacity, {
     onPress: onPress,
     testID: testIdWithKey(testID),
-    style: styles.touchable
+    style: styles.touchable,
+    accessibilityLabel: text,
+    accessibilityRole: "button",
+    hitSlop: hitSlop
   }, /*#__PURE__*/React.createElement(ThemedText, {
     style: styles.credActionText
   }, text), /*#__PURE__*/React.createElement(Icon, {

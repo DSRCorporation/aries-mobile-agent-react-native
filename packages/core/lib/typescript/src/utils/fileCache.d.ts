@@ -2,7 +2,7 @@ import { AxiosInstance } from 'axios';
 import { BifoldLogger } from '../services/logger';
 export type CacheDataFile = {
     fileEtag: string;
-    updatedAt: Date;
+    updatedAt: string;
 };
 export declare class FileCache {
     protected axiosInstance: AxiosInstance;

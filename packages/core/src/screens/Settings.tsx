@@ -145,7 +145,7 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
         {
           title: t('Settings.Language'),
           value: currentLanguage,
-          accessibilityLabel: t('Settings.Language'),
+          accessibilityLabel: `${t('Settings.Language')} ${currentLanguage}`,
           testID: testIdWithKey('Language'),
           onPress: () => navigation.navigate(Screens.Language),
         },
@@ -397,6 +397,7 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
             <TouchableWithoutFeedback
               onPress={incrementDeveloperMenuCounter}
               disabled={store.preferences.developerModeEnabled}
+              accessibilityLabel={t('Settings.VersionInfo')}
             >
               <View>
                 <ThemedText testID={testIdWithKey('Version')}>

@@ -63,6 +63,7 @@ const ActionSlider = ({
     transparent: true,
     onRequestClose: onDismiss
   }, /*#__PURE__*/React.createElement(TouchableOpacity, {
+    accessible: false,
     style: styles.outsideListener,
     onPress: onDismiss
   }), /*#__PURE__*/React.createElement(View, {

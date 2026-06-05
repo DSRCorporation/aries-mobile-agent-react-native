@@ -8,15 +8,6 @@ var _react = require("react");
 var _registry = require("../refresh/registry");
 // modules/openid/hooks/useDeclineReplacement.ts
 
-function findOldIdByNewId(newId) {
-  const s = _registry.credentialRegistry.getState();
-  // replacements: { [oldId]: { id: newId, ... } }
-  for (const [oldId, lite] of Object.entries(s.replacements)) {
-    if ((lite === null || lite === void 0 ? void 0 : lite.id) === newId) return oldId;
-  }
-  return undefined;
-}
-
 /**
  * Decline a replacement offer: clears the registry entry so the notification disappears.
  * No repo operations (no save/delete) are performed.
@@ -56,7 +47,7 @@ function useDeclineReplacement(opts = {}) {
    * Decline by NEW credential id (use this from the Offer screen where you only know newId)
    */
   const declineByNewId = (0, _react.useCallback)(async newId => {
-    const oldId = findOldIdByNewId(newId);
+    const oldId = (0, _registry.selectOldIdByReplacementId)(newId);
     if (!oldId) {
       logger === null || logger === void 0 || logger.warn(`🧹 [Decline] No matching oldId found for newId=${newId}`);
       return;

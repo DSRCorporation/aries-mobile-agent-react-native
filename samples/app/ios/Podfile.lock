@@ -3,13 +3,15 @@ PODS:
     - React
     - React-callinvoker
     - React-Core
-  - askar (0.5.0-alpha-20260121132554):
+  - askar (0.6.0):
     - React
     - React-callinvoker
     - React-Core
   - boost (1.84.0)
   - CocoaAsyncSocket (7.6.5)
   - DoubleConversion (1.1.6)
+  - EXApplication (7.0.8):
+    - ExpoModulesCore
   - EXConstants (18.0.13):
     - ExpoModulesCore
   - Expo (54.0.31):
@@ -43,7 +45,11 @@ PODS:
     - ReactCommon/turbomodule/core
     - SocketRocket
     - Yoga
+  - ExpoAppIntegrity (55.0.9):
+    - ExpoModulesCore
   - ExpoAsset (12.0.12):
+    - ExpoModulesCore
+  - ExpoCrypto (15.0.9):
     - ExpoModulesCore
   - ExpoFileSystem (19.0.21):
     - ExpoModulesCore
@@ -80,6 +86,8 @@ PODS:
     - ReactCommon/turbomodule/core
     - SocketRocket
     - Yoga
+  - ExpoSecureEnvironment (0.1.5):
+    - ExpoModulesCore
   - ExpoSecureStore (15.0.8):
     - ExpoModulesCore
   - fast_float (8.0.0)
@@ -89,7 +97,7 @@ PODS:
   - hermes-engine (0.81.5):
     - hermes-engine/Pre-built (= 0.81.5)
   - hermes-engine/Pre-built (0.81.5)
-  - indy-vdr (0.2.3):
+  - indy-vdr (0.2.4):
     - React
     - React-callinvoker
     - React-Core
@@ -3013,13 +3021,17 @@ DEPENDENCIES:
   - "askar (from `../node_modules/@openwallet-foundation/askar-react-native`)"
   - boost (from `../node_modules/react-native/third-party-podspecs/boost.podspec`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
+  - EXApplication (from `../node_modules/expo-application/ios`)
   - EXConstants (from `../node_modules/expo-constants/ios`)
   - Expo (from `../node_modules/expo`)
+  - "ExpoAppIntegrity (from `../node_modules/@expo/app-integrity/ios`)"
   - ExpoAsset (from `../node_modules/expo-asset/ios`)
+  - ExpoCrypto (from `../node_modules/expo-crypto/ios`)
   - ExpoFileSystem (from `../node_modules/expo-file-system/ios`)
   - ExpoFont (from `../node_modules/expo-font/ios`)
   - ExpoKeepAwake (from `../node_modules/expo-keep-awake/ios`)
   - ExpoModulesCore (from `../node_modules/expo-modules-core`)
+  - "ExpoSecureEnvironment (from `../node_modules/@animo-id/expo-secure-environment/ios`)"
   - ExpoSecureStore (from `../node_modules/expo-secure-store/ios`)
   - fast_float (from `../node_modules/react-native/third-party-podspecs/fast_float.podspec`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
@@ -3133,12 +3145,18 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/third-party-podspecs/boost.podspec"
   DoubleConversion:
     :podspec: "../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec"
+  EXApplication:
+    :path: "../node_modules/expo-application/ios"
   EXConstants:
     :path: "../node_modules/expo-constants/ios"
   Expo:
     :path: "../node_modules/expo"
+  ExpoAppIntegrity:
+    :path: "../node_modules/@expo/app-integrity/ios"
   ExpoAsset:
     :path: "../node_modules/expo-asset/ios"
+  ExpoCrypto:
+    :path: "../node_modules/expo-crypto/ios"
   ExpoFileSystem:
     :path: "../node_modules/expo-file-system/ios"
   ExpoFont:
@@ -3147,6 +3165,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo-keep-awake/ios"
   ExpoModulesCore:
     :path: "../node_modules/expo-modules-core"
+  ExpoSecureEnvironment:
+    :path: "../node_modules/@animo-id/expo-secure-environment/ios"
   ExpoSecureStore:
     :path: "../node_modules/expo-secure-store/ios"
   fast_float:
@@ -3339,24 +3359,28 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   anoncreds: d48fc0f3bde44f97aef5bb907f6821bf9191d758
-  askar: e4600f17f3067e57dca7324b5baaa1b66c3efd23
+  askar: d15c0dd9a376a8e3245030f0baf7ddca0058f76d
   boost: 7e761d76ca2ce687f7cc98e698152abd03a18f90
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   DoubleConversion: cb417026b2400c8f53ae97020b2be961b59470cb
+  EXApplication: 1e98d4b1dccdf30627f92917f4b2c5a53c330e5f
   EXConstants: fce59a631a06c4151602843667f7cfe35f81e271
   Expo: 2a9695d3068f95b2262faa81295e1975949a482d
+  ExpoAppIntegrity: e500dcac7bdc7f0e4437adead7b31fbd7a192f68
   ExpoAsset: f867e55ceb428aab99e1e8c082b5aee7c159ea18
+  ExpoCrypto: e2a2c4c748aac8485e5675f027b7901f511d43ff
   ExpoFileSystem: 858a44267a3e6e9057e0888ad7c7cfbf55d52063
   ExpoFont: 35ac6191ed86bbf56b3ebd2d9154eda9fad5b509
   ExpoKeepAwake: 55f75eca6499bb9e4231ebad6f3e9cb8f99c0296
   ExpoModulesCore: d86dab8a6c8f1184f9b0b0503ace93919882aa15
+  ExpoSecureEnvironment: bdba36c15073279baf3b8787f2e1eb42146a0761
   ExpoSecureStore: d32f751874a2ceb5aaeebeb3578e165c1ba2b24a
   fast_float: b32c788ed9c6a8c584d114d0047beda9664e7cc6
   FBLazyVector: 5beb8028d5a2e75dd9634917f23e23d3a061d2aa
   fmt: a40bb5bd0294ea969aaaba240a927bd33d878cdd
   glog: 5683914934d5b6e4240e497e0f4a3b42d1854183
   hermes-engine: 9f4dfe93326146a1c99eb535b1cb0b857a3cd172
-  indy-vdr: e84efdd7d3030da22354116cc3935f18727a02e3
+  indy-vdr: 3606e7be9ed3b5fc67a80b198982015adfdadc7f
   OpenSSL-Universal: 6082b0bf950e5636fe0d78def171184e2b3899c2
   RCT-Folly: 846fda9475e61ec7bcbf8a3fe81edfcaeb090669
   RCTDeprecation: 5eb1d2eeff5fb91151e8a8eef45b6c7658b6c897

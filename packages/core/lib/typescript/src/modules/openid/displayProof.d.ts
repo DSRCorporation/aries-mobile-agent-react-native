@@ -1,31 +1,6 @@
-import { ClaimFormat, type DifPexCredentialsForRequest } from '@credo-ts/core';
-import { type CredentialMetadata, type DisplayImage } from './display';
-export interface FormattedSubmission {
-    name: string;
-    purpose?: string;
-    areAllSatisfied: boolean;
-    entries: FormattedSubmissionEntry[];
-}
-export type FormattedSelectedCredentialEntry = {
-    id: string;
-    credentialName: string;
-    issuerName?: string;
-    requestedAttributes?: string[];
-    disclosedPayload?: Record<string, unknown>;
-    metadata?: CredentialMetadata;
-    backgroundColor?: string;
-    backgroundImage?: DisplayImage;
-    textColor?: string;
-    claimFormat: ClaimFormat | 'AnonCreds';
-};
-export interface FormattedSubmissionEntry {
-    /** can be either AnonCreds groupName or PEX inputDescriptorId */
-    inputDescriptorId: string;
-    isSatisfied: boolean;
-    name: string;
-    purpose?: string;
-    description?: string;
-    credentials: Array<FormattedSelectedCredentialEntry>;
-}
+import { type DcqlQueryResult, type DifPexCredentialsForRequest } from '@credo-ts/core';
+import { FormattedSubmission, OpenId4VPRequestRecord } from './types';
+export declare function formatDcqlCredentialsForRequest(queryResult: DcqlQueryResult): FormattedSubmission;
 export declare function formatDifPexCredentialsForRequest(credentialsForRequest: DifPexCredentialsForRequest): FormattedSubmission;
+export declare function formatOpenIdProofRequest(record: OpenId4VPRequestRecord): FormattedSubmission | undefined;
 //# sourceMappingURL=displayProof.d.ts.map

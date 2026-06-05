@@ -263,15 +263,23 @@ exports.getAttributeFormats = getAttributeFormats;
 function getConnectionName(connection, alternateContactNames) {
   return (connection === null || connection === void 0 ? void 0 : connection.id) && alternateContactNames[connection === null || connection === void 0 ? void 0 : connection.id] || (connection === null || connection === void 0 ? void 0 : connection.theirLabel) || (connection === null || connection === void 0 ? void 0 : connection.alias) || (connection === null || connection === void 0 ? void 0 : connection.id) || '';
 }
-function useCredentialConnectionLabel(credential) {
+function useCredentialConnectionLabel(credential, overlay) {
+  var _overlay$metaOverlay;
   const connection = (0, _reactHooks.useConnectionById)((credential === null || credential === void 0 ? void 0 : credential.connectionId) ?? '');
   if (!credential) {
     return '';
   }
-  if (credential.connectionId) {
-    return (connection === null || connection === void 0 ? void 0 : connection.alias) || (connection === null || connection === void 0 ? void 0 : connection.theirLabel) || credential.connectionId;
+  const connectionLabel = credential.connectionId ? (connection === null || connection === void 0 ? void 0 : connection.alias) || (connection === null || connection === void 0 ? void 0 : connection.theirLabel) || '' : '';
+  if (connectionLabel) {
+    return connectionLabel;
   }
-  return 'Unknown Contact';
+  if (overlay !== null && overlay !== void 0 && (_overlay$metaOverlay = overlay.metaOverlay) !== null && _overlay$metaOverlay !== void 0 && _overlay$metaOverlay.issuer) {
+    return overlay.metaOverlay.issuer;
+  }
+  if (!credential.connectionId) {
+    return 'Unknown Contact';
+  }
+  return credential.connectionId;
 }
 function useConnectionImageUrl(connectionId) {
   const connection = (0, _reactHooks.useConnectionById)(connectionId);
@@ -1041,8 +1049,6 @@ const connectFromScanOrDeepLink = async (uri, agent, logger, navigation, isDeepL
   if (!agent) {
     return;
   }
-
-  // TODO:(jl) Do we care if the connection is a deep link?
   logger.info(`Attempting to connect from ${isDeepLink ? 'deeplink' : 'qr scan'}`);
   try {
     if ((0, _parsers.isOpenIdCredentialOffer)(uri)) {

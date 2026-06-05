@@ -61,7 +61,8 @@ const OpenIDCredentialDetails = ({
   const {
     removeCredential,
     getW3CCredentialById,
-    getSdJwtCredentialById
+    getSdJwtCredentialById,
+    getMdocCredentialById
   } = (0, _OpenIDCredentialRecordProvider.useOpenIDCredentials)();
   const [bundleResolver] = (0, _containerApi.useServices)([_containerApi.TOKENS.UTIL_OCA_RESOLVER]);
   const [isRemoveModalDisplayed, setIsRemoveModalDisplayed] = (0, _react.useState)(false);
@@ -90,6 +91,8 @@ const OpenIDCredentialDetails = ({
         let record;
         if (type === _types.OpenIDCredentialType.SdJwtVc) {
           record = await getSdJwtCredentialById(credentialId);
+        } else if (type === _types.OpenIDCredentialType.Mdoc) {
+          record = await getMdocCredentialById(credentialId);
         } else {
           record = await getW3CCredentialById(credentialId);
         }
@@ -100,7 +103,7 @@ const OpenIDCredentialDetails = ({
       }
     };
     fetchCredential();
-  }, [credentialId, type, getSdJwtCredentialById, getW3CCredentialById, agent, t, credentialRemoved]);
+  }, [credentialId, type, getSdJwtCredentialById, getMdocCredentialById, getW3CCredentialById, agent, t, credentialRemoved]);
   (0, _react.useEffect)(() => {
     if (!credential) return;
     try {

@@ -22,9 +22,10 @@ const HomeFooterView = ({
   } = (0, _OpenIDCredentialRecordProvider.useOpenIDCredentials)();
   const {
     w3cCredentialRecords,
-    sdJwtVcRecords
+    sdJwtVcRecords,
+    mdocVcRecords
   } = openIdState;
-  const credentials = [...(0, _reactHooks.useCredentialByState)(_didcomm.DidCommCredentialState.CredentialReceived), ...(0, _reactHooks.useCredentialByState)(_didcomm.DidCommCredentialState.Done), ...w3cCredentialRecords, ...sdJwtVcRecords];
+  const credentials = [...(0, _reactHooks.useCredentialByState)(_didcomm.DidCommCredentialState.CredentialReceived), ...(0, _reactHooks.useCredentialByState)(_didcomm.DidCommCredentialState.Done), ...w3cCredentialRecords, ...sdJwtVcRecords, ...mdocVcRecords];
   const {
     HomeTheme,
     TextTheme,

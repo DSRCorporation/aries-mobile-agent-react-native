@@ -56,6 +56,9 @@ export interface LoginAttempt {
 export interface Authentication {
     didAuthenticate: boolean;
 }
+export interface Attestation {
+    isAttestationComplete: boolean;
+}
 /**
  * Represents information about latest the
  * available version of the application.
@@ -77,6 +80,7 @@ export interface State {
     deepLink?: string;
     migration: Migration;
     versionInfo: VersionInfo;
+    attestation: Attestation;
 }
 export type PersistentState = {
     MigrationState: Migration;

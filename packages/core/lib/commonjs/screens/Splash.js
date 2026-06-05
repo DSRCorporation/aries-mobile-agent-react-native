@@ -15,6 +15,7 @@ var _theme = require("../contexts/theme");
 var _error = require("../types/error");
 var _auth = require("../contexts/auth");
 var _store = require("../contexts/store");
+var _attestation = require("../hooks/attestation");
 function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
 /**
  * This Splash screen is shown in two scenarios: initial load of the app,
@@ -37,7 +38,12 @@ const Splash = ({
     LoadingIndicator
   } = (0, _animatedComponents.useAnimatedComponents)();
   const initializing = (0, _react.useRef)(false);
-  const [logger, ocaBundleResolver] = (0, _containerApi.useServices)([_containerApi.TOKENS.UTIL_LOGGER, _containerApi.TOKENS.UTIL_OCA_RESOLVER]);
+  const [logger, ocaBundleResolver, {
+    enableAttestation
+  }] = (0, _containerApi.useServices)([_containerApi.TOKENS.UTIL_LOGGER, _containerApi.TOKENS.UTIL_OCA_RESOLVER, _containerApi.TOKENS.CONFIG]);
+  const {
+    setupAttestation
+  } = (0, _attestation.useAttestation)();
   const styles = _reactNative.StyleSheet.create({
     container: {
       flex: 1,
@@ -66,7 +72,20 @@ const Splash = ({
       }
     };
     initAgentAsyncEffect();
-  }, [initializeAgent, ocaBundleResolver, logger, walletSecret, t, store.authentication.didAuthenticate]);
+  }, [initializeAgent, ocaBundleResolver, logger, walletSecret, t, store.authentication.didAuthenticate, setupAttestation]);
+  (0, _react.useEffect)(() => {
+    if (!store.authentication.didAuthenticate) return;
+    const initAttestation = async () => {
+      try {
+        await setupAttestation();
+      } catch (err) {
+        const error = new _error.BifoldError(t('Error.GenericError.Title'), t('Error.GenericError.Message'), (err === null || err === void 0 ? void 0 : err.message) ?? err, 1000);
+        _reactNative.DeviceEventEmitter.emit(_constants.EventTypes.ERROR_ADDED, error);
+        logger.error((err === null || err === void 0 ? void 0 : err.message) ?? err);
+      }
+    };
+    initAttestation();
+  }, [setupAttestation, enableAttestation, logger, store.authentication.didAuthenticate, t]);
   return /*#__PURE__*/_react.default.createElement(_reactNativeSafeAreaContext.SafeAreaView, {
     style: styles.container
   }, /*#__PURE__*/_react.default.createElement(LoadingIndicator, null));

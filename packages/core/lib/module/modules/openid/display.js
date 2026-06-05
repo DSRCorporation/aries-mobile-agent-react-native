@@ -253,9 +253,6 @@ export function filterAndMapSdJwtKeys(sdJwtVcPayload) {
 export function getCredentialForDisplay(credentialRecord) {
   var _credential$credentia;
   if (credentialRecord instanceof SdJwtVcRecord) {
-    // FIXME: we should probably add a decode method on the SdJwtVcRecord
-    // as you now need the agent context to decode the sd-jwt vc, while that's
-    // not really needed
     const {
       disclosures,
       jwt

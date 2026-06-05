@@ -7,6 +7,9 @@ export declare const defaultConfig: Config;
 export declare const defaultHistoryEventsLogger: HistoryEventsLoggerConfig;
 export declare class MainContainer implements Container {
     static readonly TOKENS: {
+        readonly ATTESTATION_FUNCTIONS: "attestation.functions";
+        readonly FN_ATTESTATION_GET_CHALLENGE: "attestation.get-challenge";
+        readonly FN_ATTESTATION_GET_JWT: "attestation.get-jwt";
         readonly FN_PIN_HASH_ALGORITHM: "fn.crypto.pin-hash-algorithm";
         readonly FN_LOAD_HISTORY: "fn.loadHistory";
         readonly HISTORY_ENABLED: "history.enabled";
@@ -19,6 +22,7 @@ export declare class MainContainer implements Container {
         readonly UTIL_LEDGERS: "utility.ledgers";
         readonly UTIL_PROOF_TEMPLATE: "utility.proof-template";
         readonly UTIL_ATTESTATION_MONITOR: "utility.attestation-monitor";
+        readonly UTIL_CREDENTIAL_PROVISIONING_MONITOR: "utility.credential-provisioning-monitor";
         readonly UTIL_APP_VERSION_MONITOR: "utility.app-version-monitor";
         readonly UTIL_AGENT_BRIDGE: "utility.agent-bridge";
         readonly UTIL_REFRESH_ORCHESTRATOR: "utility.refresh-orchestrator";

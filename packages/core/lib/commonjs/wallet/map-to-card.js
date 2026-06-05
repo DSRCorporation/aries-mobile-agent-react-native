@@ -128,12 +128,17 @@ function mapAnonCredsToCard(rec, bundle, opts = {}) {
     status
   };
 }
-function mapW3CToCard(input, id) {
+function mapW3CToCard(input, id, opts = {}) {
   var _input$vc$issuer, _input$vc$issuer2, _input$vc$type;
+  const {
+    proofContext = false,
+    displayItems
+  } = opts;
+
   // console.log(' ====> W3C Input:', input)
   const issuerName = typeof input.vc.issuer === 'string' ? input.vc.issuer : ((_input$vc$issuer = input.vc.issuer) === null || _input$vc$issuer === void 0 ? void 0 : _input$vc$issuer.name) || ((_input$vc$issuer2 = input.vc.issuer) === null || _input$vc$issuer2 === void 0 ? void 0 : _input$vc$issuer2.id) || 'Unknown Contact';
   const subject = input.vc.credentialSubject ?? {};
-  const items = Object.entries(subject).map(([key, raw]) => {
+  const items = proofContext && displayItems !== null && displayItems !== void 0 && displayItems.length ? displayItems.map(it => mapItemToCardAttr(it, input.labels, input.formats, input.piiKeys)) : Object.entries(subject).map(([key, raw]) => {
     var _input$labels, _input$formats, _input$piiKeys;
     const label = ((_input$labels = input.labels) === null || _input$labels === void 0 ? void 0 : _input$labels[key]) ?? (0, _lodash.default)(key);
     const format = (_input$formats = input.formats) === null || _input$formats === void 0 ? void 0 : _input$formats[key];
@@ -168,7 +173,7 @@ function mapW3CToCard(input, id) {
     },
     items,
     brandingType: input.branding.type,
-    proofContext: false,
+    proofContext,
     revoked: false,
     notInWallet: false,
     allPI,
@@ -216,13 +221,16 @@ const resolveBundleForW3CCredential = async (credential, bundleResolver) => {
   };
   return ocaBundle;
 };
-const mapW3CCredToCard = (w3cCred, brandingOverlay, brandingOverlayTypeString) => {
+const mapW3CCredToCard = (w3cCred, brandingOverlay, brandingOverlayTypeString, opts = {}) => {
   var _getAttributeField, _brandingOverlay$bran, _brandingOverlay$bran2, _brandingOverlay$bran3, _brandingOverlay$bran4, _brandingOverlay$bran5, _brandingOverlay$meta, _brandingOverlay$bund, _bundle2, _bundle3;
   const credentialDisplay = (0, _display.getCredentialForDisplay)(w3cCred);
   const extraAttributeValue = credentialDisplay.display.primary_overlay_attribute ? (_getAttributeField = (0, _oca2.getAttributeField)(credentialDisplay, credentialDisplay.display.primary_overlay_attribute)) === null || _getAttributeField === void 0 ? void 0 : _getAttributeField.field : undefined;
+  const resolvedBundle = brandingOverlay === null || brandingOverlay === void 0 ? void 0 : brandingOverlay.bundle;
+  const overlayBundle = (resolvedBundle === null || resolvedBundle === void 0 ? void 0 : resolvedBundle.bundle) ?? resolvedBundle;
+  const flagged = (overlayBundle === null || overlayBundle === void 0 ? void 0 : overlayBundle.flaggedAttributes) ?? (resolvedBundle === null || resolvedBundle === void 0 ? void 0 : resolvedBundle.flaggedAttributes) ?? [];
   const input = {
     vc: {
-      issuer: credentialDisplay.display.description,
+      issuer: credentialDisplay.display.issuer,
       type: credentialDisplay.metadata.type ? [credentialDisplay.metadata.type] : ['VerifiableCredential'],
       credentialSubject: credentialDisplay.credentialSubject,
       name: credentialDisplay.display.name
@@ -238,10 +246,12 @@ const mapW3CCredToCard = (w3cCred, brandingOverlay, brandingOverlayTypeString) =
       watermark: brandingOverlay === null || brandingOverlay === void 0 || (_brandingOverlay$meta = brandingOverlay.metaOverlay) === null || _brandingOverlay$meta === void 0 ? void 0 : _brandingOverlay$meta.watermark
     },
     labels: brandingOverlay === null || brandingOverlay === void 0 || (_brandingOverlay$bund = brandingOverlay.bundle) === null || _brandingOverlay$bund === void 0 || (_brandingOverlay$bund = _brandingOverlay$bund.labelOverlay) === null || _brandingOverlay$bund === void 0 ? void 0 : _brandingOverlay$bund.attributeLabels,
+    formats: Object.fromEntries(((overlayBundle === null || overlayBundle === void 0 ? void 0 : overlayBundle.attributes) ?? []).map(a => [a.name, a.format])),
+    piiKeys: flagged.map(a => a.name),
     primary_overlay_attribute: extraAttributeValue,
     helpActionUrl: (brandingOverlay === null || brandingOverlay === void 0 || (_bundle2 = brandingOverlay.bundle) === null || _bundle2 === void 0 || (_bundle2 = _bundle2.bundle) === null || _bundle2 === void 0 || (_bundle2 = _bundle2.metadata) === null || _bundle2 === void 0 || (_bundle2 = _bundle2.issuerUrl) === null || _bundle2 === void 0 ? void 0 : _bundle2.en) ?? (brandingOverlay === null || brandingOverlay === void 0 || (_bundle3 = brandingOverlay.bundle) === null || _bundle3 === void 0 || (_bundle3 = _bundle3.bundle) === null || _bundle3 === void 0 || (_bundle3 = _bundle3.metadata) === null || _bundle3 === void 0 || (_bundle3 = _bundle3.issuerUrl) === null || _bundle3 === void 0 ? void 0 : _bundle3['en-US']) ?? undefined
   };
-  return mapW3CToCard(input, credentialDisplay.id);
+  return mapW3CToCard(input, credentialDisplay.id, opts);
 };
 
 /**
@@ -267,9 +277,12 @@ async function mapCredentialTypeToCard({
   const brandingTypeString = brandingOverlayTypeString(bundleResolver.getBrandingOverlayType());
 
   //W3C case
-  if (credential instanceof _core.W3cCredentialRecord || credential instanceof _core.SdJwtVcRecord || credential instanceof _core.MdocRecord) {
+  if (credential instanceof _core.W3cCredentialRecord || credential instanceof _core.W3cV2CredentialRecord || credential instanceof _core.SdJwtVcRecord || credential instanceof _core.MdocRecord) {
     const bo = brandingOverlay ?? (await resolveBundleForW3CCredential(credential, bundleResolver));
-    return mapW3CCredToCard(credential, bo, brandingTypeString);
+    return mapW3CCredToCard(credential, bo, brandingTypeString, {
+      proofContext: !!proof,
+      displayItems: proof ? displayItems : undefined
+    });
   }
 
   //Anoncreds case

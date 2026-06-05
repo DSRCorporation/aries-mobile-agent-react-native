@@ -1,6 +1,5 @@
 import type { W3cCredentialDisplay } from './types';
-import { MdocRecord, W3cCredentialRecord, W3cV2CredentialRecord } from '@credo-ts/core';
-import { SdJwtVcRecord } from '@credo-ts/core';
+import { OpenIDCredentialRecord } from './credentialRecord';
 export interface DisplayImage {
     url?: string;
     altText?: string;
@@ -24,7 +23,7 @@ export declare function filterAndMapSdJwtKeys(sdJwtVcPayload: Record<string, unk
         validFrom: Date | undefined;
     };
 };
-export declare function getCredentialForDisplay(credentialRecord: W3cCredentialRecord | SdJwtVcRecord | MdocRecord | W3cV2CredentialRecord): W3cCredentialDisplay;
+export declare function getCredentialForDisplay(credentialRecord: OpenIDCredentialRecord): W3cCredentialDisplay;
 type MappedAttributesReturnType = string | number | boolean | {
     [key: string]: MappedAttributesReturnType;
 } | null | undefined | Array<MappedAttributesReturnType>;

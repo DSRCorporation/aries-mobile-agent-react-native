@@ -29,6 +29,7 @@ const ScanCamera = ({
     [OrientationType['LANDSCAPE-RIGHT']]: '90deg'
   };
   const [invalidQrCodes, setInvalidQrCodes] = useState(new Set());
+  const hasFiredRef = useRef(false);
   const [focusPoint, setFocusPoint] = useState(null);
   const focusOpacity = useRef(new Animated.Value(0)).current;
   const focusScale = useRef(new Animated.Value(1)).current;
@@ -57,10 +58,15 @@ const ScanCamera = ({
     if ((error === null || error === void 0 ? void 0 : error.data) === value) {
       setInvalidQrCodes(prev => new Set([...prev, value]));
       if (enableCameraOnError) {
+        hasFiredRef.current = false;
         return setCameraActive(true);
       }
     }
+    if (hasFiredRef.current) {
+      return;
+    }
     if (cameraActive) {
+      hasFiredRef.current = true;
       Vibration.vibrate();
       handleCodeScan(value);
       return setCameraActive(false);
@@ -107,6 +113,7 @@ const ScanCamera = ({
   };
   useEffect(() => {
     if (error !== null && error !== void 0 && error.data && enableCameraOnError) {
+      hasFiredRef.current = false;
       setCameraActive(true);
     }
   }, [error, enableCameraOnError]);
@@ -129,6 +136,7 @@ const ScanCamera = ({
     codeScanner: codeScanner,
     format: format
   }), /*#__PURE__*/React.createElement(Pressable, {
+    accessible: false,
     testID: testIdWithKey('ScanCameraTapArea'),
     style: StyleSheet.absoluteFill,
     onPressIn: e => {

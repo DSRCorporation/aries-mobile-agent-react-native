@@ -16,7 +16,8 @@ const DefaultScreenLayoutOptions = exports.DefaultScreenLayoutOptions = {
     customEdges: ['left', 'right', 'bottom']
   },
   [_navigators.Screens.OpenIDProofPresentation]: {
-    customEdges: ['left', 'right', 'bottom']
+    safeArea: true,
+    customEdges: ['left', 'right', 'bottom', 'top']
   }
   //TODO: Add more screens here
 };

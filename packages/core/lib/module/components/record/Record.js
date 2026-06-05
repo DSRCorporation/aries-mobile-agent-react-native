@@ -1,7 +1,7 @@
 import { BrandingOverlayType } from '@bifold/oca/build/legacy';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { FlatList, StyleSheet, TouchableOpacity, View, Text } from 'react-native';
 import { useTheme } from '../../contexts/theme';
 import { testIdWithKey } from '../../utils/testable';
 import RecordField from './RecordField';
@@ -14,7 +14,9 @@ const Record = ({
   footer,
   fields,
   hideFieldValues = false,
-  field = null
+  field = null,
+  scrollEnabled = true,
+  isProofRequest = false
 }) => {
   const {
     t
@@ -22,16 +24,18 @@ const Record = ({
   const [shown, setShown] = useState([]);
   const {
     ListItems,
-    TextTheme
+    TextTheme,
+    Spacing
   } = useTheme();
   const [bundleResolver] = useServices([TOKENS.UTIL_OCA_RESOLVER]);
   const styles = StyleSheet.create({
     linkContainer: {
       ...ListItems.recordContainer,
       flexDirection: 'row',
-      justifyContent: 'flex-end',
+      justifyContent: 'space-between',
       paddingHorizontal: bundleResolver.getBrandingOverlayType() === BrandingOverlayType.Branding10 ? 25 : 16,
-      paddingVertical: 16
+      paddingVertical: Spacing.sm,
+      paddingBottom: Spacing.lg
     },
     link: {
       minHeight: TextTheme.normal.fontSize,
@@ -46,6 +50,7 @@ const Record = ({
   }, [hideAll]);
   return /*#__PURE__*/React.createElement(FlatList, {
     data: fields,
+    scrollEnabled: scrollEnabled,
     keyExtractor: ({
       name
     }, index) => name || index.toString(),
@@ -66,7 +71,9 @@ const Record = ({
     }),
     ListHeaderComponent: header ? /*#__PURE__*/React.createElement(RecordHeader, null, header(), hideFieldValues ? /*#__PURE__*/React.createElement(View, {
       style: styles.linkContainer
-    }, /*#__PURE__*/React.createElement(TouchableOpacity, {
+    }, isProofRequest && /*#__PURE__*/React.createElement(Text, {
+      style: TextTheme.headingFour
+    }, t('ProofRequest.DetailsHeader')), /*#__PURE__*/React.createElement(TouchableOpacity, {
       style: styles.link,
       activeOpacity: 1,
       onPress: hideAll,

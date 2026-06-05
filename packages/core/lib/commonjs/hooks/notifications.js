@@ -11,6 +11,7 @@ var _react = require("react");
 var _metadata = require("../types/metadata");
 var _openid = require("../modules/openid/hooks/openid");
 var _useExpiredNotifications = require("../modules/openid/hooks/useExpiredNotifications");
+var _useReplacementNotifications = require("../modules/openid/hooks/useReplacementNotifications");
 const useNotifications = ({
   openIDUri,
   openIDPresentationUri
@@ -30,6 +31,7 @@ const useNotifications = ({
     openIDPresentationUri: openIDPresentationUri
   });
   const openIDExpiredNotifs = (0, _useExpiredNotifications.useExpiredNotifications)();
+  const openIDReplacementNotifs = (0, _useReplacementNotifications.useReplacementNotifications)();
   (0, _react.useEffect)(() => {
     // get all unseen messages
     const unseenMessages = basicMessages.filter(msg => {
@@ -64,9 +66,9 @@ const useNotifications = ({
     if (openIDCredRecieved) {
       openIDCreds.push(openIDCredRecieved);
     }
-    const notif = [...messagesToShow, ...offers, ...proofsRequested, ...validProofsDone, ...revoked, ...openIDCreds, ...openIDExpiredNotifs].sort((a, b) => new Date(b.createdAt ?? 0).getTime() - new Date(a.createdAt ?? 0).getTime());
+    const notif = [...messagesToShow, ...offers, ...proofsRequested, ...validProofsDone, ...revoked, ...openIDCreds, ...openIDReplacementNotifs, ...openIDExpiredNotifs].sort((a, b) => new Date(b.createdAt ?? 0).getTime() - new Date(a.createdAt ?? 0).getTime());
     setNotifications(notif);
-  }, [basicMessages, credsReceived, proofsDone, proofsRequested, offers, credsDone, openIDCredRecieved, openIDExpiredNotifs]);
+  }, [basicMessages, credsReceived, proofsDone, proofsRequested, offers, credsDone, openIDCredRecieved, openIDReplacementNotifs, openIDExpiredNotifs]);
   return notifications;
 };
 exports.useNotifications = useNotifications;

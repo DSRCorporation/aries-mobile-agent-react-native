@@ -1,6 +1,6 @@
 import { AnonCredsDidCommCredentialFormatService, AnonCredsDidCommProofFormatService, AnonCredsModule, DataIntegrityDidCommCredentialFormatService, DidCommCredentialV1Protocol, DidCommProofV1Protocol, LegacyIndyDidCommCredentialFormatService, LegacyIndyDidCommProofFormatService } from '@credo-ts/anoncreds';
 import { AskarModule } from '@credo-ts/askar';
-import { Agent, DidsModule } from '@credo-ts/core';
+import { Agent, DcqlModule, DidsModule, Kms, X509Module } from '@credo-ts/core';
 import { DidCommAutoAcceptCredential, DidCommAutoAcceptProof, DidCommCredentialV2Protocol, DidCommProofV2Protocol, DidCommDifPresentationExchangeProofFormatService, DidCommModule, DidCommMediatorPickupStrategy } from '@credo-ts/didcomm';
 import { IndyVdrModule, IndyVdrPoolConfig } from '@credo-ts/indy-vdr';
 import { OpenId4VcModule } from '@credo-ts/openid4vc';
@@ -25,7 +25,10 @@ export type BifoldAgent = Agent<BifoldAgentModules>;
  * @returns modules to be used in agent setup
  */
 export declare function getAgentModules({ walletSecret, indyNetworks, mediatorInvitationUrl, txnCache, }: GetAgentModulesOptions): {
+    dids: DidsModule;
+    x509?: X509Module | undefined;
     askar: AskarModule;
+    kms: Kms.KeyManagementModule;
     anoncreds: AnonCredsModule;
     indyVdr: IndyVdrModule;
     didcomm: DidCommModule<{
@@ -46,8 +49,8 @@ export declare function getAgentModules({ walletSecret, indyNetworks, mediatorIn
             mediatorPickupStrategy: DidCommMediatorPickupStrategy.Implicit;
         };
     }>;
+    dcql: DcqlModule;
     openid4vc: OpenId4VcModule<null, null>;
-    dids: DidsModule;
 };
 interface MyAgentContextInterface {
     loading: boolean;

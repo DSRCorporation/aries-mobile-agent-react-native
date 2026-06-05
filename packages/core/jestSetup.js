@@ -7,9 +7,21 @@ import mockRNDeviceInfo from 'react-native-device-info/jest/react-native-device-
 import 'react-native-gesture-handler/jestSetup'
 import mockSafeAreaContext from 'react-native-safe-area-context/jest/mock'
 import 'reflect-metadata'
+import { bifoldLoggerInstance } from './src/services/bifoldLogger'
+import { MockLogger } from './src/testing/MockLogger'
 
 // React 18+/19: enable proper act() behavior in tests
 globalThis.IS_REACT_ACT_ENVIRONMENT = true
+
+const mockBifoldLogger = new MockLogger()
+bifoldLoggerInstance.test = mockBifoldLogger.test
+bifoldLoggerInstance.trace = mockBifoldLogger.trace
+bifoldLoggerInstance.debug = mockBifoldLogger.debug
+bifoldLoggerInstance.info = mockBifoldLogger.info
+bifoldLoggerInstance.warn = mockBifoldLogger.warn
+bifoldLoggerInstance.error = mockBifoldLogger.error
+bifoldLoggerInstance.fatal = mockBifoldLogger.fatal
+bifoldLoggerInstance.report = mockBifoldLogger.report
 
 mockRNDeviceInfo.getVersion = jest.fn(() => '1')
 mockRNDeviceInfo.getBuildNumber = jest.fn(() => '1')
@@ -49,10 +61,11 @@ jest.mock(refreshOrchestratorPath, () => {
 })
 
 jest.mock('react-native-keyboard-controller', () => {
-  const { ScrollView } = jest.requireActual('react-native')
+  const { ScrollView, View } = jest.requireActual('react-native')
   return {
     KeyboardProvider: ({ children }) => children,
     KeyboardAwareScrollView: ScrollView,
+    KeyboardAvoidingView: View,
   }
 })
 
@@ -88,11 +101,16 @@ process.env.TZ = 'UTC' // or 'America/Toronto' — pick one and keep it fixed
 // Freeze "now" without enabling fake timers (prevents act() overlaps)
 const FIXED_NOW = new Date('2024-01-01T00:00:00Z').valueOf()
 let dateNowSpy
+let consoleDebugSpy
 
 beforeAll(() => {
   dateNowSpy = jest.spyOn(Date, 'now').mockImplementation(() => FIXED_NOW)
+  if (!process.env.TEST_VERBOSE) {
+    consoleDebugSpy = jest.spyOn(console, 'debug').mockImplementation(() => {})
+  }
 })
 
 afterAll(() => {
   if (dateNowSpy) dateNowSpy.mockRestore()
+  if (consoleDebugSpy) consoleDebugSpy.mockRestore()
 })

@@ -9,6 +9,7 @@ import { useTheme } from '../contexts/theme';
 import { BifoldError } from '../types/error';
 import { useAuth } from '../contexts/auth';
 import { useStore } from '../contexts/store';
+import { useAttestation } from '../hooks/attestation';
 /**
  * This Splash screen is shown in two scenarios: initial load of the app,
  * and during agent initialization after login
@@ -30,7 +31,12 @@ const Splash = ({
     LoadingIndicator
   } = useAnimatedComponents();
   const initializing = useRef(false);
-  const [logger, ocaBundleResolver] = useServices([TOKENS.UTIL_LOGGER, TOKENS.UTIL_OCA_RESOLVER]);
+  const [logger, ocaBundleResolver, {
+    enableAttestation
+  }] = useServices([TOKENS.UTIL_LOGGER, TOKENS.UTIL_OCA_RESOLVER, TOKENS.CONFIG]);
+  const {
+    setupAttestation
+  } = useAttestation();
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -59,7 +65,20 @@ const Splash = ({
       }
     };
     initAgentAsyncEffect();
-  }, [initializeAgent, ocaBundleResolver, logger, walletSecret, t, store.authentication.didAuthenticate]);
+  }, [initializeAgent, ocaBundleResolver, logger, walletSecret, t, store.authentication.didAuthenticate, setupAttestation]);
+  useEffect(() => {
+    if (!store.authentication.didAuthenticate) return;
+    const initAttestation = async () => {
+      try {
+        await setupAttestation();
+      } catch (err) {
+        const error = new BifoldError(t('Error.GenericError.Title'), t('Error.GenericError.Message'), (err === null || err === void 0 ? void 0 : err.message) ?? err, 1000);
+        DeviceEventEmitter.emit(EventTypes.ERROR_ADDED, error);
+        logger.error((err === null || err === void 0 ? void 0 : err.message) ?? err);
+      }
+    };
+    initAttestation();
+  }, [setupAttestation, enableAttestation, logger, store.authentication.didAuthenticate, t]);
   return /*#__PURE__*/React.createElement(SafeAreaView, {
     style: styles.container
   }, /*#__PURE__*/React.createElement(LoadingIndicator, null));

@@ -12,7 +12,7 @@ export const useExpiredNotifications = () => {
   } = useDeclineReplacement({
     logger
   });
-  const build = useCallback(s => s.expired.filter(oldId => s.checked.includes(oldId)).map(oldId => {
+  const build = useCallback(s => s.expired.filter(oldId => s.checked.includes(oldId) && !s.replacements[oldId]).map(oldId => {
     const lite = s.byId[oldId];
     const n = {
       type: OpenIDCustomNotificationType.CredentialExpired,

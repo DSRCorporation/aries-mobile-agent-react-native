@@ -26,8 +26,8 @@ var _Button = _interopRequireWildcard(require("../buttons/Button"));
 var _InfoBox = require("../misc/InfoBox");
 var _CommonRemoveModal = _interopRequireDefault(require("../modals/CommonRemoveModal"));
 var _ThemedText = require("../texts/ThemedText");
-var _types = require("../../modules/openid/refresh/types");
 var _useOpenIdReplacementNavigation = require("../../modules/openid/hooks/useOpenIdReplacementNavigation");
+var _types = require("../../modules/openid/refresh/types");
 var _useUpgradeExpiredCredential = require("../../modules/openid/hooks/useUpgradeExpiredCredential");
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
@@ -367,6 +367,10 @@ const NotificationListItem = ({
       case NotificationType.Custom:
         onPress = () => {
           var _navigation$getParent7;
+          if ((customNotification === null || customNotification === void 0 ? void 0 : customNotification.type) === _types.OpenIDCustomNotificationType.CredentialReplacementAvailable) {
+            openReplacementOffer(customNotification);
+            return;
+          }
           if ((customNotification === null || customNotification === void 0 ? void 0 : customNotification.type) === _types.OpenIDCustomNotificationType.CredentialExpired && customNotification.metadata && typeof customNotification.metadata.oldId === 'string') {
             upgrade(customNotification.metadata.oldId);
             return;

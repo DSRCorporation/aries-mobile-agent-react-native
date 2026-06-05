@@ -93,8 +93,7 @@ export const ChatMessage = ({
       ...theme.containerStyle
     }
   }, /*#__PURE__*/React.createElement(Bubble, _extends({}, messageProps, {
-    key: messageProps.key,
-    renderUsernameOnMessage: false,
+    isUsernameVisible: false,
     renderMessageText: () => message.renderEvent(),
     containerStyle: {
       left: {

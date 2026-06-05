@@ -1,15 +1,17 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Linking, Platform, ScrollView, StyleSheet, View } from 'react-native';
+import { Linking, Platform, ScrollView, StyleSheet, View, AppState, DeviceEventEmitter } from 'react-native';
 import { check, PERMISSIONS, request, RESULTS } from 'react-native-permissions';
+import Keychain, { getSupportedBiometryType, BIOMETRY_TYPE } from 'react-native-keychain';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import ToggleButton from '../buttons/ToggleButton';
 import DismissiblePopupModal from '../modals/DismissiblePopupModal';
 import { ThemedText } from '../texts/ThemedText';
 import { useAuth } from '../../contexts/auth';
 import { useTheme } from '../../contexts/theme';
 import { testIdWithKey } from '../../utils/testable';
-import { getSupportedBiometryType, BIOMETRY_TYPE } from 'react-native-keychain';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { BifoldError } from '../../types/error';
+import { EventTypes } from '../../constants';
 const BIOMETRY_PERMISSION = PERMISSIONS.IOS.FACE_ID;
 const BiometryControl = ({
   biometryEnabled,
@@ -45,10 +47,32 @@ const BiometryControl = ({
     }
   });
   useEffect(() => {
-    isBiometricsActive().then(result => {
-      setBiometryAvailable(result);
+    isBiometricsActive().then(res => {
+      setBiometryAvailable(res);
+    }).catch(err => {
+      const error = new BifoldError(t('Error.Title1050'), t('Error.Message1050'), (err === null || err === void 0 ? void 0 : err.message) ?? err, 1050);
+      DeviceEventEmitter.emit(EventTypes.ERROR_ADDED, error);
     });
-  }, [isBiometricsActive]);
+  }, [isBiometricsActive, t]);
+  useEffect(() => {
+    const checkBiometrics = async () => {
+      try {
+        const active = await Keychain.getSupportedBiometryType();
+        setBiometryAvailable(Boolean(active));
+      } catch (err) {
+        const error = new BifoldError(t('Error.Title1050'), t('Error.Message1050'), (err === null || err === void 0 ? void 0 : err.message) ?? err, 1050);
+        DeviceEventEmitter.emit(EventTypes.ERROR_ADDED, error);
+      }
+    };
+    const appStateListener = AppState.addEventListener('change', async nextAppState => {
+      if (nextAppState === 'active') {
+        await checkBiometrics();
+      }
+    });
+    return () => {
+      appStateListener.remove();
+    };
+  }, [isBiometricsActive, setBiometryAvailable, t]);
   const onOpenSettingsTouched = async () => {
     await Linking.openSettings();
     onOpenSettingsDismissed();

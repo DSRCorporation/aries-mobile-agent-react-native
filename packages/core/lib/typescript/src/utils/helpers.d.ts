@@ -54,7 +54,7 @@ export declare function formatIfDate(format: string | undefined, value: string |
  */
 export declare const getAttributeFormats: (bundle: any) => Record<string, string | undefined>;
 export declare function getConnectionName(connection: DidCommConnectionRecord | undefined, alternateContactNames: Record<string, string>): string;
-export declare function useCredentialConnectionLabel(credential?: DidCommCredentialExchangeRecord): string;
+export declare function useCredentialConnectionLabel(credential?: DidCommCredentialExchangeRecord, overlay?: CredentialOverlay<BrandingOverlay>): string;
 export declare function useConnectionImageUrl(connectionId: string): string | undefined;
 export declare function firstValidCredential(fields: AnonCredsRequestedAttributeMatch[] | AnonCredsRequestedPredicateMatch[], revoked?: boolean): AnonCredsRequestedAttributeMatch | AnonCredsRequestedPredicateMatch | null;
 /**

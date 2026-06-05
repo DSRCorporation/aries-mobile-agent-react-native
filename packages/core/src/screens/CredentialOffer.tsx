@@ -66,7 +66,7 @@ const CredentialOffer: React.FC<CredentialOfferProps> = ({ navigation, credentia
   const [declineModalVisible, setDeclineModalVisible] = useState(false)
   const [overlay, setOverlay] = useState<CredentialOverlay<BrandingOverlay>>({ presentationFields: [] })
   const credential = useCredentialById(credentialId)
-  const credentialConnectionLabel = useCredentialConnectionLabel(credential)
+  const credentialConnectionLabel = useCredentialConnectionLabel(credential, overlay)
   const [store, dispatch] = useStore()
   const { start } = useTour()
   const screenIsFocused = useIsFocused()
@@ -136,7 +136,9 @@ const CredentialOffer: React.FC<CredentialOfferProps> = ({ navigation, credentia
       }
 
       if (offerAttributes) {
-        credential.credentialAttributes = [...offerAttributes.map((item) => new DidCommCredentialPreviewAttribute(item))]
+        credential.credentialAttributes = [
+          ...offerAttributes.map((item) => new DidCommCredentialPreviewAttribute(item)),
+        ]
       }
     }
 

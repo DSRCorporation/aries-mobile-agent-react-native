@@ -35,7 +35,8 @@ const DeliveryStack = () => {
     name: Screens.OpenIDConnection,
     component: OpenIDConnection,
     options: {
-      ...defaultStackOptions
+      ...defaultStackOptions,
+      headerShown: false
     }
   }), /*#__PURE__*/React.createElement(Stack.Screen, {
     name: Screens.Connection,

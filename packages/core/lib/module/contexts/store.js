@@ -64,6 +64,9 @@ export const defaultState = {
     needsUpdate: false,
     lastChecked: undefined,
     version: undefined
+  },
+  attestation: {
+    isAttestationComplete: false
   }
 };
 export const StoreContext = /*#__PURE__*/createContext([defaultState, () => {

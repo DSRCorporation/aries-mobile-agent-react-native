@@ -3,12 +3,22 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.RefreshStatus = exports.OpenIDCustomNotificationType = void 0;
+exports.RefreshStatus = exports.OpenIDCustomNotificationType = exports.OpenIDCredentialRefreshFlowType = void 0;
 let RefreshStatus = exports.RefreshStatus = /*#__PURE__*/function (RefreshStatus) {
   RefreshStatus["Valid"] = "valid";
   RefreshStatus["Invalid"] = "invalid";
   RefreshStatus["Error"] = "error";
   return RefreshStatus;
+}({});
+/**
+ * Controls how invalid OpenID credentials are handled after status checks.
+ * - InvalidThenOnDemand: show invalid notification; replacement is attempted on user action.
+ * - FullReplacement: orchestrator attempts replacement immediately and surfaces replacement notification when available.
+ */
+let OpenIDCredentialRefreshFlowType = exports.OpenIDCredentialRefreshFlowType = /*#__PURE__*/function (OpenIDCredentialRefreshFlowType) {
+  OpenIDCredentialRefreshFlowType["InvalidThenOnDemand"] = "invalid-then-on-demand";
+  OpenIDCredentialRefreshFlowType["FullReplacement"] = "full-replacement";
+  return OpenIDCredentialRefreshFlowType;
 }({});
 let OpenIDCustomNotificationType = exports.OpenIDCustomNotificationType = /*#__PURE__*/function (OpenIDCustomNotificationType) {
   OpenIDCustomNotificationType["CredentialReplacementAvailable"] = "CustomNotificationOpenIDCredential";

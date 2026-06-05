@@ -133,7 +133,8 @@ const BrandColors = {
   buttonText: GrayscaleColors.white,
   tabBarInactive: GrayscaleColors.white,
   inlineError: InlineErrorMessageColors.error,
-  inlineWarning: InlineErrorMessageColors.warning
+  inlineWarning: InlineErrorMessageColors.warning,
+  loadingIcon: GrayscaleColors.white
 };
 const SemanticColors = {
   error: '#D8292F',
@@ -836,7 +837,8 @@ function createChatTheme(theme) {
     inputText: {
       lineHeight: undefined,
       fontWeight: '500',
-      fontSize: theme.TextTheme.normal.fontSize
+      fontSize: theme.TextTheme.normal.fontSize,
+      color: theme.ColorPalette.brand.text
     },
     openButtonTextStyle: {
       fontSize: theme.TextTheme.normal.fontSize,
@@ -953,7 +955,7 @@ function createOnboardingTheme(theme) {
   return {
     ...textStyles,
     ...viewStyles,
-    headerTintColor: ColorPalette.grayscale.white,
+    headerTintColor: theme.ColorPalette.brand.headerIcon,
     imageDisplayOptions: {
       fill: ColorPalette.notification.infoText
     }

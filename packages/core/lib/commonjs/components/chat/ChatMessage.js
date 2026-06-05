@@ -100,8 +100,7 @@ const ChatMessage = ({
       ...theme.containerStyle
     }
   }, /*#__PURE__*/_react.default.createElement(_reactNativeGiftedChat.Bubble, _extends({}, messageProps, {
-    key: messageProps.key,
-    renderUsernameOnMessage: false,
+    isUsernameVisible: false,
     renderMessageText: () => message.renderEvent(),
     containerStyle: {
       left: {

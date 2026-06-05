@@ -6,9 +6,9 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
 var _reactNative = require("react-native");
-var _KeyboardView = _interopRequireDefault(require("./KeyboardView"));
-var _theme = require("../../contexts/theme");
 var _reactNativeSafeAreaContext = require("react-native-safe-area-context");
+var _theme = require("../../contexts/theme");
+var _KeyboardView = _interopRequireDefault(require("./KeyboardView"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Wraps content in a SafeAreaView and optionally a KeyboardView, and provides a container for controls.
@@ -22,7 +22,8 @@ const ScreenWrapper = ({
   scrollable = true,
   scrollViewContainerStyle,
   controlsContainerStyle,
-  padded = true
+  padded = true,
+  scrollViewRef
 }) => {
   const {
     Spacing,
@@ -53,7 +54,8 @@ const ScreenWrapper = ({
     }
     return /*#__PURE__*/_react.default.createElement(_reactNative.ScrollView, {
       showsVerticalScrollIndicator: false,
-      contentContainerStyle: scrollStyle
+      contentContainerStyle: scrollStyle,
+      ref: scrollViewRef
     }, children);
   };
 
@@ -63,7 +65,9 @@ const ScreenWrapper = ({
     return /*#__PURE__*/_react.default.createElement(_reactNativeSafeAreaContext.SafeAreaView, {
       style: [styles.container, style],
       edges: edges
-    }, /*#__PURE__*/_react.default.createElement(_KeyboardView.default, null, /*#__PURE__*/_react.default.createElement(_reactNative.View, {
+    }, /*#__PURE__*/_react.default.createElement(_KeyboardView.default, {
+      scrollViewRef: scrollViewRef
+    }, /*#__PURE__*/_react.default.createElement(_reactNative.View, {
       style: scrollStyle
     }, children), controls && /*#__PURE__*/_react.default.createElement(_reactNative.View, {
       style: [controlsStyle, {

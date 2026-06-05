@@ -1,8 +1,8 @@
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import KeyboardView from './KeyboardView';
-import { useTheme } from '../../contexts/theme';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useTheme } from '../../contexts/theme';
+import KeyboardView from './KeyboardView';
 /**
  * Wraps content in a SafeAreaView and optionally a KeyboardView, and provides a container for controls.
  */
@@ -15,7 +15,8 @@ const ScreenWrapper = ({
   scrollable = true,
   scrollViewContainerStyle,
   controlsContainerStyle,
-  padded = true
+  padded = true,
+  scrollViewRef
 }) => {
   const {
     Spacing,
@@ -46,7 +47,8 @@ const ScreenWrapper = ({
     }
     return /*#__PURE__*/React.createElement(ScrollView, {
       showsVerticalScrollIndicator: false,
-      contentContainerStyle: scrollStyle
+      contentContainerStyle: scrollStyle,
+      ref: scrollViewRef
     }, children);
   };
 
@@ -56,7 +58,9 @@ const ScreenWrapper = ({
     return /*#__PURE__*/React.createElement(SafeAreaView, {
       style: [styles.container, style],
       edges: edges
-    }, /*#__PURE__*/React.createElement(KeyboardView, null, /*#__PURE__*/React.createElement(View, {
+    }, /*#__PURE__*/React.createElement(KeyboardView, {
+      scrollViewRef: scrollViewRef
+    }, /*#__PURE__*/React.createElement(View, {
       style: scrollStyle
     }, children), controls && /*#__PURE__*/React.createElement(View, {
       style: [controlsStyle, {

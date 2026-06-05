@@ -24,6 +24,7 @@ var _useBifoldAgentSetup = _interopRequireDefault(require("./hooks/useBifoldAgen
 var _localization = require("./localization");
 var _historyManager = _interopRequireDefault(require("./modules/history/context/historyManager"));
 var _refreshOrchestrator = require("./modules/openid/refresh/refreshOrchestrator");
+var _types = require("./modules/openid/refresh/types");
 var _OnboardingStack = _interopRequireDefault(require("./navigators/OnboardingStack"));
 var _defaultLayoutOptions = require("./navigators/defaultLayoutOptions");
 var _defaultStackOptions = require("./navigators/defaultStackOptions");
@@ -103,7 +104,9 @@ const defaultConfig = exports.defaultConfig = {
     useNewPINDesign: false
   },
   showGenericErrors: false,
-  enableFullScreenErrorModal: false
+  enableFullScreenErrorModal: false,
+  enableHardwareBackedHolderBinding: true,
+  enableAttestation: false
 };
 const defaultHistoryEventsLogger = exports.defaultHistoryEventsLogger = {
   logAttestationAccepted: true,
@@ -181,6 +184,9 @@ class MainContainer {
       useValue: undefined
     });
     this._container.registerInstance(_containerApi.TOKENS.UTIL_APP_VERSION_MONITOR, {
+      useValue: undefined
+    });
+    this._container.registerInstance(_containerApi.TOKENS.UTIL_CREDENTIAL_PROVISIONING_MONITOR, {
       useValue: undefined
     });
     this._container.registerInstance(_containerApi.TOKENS.NOTIFICATIONS, {
@@ -270,18 +276,22 @@ class MainContainer {
     // Register OpenID Credentials Refresh Orchestrator
     const orchestrator = new _refreshOrchestrator.RefreshOrchestrator(this._container.resolve(_containerApi.TOKENS.UTIL_LOGGER), this._container.resolve(_containerApi.TOKENS.UTIL_AGENT_BRIDGE), {
       autoStart: false,
+      runOnStart: true,
       intervalMs: undefined,
+      flowType: _types.OpenIDCredentialRefreshFlowType.FullReplacement,
       listRecords: async () => {
         const agent = this._container.resolve(_containerApi.TOKENS.UTIL_AGENT_BRIDGE).current;
         if (!agent) return [];
-        const [w3c, sdjwt] = await Promise.all([agent.w3cCredentials.getAll(), agent.sdJwtVc.getAll()]);
-        return [...w3c, ...sdjwt];
+        const [w3c, w3cV2, sdjwt, mdoc] = await Promise.all([agent.w3cCredentials.getAll(), agent.w3cV2Credentials.getAll(), agent.sdJwtVc.getAll(), agent.mdoc.getAll()]);
+        return [...w3c, ...w3cV2, ...sdjwt, ...mdoc];
       }
     });
     this._container.registerInstance(_containerApi.TOKENS.UTIL_REFRESH_ORCHESTRATOR, orchestrator);
     this._container.registerInstance(_containerApi.TOKENS.FN_PIN_HASH_ALGORITHM, (PIN, salt) => {
       return (0, _crypto.hashPIN)(PIN, salt);
     });
+    this._container.registerInstance(_containerApi.TOKENS.FN_ATTESTATION_GET_CHALLENGE, () => {});
+    this._container.registerInstance(_containerApi.TOKENS.FN_ATTESTATION_GET_JWT, () => {});
     return this;
   }
   resolve(token) {

@@ -43,10 +43,11 @@ const ListCredentials = () => {
   const {
     openIdState: {
       w3cCredentialRecords,
-      sdJwtVcRecords
+      sdJwtVcRecords,
+      mdocVcRecords
     }
   } = (0, _OpenIDCredentialRecordProvider.useOpenIDCredentials)();
-  let credentials = [...(0, _reactHooks.useCredentialByState)(_didcomm.DidCommCredentialState.CredentialReceived), ...(0, _reactHooks.useCredentialByState)(_didcomm.DidCommCredentialState.Done), ...w3cCredentialRecords, ...sdJwtVcRecords];
+  let credentials = [...(0, _reactHooks.useCredentialByState)(_didcomm.DidCommCredentialState.CredentialReceived), ...(0, _reactHooks.useCredentialByState)(_didcomm.DidCommCredentialState.Done), ...w3cCredentialRecords, ...sdJwtVcRecords, ...mdocVcRecords];
   const CredentialEmptyList = credentialEmptyList;
   const CredentialListFooter = credentialListFooter;
 
@@ -88,6 +89,11 @@ const ListCredentials = () => {
           navigation.navigate(_navigators.Screens.OpenIDCredentialDetails, {
             credentialId: cred.id,
             type: _types.OpenIDCredentialType.SdJwtVc
+          });
+        } else if (cred instanceof _core.MdocRecord) {
+          navigation.navigate(_navigators.Screens.OpenIDCredentialDetails, {
+            credentialId: cred.id,
+            type: _types.OpenIDCredentialType.Mdoc
           });
         } else {
           navigation.navigate(_navigators.Screens.CredentialDetails, {

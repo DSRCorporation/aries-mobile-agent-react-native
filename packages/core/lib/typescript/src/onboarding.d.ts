@@ -12,6 +12,6 @@ export declare const isPushNotificationComplete: (didConsiderPushNotifications: 
 export declare const isNameWalletComplete: (didNameWallet: boolean, enableWalletNaming: boolean) => OnboardingTask;
 export declare const isAuthenticationComplete: (didCreatePIN: boolean, didAuthenticate: boolean) => OnboardingTask;
 export declare const isAttemptLockoutComplete: (servedPenalty: boolean | undefined) => OnboardingTask;
-export declare const isAgentInitializationComplete: (agent: Agent | null) => OnboardingTask;
+export declare const isAgentInitializationComplete: (agent: Agent | null, isAttestationComplete: boolean) => OnboardingTask;
 export declare const generateOnboardingWorkflowSteps: (state: State, config: Config, termsVersion: number, agent: Agent | null) => Array<OnboardingTask>;
 //# sourceMappingURL=onboarding.d.ts.map

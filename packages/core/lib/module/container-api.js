@@ -94,6 +94,7 @@ export const UTILITY_TOKENS = {
   UTIL_LEDGERS: 'utility.ledgers',
   UTIL_PROOF_TEMPLATE: 'utility.proof-template',
   UTIL_ATTESTATION_MONITOR: 'utility.attestation-monitor',
+  UTIL_CREDENTIAL_PROVISIONING_MONITOR: 'utility.credential-provisioning-monitor',
   UTIL_APP_VERSION_MONITOR: 'utility.app-version-monitor',
   UTIL_AGENT_BRIDGE: 'utility.agent-bridge',
   UTIL_REFRESH_ORCHESTRATOR: 'utility.refresh-orchestrator'
@@ -105,6 +106,11 @@ export const CONFIG_TOKENS = {
 };
 export const CRYPTO_TOKENS = {
   FN_PIN_HASH_ALGORITHM: 'fn.crypto.pin-hash-algorithm'
+};
+export const ATTESTATION_TOKENS = {
+  ATTESTATION_FUNCTIONS: 'attestation.functions',
+  FN_ATTESTATION_GET_CHALLENGE: 'attestation.get-challenge',
+  FN_ATTESTATION_GET_JWT: 'attestation.get-jwt'
 };
 export const TOKENS = {
   ...PROOF_TOKENS,
@@ -122,7 +128,8 @@ export const TOKENS = {
   ...UTILITY_TOKENS,
   ...CONFIG_TOKENS,
   ...HISTORY_TOKENS,
-  ...CRYPTO_TOKENS
+  ...CRYPTO_TOKENS,
+  ...ATTESTATION_TOKENS
 };
 export const ContainerContext = /*#__PURE__*/createContext(undefined);
 export const ContainerProvider = ContainerContext.Provider;

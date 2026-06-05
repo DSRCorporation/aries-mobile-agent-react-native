@@ -65,8 +65,12 @@ declare enum DeepLinkDispatchAction {
 declare enum AppStatusDispatchAction {
     SET_VERSION_INFO = "appStatus/checkVersionUpdate"
 }
-export type DispatchAction = StateDispatchAction | OnboardingDispatchAction | LoginAttemptDispatchAction | LockoutDispatchAction | PreferencesDispatchAction | ToursDispatchAction | AuthenticationDispatchAction | DeepLinkDispatchAction | MigrationDispatchAction | AppStatusDispatchAction;
+declare enum AttestationDispatchAction {
+    SET_ATTESTATION_COMPLETED = "attestation/setAttestationCompleted"
+}
+export type DispatchAction = StateDispatchAction | OnboardingDispatchAction | LoginAttemptDispatchAction | LockoutDispatchAction | PreferencesDispatchAction | ToursDispatchAction | AuthenticationDispatchAction | DeepLinkDispatchAction | MigrationDispatchAction | AppStatusDispatchAction | AttestationDispatchAction;
 export declare const DispatchAction: {
+    SET_ATTESTATION_COMPLETED: AttestationDispatchAction.SET_ATTESTATION_COMPLETED;
     SET_VERSION_INFO: AppStatusDispatchAction.SET_VERSION_INFO;
     DID_MIGRATE_TO_ASKAR: MigrationDispatchAction.DID_MIGRATE_TO_ASKAR;
     MIGRATION_UPDATED: MigrationDispatchAction.MIGRATION_UPDATED;

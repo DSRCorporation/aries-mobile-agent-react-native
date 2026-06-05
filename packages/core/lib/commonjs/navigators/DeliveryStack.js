@@ -43,7 +43,8 @@ const DeliveryStack = () => {
     name: _navigators.Screens.OpenIDConnection,
     component: _OpenIDConnection.default,
     options: {
-      ...defaultStackOptions
+      ...defaultStackOptions,
+      headerShown: false
     }
   }), /*#__PURE__*/_react.default.createElement(Stack.Screen, {
     name: _navigators.Screens.Connection,

@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { BrandingOverlay } from '@bifold/oca';
 import { BrandingOverlayType } from '@bifold/oca/build/legacy';
-import { ClaimFormat, MdocRecord, MdocRepository, SdJwtVcRecord, SdJwtVcRepository, W3cCredentialRecord, W3cCredentialRepository } from '@credo-ts/core';
+import { ClaimFormat, MdocRecord, SdJwtVcRecord, W3cCredentialRecord } from '@credo-ts/core';
 import { recordsAddedByType, recordsRemovedByType } from '@bifold/react-hooks/build/recordUtils';
 import { useTranslation } from 'react-i18next';
 import { TOKENS, useServices } from '../../../container-api';
@@ -9,6 +9,7 @@ import { buildFieldsFromW3cCredsCredential } from '../../../utils/oca';
 import { getCredentialForDisplay } from '../display';
 import { OpenIDCredentialType } from '../types';
 import { useAppAgent } from '../../../utils/agent';
+import { findOpenIDCredentialById, getOpenIDCredentialById, storeOpenIDCredential, deleteOpenIDCredential } from '../credentialRecord';
 const addW3cRecord = (record, state) => {
   const newRecordsState = [...state.w3cCredentialRecords];
   newRecordsState.unshift(record);
@@ -47,6 +48,25 @@ const removeSdJwtRecord = (record, state) => {
     sdJwtVcRecords: newRecordsState
   };
 };
+const addMdocRecord = (record, state) => {
+  const newRecordsState = [...state.mdocVcRecords];
+  newRecordsState.unshift(record);
+  return {
+    ...state,
+    mdocVcRecords: newRecordsState
+  };
+};
+const removeMdocRecord = (record, state) => {
+  const newRecordsState = [...state.mdocVcRecords];
+  const index = newRecordsState.findIndex(r => r.id === record.id);
+  if (index > -1) {
+    newRecordsState.splice(index, 1);
+  }
+  return {
+    ...state,
+    mdocVcRecords: newRecordsState
+  };
+};
 const defaultState = {
   openIDCredentialRecords: [],
   w3cCredentialRecords: [],
@@ -75,53 +95,52 @@ export const OpenIDCredentialRecordProvider = ({
 }) => {
   const [state, setState] = useState(defaultState);
   const {
+    isLoading
+  } = state;
+  const {
     agent
   } = useAppAgent();
   const [logger, bundleResolver] = useServices([TOKENS.UTIL_LOGGER, TOKENS.UTIL_OCA_RESOLVER]);
   const {
     i18n
   } = useTranslation();
-  function checkAgent() {
+  function getAgent() {
     if (!agent) {
       const error = 'Agent undefined!';
       logger.error(`[OpenIDCredentialRecordProvider] ${error}`);
       throw new Error(error);
     }
+    return agent;
   }
   async function getW3CCredentialById(id) {
-    checkAgent();
-    return await (agent === null || agent === void 0 ? void 0 : agent.w3cCredentials.getById(id));
+    const agent = getAgent();
+    const record = await getOpenIDCredentialById(agent, OpenIDCredentialType.W3cCredential, id);
+    return record instanceof W3cCredentialRecord ? record : undefined;
   }
   async function getSdJwtCredentialById(id) {
-    checkAgent();
-    return await (agent === null || agent === void 0 ? void 0 : agent.sdJwtVc.getById(id));
+    const agent = getAgent();
+    const record = await getOpenIDCredentialById(agent, OpenIDCredentialType.SdJwtVc, id);
+    return record instanceof SdJwtVcRecord ? record : undefined;
   }
   async function getMdocCredentialById(id) {
-    checkAgent();
-    return await (agent === null || agent === void 0 ? void 0 : agent.mdoc.getById(id));
+    const agent = getAgent();
+    const record = await getOpenIDCredentialById(agent, OpenIDCredentialType.Mdoc, id);
+    return record instanceof MdocRecord ? record : undefined;
+  }
+  async function getCredentialById(id, type) {
+    const agent = getAgent();
+    if (type !== undefined) {
+      return getOpenIDCredentialById(agent, type, id);
+    }
+    return findOpenIDCredentialById(agent, id);
   }
   async function storeCredential(cred) {
-    checkAgent();
-    if (cred instanceof W3cCredentialRecord) {
-      const repo = agent === null || agent === void 0 ? void 0 : agent.context.dependencyManager.resolve(W3cCredentialRepository);
-      await repo.save(agent.context, cred);
-    } else if (cred instanceof SdJwtVcRecord) {
-      const repo = agent === null || agent === void 0 ? void 0 : agent.context.dependencyManager.resolve(SdJwtVcRepository);
-      await repo.save(agent.context, cred);
-    } else if (cred instanceof MdocRecord) {
-      const repo = agent === null || agent === void 0 ? void 0 : agent.context.dependencyManager.resolve(MdocRepository);
-      await repo.save(agent.context, cred);
-    }
+    const agent = getAgent();
+    await storeOpenIDCredential(agent, cred);
   }
-  async function deleteCredential(cred, type) {
-    checkAgent();
-    if (type === OpenIDCredentialType.W3cCredential) {
-      await (agent === null || agent === void 0 ? void 0 : agent.w3cCredentials.deleteById(cred.id));
-    } else if (type === OpenIDCredentialType.SdJwtVc) {
-      await (agent === null || agent === void 0 ? void 0 : agent.sdJwtVc.deleteById(cred.id));
-    } else if (type === OpenIDCredentialType.Mdoc) {
-      await (agent === null || agent === void 0 ? void 0 : agent.mdoc.deleteById(cred.id));
-    }
+  async function deleteCredential(cred) {
+    const agent = getAgent();
+    await deleteOpenIDCredential(agent, cred);
   }
   const resolveBundleForCredential = async credential => {
     var _credentialDisplay$di, _credentialDisplay$di2;
@@ -156,7 +175,7 @@ export const OpenIDCredentialRecordProvider = ({
     return ocaBundle;
   };
   useEffect(() => {
-    var _agent$w3cCredentials, _agent$sdJwtVc;
+    var _agent$w3cCredentials, _agent$sdJwtVc, _agent$mdoc;
     if (!agent) return;
     (_agent$w3cCredentials = agent.w3cCredentials) === null || _agent$w3cCredentials === void 0 || _agent$w3cCredentials.getAll().then(w3cCredentialRecords => {
       setState(prev => ({
@@ -172,53 +191,72 @@ export const OpenIDCredentialRecordProvider = ({
         isLoading: false
       }));
     });
+    (_agent$mdoc = agent.mdoc) === null || _agent$mdoc === void 0 || _agent$mdoc.getAll().then(mdocVcRecords => {
+      setState(prev => ({
+        ...prev,
+        mdocVcRecords,
+        isLoading: false
+      }));
+    });
   }, [agent]);
   useEffect(() => {
     var _agent$events;
-    if (state.isLoading) return;
+    if (isLoading) return;
     if (!(agent !== null && agent !== void 0 && (_agent$events = agent.events) !== null && _agent$events !== void 0 && _agent$events.observable)) return;
     const w3c_credentialAdded$ = recordsAddedByType(agent, W3cCredentialRecord).subscribe(record => {
       //This handler will return ANY creds added to the wallet even DidComm
       //Sounds like a bug in the hooks package
       //This check will safe guard the flow untill a fix goes to the hooks
-      const w3cRecord = record; // TODO: Why do we need to cast here now?
-      if (isW3CCredentialRecord(w3cRecord)) {
-        setState(addW3cRecord(w3cRecord, state));
+      if (!isW3CCredentialRecord(record)) {
+        return;
       }
+      setState(prev => addW3cRecord(record, prev));
     });
     const w3c_credentialRemoved$ = recordsRemovedByType(agent, W3cCredentialRecord).subscribe(record => {
-      setState(removeW3cRecord(record, state));
+      setState(prev => removeW3cRecord(record, prev));
     });
     const sdjwt_credentialAdded$ = recordsAddedByType(agent, SdJwtVcRecord).subscribe(record => {
-      //This handler will return ANY creds added to the wallet even DidComm
-      //Sounds like a bug in the hooks package
-      //This check will safe guard the flow untill a fix goes to the hooks
-      setState(addSdJwtRecord(record, state));
-      // if (isW3CCredentialRecord(record)) {
-      //   setState(addW3cRecord(record, state))
-      // }
+      if (!isSdJwtCredentialRecord(record)) {
+        return;
+      }
+      setState(prev => addSdJwtRecord(record, prev));
     });
     const sdjwt_credentialRemoved$ = recordsRemovedByType(agent, SdJwtVcRecord).subscribe(record => {
-      setState(removeSdJwtRecord(record, state));
+      setState(prev => removeSdJwtRecord(record, prev));
+    });
+    const mdoc_credentialAdded$ = recordsAddedByType(agent, MdocRecord).subscribe(record => {
+      setState(prev => addMdocRecord(record, prev));
+    });
+    const mdoc_credentialRemoved$ = recordsRemovedByType(agent, MdocRecord).subscribe(record => {
+      setState(prev => removeMdocRecord(record, prev));
     });
     return () => {
       w3c_credentialAdded$.unsubscribe();
       w3c_credentialRemoved$.unsubscribe();
       sdjwt_credentialAdded$.unsubscribe();
       sdjwt_credentialRemoved$.unsubscribe();
+      mdoc_credentialAdded$.unsubscribe();
+      mdoc_credentialRemoved$.unsubscribe();
     };
-  }, [state, agent]);
+  }, [isLoading, agent]);
   return /*#__PURE__*/React.createElement(OpenIDCredentialRecordContext.Provider, {
     value: {
       openIdState: state,
-      storeCredential: storeCredential,
+      getW3CCredentialById,
+      getSdJwtCredentialById,
+      getMdocCredentialById,
+      getCredentialById,
+      storeCredential,
       removeCredential: deleteCredential,
-      getW3CCredentialById: getW3CCredentialById,
-      getSdJwtCredentialById: getSdJwtCredentialById,
-      getMdocCredentialById: getMdocCredentialById,
-      resolveBundleForCredential: resolveBundleForCredential
+      resolveBundleForCredential
     }
   }, children);
 };
-export const useOpenIDCredentials = () => useContext(OpenIDCredentialRecordContext);
+export const useOpenIDCredentials = () => {
+  const context = useContext(OpenIDCredentialRecordContext);
+  if (context) {
+    return context;
+  }
+  throw new Error('useOpenIDCredentials must be used within a OpenIDCredentialRecordProvider');
+};
 //# sourceMappingURL=OpenIDCredentialRecordProvider.js.map

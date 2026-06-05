@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { DeviceEventEmitter, FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import RecordLoading from '../components/animated/RecordLoading';
-import { EventTypes } from '../constants';
+import { EventTypes, hitSlop } from '../constants';
 import { useTheme } from '../contexts/theme';
 import { useAllCredentialsForProof } from '../hooks/proofs';
 import { BifoldError } from '../types/error';
@@ -123,8 +123,10 @@ const ProofChangeCredential = ({
         style: styles.pageMargin
       }, /*#__PURE__*/React.createElement(TouchableOpacity, {
         accessibilityRole: "button",
+        accessibilityLabel: t('ProofRequest.SelectCredential'),
         testID: testIdWithKey(`select:${item.credId}`),
         onPress: () => changeCred(item.credId ?? ''),
+        hitSlop: hitSlop,
         style: [item.credId === selectedCred ? SelectedCredTheme : undefined, {
           marginBottom: 10
         }],

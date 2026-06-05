@@ -7,6 +7,7 @@ exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
 var _reactNative = require("react-native");
 var _MaterialIcons = _interopRequireDefault(require("react-native-vector-icons/MaterialIcons"));
+var _constants = require("../../constants");
 var _theme = require("../../contexts/theme");
 var _testable = require("../../utils/testable");
 var _ThemedText = require("../texts/ThemedText");
@@ -45,7 +46,10 @@ const CredentialActionFooter = ({
   }), /*#__PURE__*/_react.default.createElement(_reactNative.View, null, /*#__PURE__*/_react.default.createElement(_reactNative.TouchableOpacity, {
     onPress: onPress,
     testID: (0, _testable.testIdWithKey)(testID),
-    style: styles.touchable
+    style: styles.touchable,
+    accessibilityLabel: text,
+    accessibilityRole: "button",
+    hitSlop: _constants.hitSlop
   }, /*#__PURE__*/_react.default.createElement(_ThemedText.ThemedText, {
     style: styles.credActionText
   }, text), /*#__PURE__*/_react.default.createElement(_MaterialIcons.default, {

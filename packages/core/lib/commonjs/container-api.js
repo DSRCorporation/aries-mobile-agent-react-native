@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.useServices = exports.useContainer = exports.UTILITY_TOKENS = exports.TOKENS = exports.STACK_TOKENS = exports.SERVICE_TOKENS = exports.SCREEN_TOKENS = exports.PROOF_TOKENS = exports.OBJECT_TOKENS = exports.NOTIFICATION_TOKENS = exports.NAV_TOKENS = exports.LOAD_STATE_TOKENS = exports.HOOK_TOKENS = exports.HISTORY_TOKENS = exports.FN_TOKENS = exports.ContainerProvider = exports.ContainerContext = exports.CRYPTO_TOKENS = exports.CONFIG_TOKENS = exports.COMPONENT_TOKENS = exports.CACHE_TOKENS = void 0;
+exports.useServices = exports.useContainer = exports.UTILITY_TOKENS = exports.TOKENS = exports.STACK_TOKENS = exports.SERVICE_TOKENS = exports.SCREEN_TOKENS = exports.PROOF_TOKENS = exports.OBJECT_TOKENS = exports.NOTIFICATION_TOKENS = exports.NAV_TOKENS = exports.LOAD_STATE_TOKENS = exports.HOOK_TOKENS = exports.HISTORY_TOKENS = exports.FN_TOKENS = exports.ContainerProvider = exports.ContainerContext = exports.CRYPTO_TOKENS = exports.CONFIG_TOKENS = exports.COMPONENT_TOKENS = exports.CACHE_TOKENS = exports.ATTESTATION_TOKENS = void 0;
 var _react = require("react");
 const PROOF_TOKENS = exports.PROOF_TOKENS = {
   GROUP_BY_REFERENT: 'proof.groupByReferant',
@@ -100,6 +100,7 @@ const UTILITY_TOKENS = exports.UTILITY_TOKENS = {
   UTIL_LEDGERS: 'utility.ledgers',
   UTIL_PROOF_TEMPLATE: 'utility.proof-template',
   UTIL_ATTESTATION_MONITOR: 'utility.attestation-monitor',
+  UTIL_CREDENTIAL_PROVISIONING_MONITOR: 'utility.credential-provisioning-monitor',
   UTIL_APP_VERSION_MONITOR: 'utility.app-version-monitor',
   UTIL_AGENT_BRIDGE: 'utility.agent-bridge',
   UTIL_REFRESH_ORCHESTRATOR: 'utility.refresh-orchestrator'
@@ -111,6 +112,11 @@ const CONFIG_TOKENS = exports.CONFIG_TOKENS = {
 };
 const CRYPTO_TOKENS = exports.CRYPTO_TOKENS = {
   FN_PIN_HASH_ALGORITHM: 'fn.crypto.pin-hash-algorithm'
+};
+const ATTESTATION_TOKENS = exports.ATTESTATION_TOKENS = {
+  ATTESTATION_FUNCTIONS: 'attestation.functions',
+  FN_ATTESTATION_GET_CHALLENGE: 'attestation.get-challenge',
+  FN_ATTESTATION_GET_JWT: 'attestation.get-jwt'
 };
 const TOKENS = exports.TOKENS = {
   ...PROOF_TOKENS,
@@ -128,7 +134,8 @@ const TOKENS = exports.TOKENS = {
   ...UTILITY_TOKENS,
   ...CONFIG_TOKENS,
   ...HISTORY_TOKENS,
-  ...CRYPTO_TOKENS
+  ...CRYPTO_TOKENS,
+  ...ATTESTATION_TOKENS
 };
 const ContainerContext = exports.ContainerContext = /*#__PURE__*/(0, _react.createContext)(undefined);
 const ContainerProvider = exports.ContainerProvider = ContainerContext.Provider;

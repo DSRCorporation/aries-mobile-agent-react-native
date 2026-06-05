@@ -25,6 +25,8 @@ let LocalStorageKeys = exports.LocalStorageKeys = /*#__PURE__*/function (LocalSt
   LocalStorageKeys["Tours"] = "ToursState";
   LocalStorageKeys["HistorySettingsOption"] = "historySettingsOption";
   LocalStorageKeys["Language"] = "language";
+  LocalStorageKeys["AttestationKey"] = "AttestationKey";
+  LocalStorageKeys["AttestationConfigured"] = "AttestationConfigured";
   return LocalStorageKeys;
 }({});
 let KeychainServices = exports.KeychainServices = /*#__PURE__*/function (KeychainServices) {

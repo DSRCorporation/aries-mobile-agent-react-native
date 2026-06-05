@@ -131,8 +131,10 @@ const ProofChangeCredential = ({
         style: styles.pageMargin
       }, /*#__PURE__*/_react.default.createElement(_reactNative.TouchableOpacity, {
         accessibilityRole: "button",
+        accessibilityLabel: t('ProofRequest.SelectCredential'),
         testID: (0, _testable.testIdWithKey)(`select:${item.credId}`),
         onPress: () => changeCred(item.credId ?? ''),
+        hitSlop: _constants.hitSlop,
         style: [item.credId === selectedCred ? SelectedCredTheme : undefined, {
           marginBottom: 10
         }],

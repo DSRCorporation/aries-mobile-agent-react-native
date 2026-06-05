@@ -165,7 +165,7 @@ const Card11Pure = ({
     width: dimensions.cardWidth,
     height: dimensions.cardHeight,
     style: {
-      color: branding.primaryBg
+      color: textColor
     },
     watermark: branding.watermark
   }), branding.backgroundFullUri && hideSlice ? /*#__PURE__*/_react.default.createElement(_reactNative.ImageBackground, {

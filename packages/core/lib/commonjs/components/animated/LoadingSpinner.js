@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var _react = _interopRequireWildcard(require("react"));
 var _reactNative = require("react-native");
-var _MaterialIcons = _interopRequireDefault(require("react-native-vector-icons/MaterialIcons"));
+var _MaterialCommunityIcons = _interopRequireDefault(require("react-native-vector-icons/MaterialCommunityIcons"));
 var _testable = require("../../utils/testable");
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
@@ -17,7 +17,8 @@ const timing = {
 };
 const LoadingSpinner = ({
   size = 25,
-  color
+  color,
+  name = "refresh"
 }) => {
   const rotationAnim = (0, _react.useRef)(new _reactNative.Animated.Value(0));
   const rotation = rotationAnim.current.interpolate({
@@ -33,12 +34,12 @@ const LoadingSpinner = ({
         rotate: rotation
       }]
     }
-  }, /*#__PURE__*/_react.default.createElement(_MaterialIcons.default, {
+  }, /*#__PURE__*/_react.default.createElement(_MaterialCommunityIcons.default, {
     style: {
       color
     },
     size: size,
-    name: "refresh",
+    name: name,
     testID: (0, _testable.testIdWithKey)('Loading')
   }));
 };

@@ -12,7 +12,9 @@ export declare enum LocalStorageKeys {
     Migration = "MigrationState",
     Tours = "ToursState",
     HistorySettingsOption = "historySettingsOption",
-    Language = "language"
+    Language = "language",
+    AttestationKey = "AttestationKey",
+    AttestationConfigured = "AttestationConfigured"
 }
 export declare enum KeychainServices {
     Salt = "secret.wallet.salt",

@@ -77,7 +77,7 @@ const DefaultScreenOptionsDictionary = exports.DefaultScreenOptionsDictionary = 
     headerShown: true
   },
   [_navigators.Screens.OpenIDProofPresentation]: {
-    headerShown: true,
+    headerShown: false,
     headerRight: () => false
   }
 };

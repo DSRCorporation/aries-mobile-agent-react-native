@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { Animated } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { testIdWithKey } from '../../utils/testable';
 const timing = {
   toValue: 1,
@@ -9,7 +9,8 @@ const timing = {
 };
 const LoadingSpinner = ({
   size = 25,
-  color
+  color,
+  name = "refresh"
 }) => {
   const rotationAnim = useRef(new Animated.Value(0));
   const rotation = rotationAnim.current.interpolate({
@@ -30,7 +31,7 @@ const LoadingSpinner = ({
       color
     },
     size: size,
-    name: "refresh",
+    name: name,
     testID: testIdWithKey('Loading')
   }));
 };

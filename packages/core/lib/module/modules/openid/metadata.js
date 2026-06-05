@@ -1,4 +1,4 @@
-import { W3cCredentialRecord, SdJwtVcRecord, MdocRecord, W3cCredentialRepository, SdJwtVcRepository, MdocRepository } from '@credo-ts/core';
+import { W3cCredentialRecord, SdJwtVcRecord, MdocRecord, W3cV2CredentialRecord, W3cCredentialRepository, W3cV2CredentialRepository, SdJwtVcRepository, MdocRepository } from '@credo-ts/core';
 export const openId4VcCredentialMetadataKey = '_bifold/openId4VcCredentialMetadata';
 export const refreshCredentialMetadataKey = '_bifold/refreshCredentialMetadata';
 export function extractOpenId4VcCredentialMetadata(credentialMetadata, serverMetadata) {
@@ -52,6 +52,8 @@ export function deleteRefreshCredentialMetadata(credentialRecord) {
 export async function persistCredentialRecord(agentContext, record) {
   if (record instanceof W3cCredentialRecord) {
     await agentContext.dependencyManager.resolve(W3cCredentialRepository).update(agentContext, record);
+  } else if (record instanceof W3cV2CredentialRecord) {
+    await agentContext.dependencyManager.resolve(W3cV2CredentialRepository).update(agentContext, record);
   } else if (record instanceof SdJwtVcRecord) {
     await agentContext.dependencyManager.resolve(SdJwtVcRepository).update(agentContext, record);
   } else if (record instanceof MdocRecord) {

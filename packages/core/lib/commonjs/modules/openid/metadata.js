@@ -68,6 +68,8 @@ function deleteRefreshCredentialMetadata(credentialRecord) {
 async function persistCredentialRecord(agentContext, record) {
   if (record instanceof _core.W3cCredentialRecord) {
     await agentContext.dependencyManager.resolve(_core.W3cCredentialRepository).update(agentContext, record);
+  } else if (record instanceof _core.W3cV2CredentialRecord) {
+    await agentContext.dependencyManager.resolve(_core.W3cV2CredentialRepository).update(agentContext, record);
   } else if (record instanceof _core.SdJwtVcRecord) {
     await agentContext.dependencyManager.resolve(_core.SdJwtVcRepository).update(agentContext, record);
   } else if (record instanceof _core.MdocRecord) {

@@ -100,7 +100,7 @@ const CredentialDetails = ({
     metaOverlay: undefined,
     brandingOverlay: undefined
   });
-  const credentialConnectionLabel = (0, _helpers.useCredentialConnectionLabel)(credential);
+  const credentialConnectionLabel = (0, _helpers.useCredentialConnectionLabel)(credential, overlay);
   const isBranding10 = bundleResolver.getBrandingOverlayType() === _legacy.BrandingOverlayType.Branding10;
   const isBranding11 = bundleResolver.getBrandingOverlayType() === _legacy.BrandingOverlayType.Branding11;
   const containerBackgroundColor = (_overlay$brandingOver = overlay.brandingOverlay) !== null && _overlay$brandingOver !== void 0 && _overlay$brandingOver.secondaryBackgroundColor && overlay.brandingOverlay.secondaryBackgroundColor !== '' ? overlay.brandingOverlay.secondaryBackgroundColor : (_overlay$brandingOver2 = overlay.brandingOverlay) === null || _overlay$brandingOver2 === void 0 ? void 0 : _overlay$brandingOver2.primaryBackgroundColor;

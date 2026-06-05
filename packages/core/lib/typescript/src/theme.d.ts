@@ -182,6 +182,7 @@ declare const BrandColors: {
     tabBarInactive: string;
     inlineError: string;
     inlineWarning: string;
+    loadingIcon: string;
 };
 export type IBrandColors = typeof BrandColors;
 export declare const ColorPalette: IColorPalette;

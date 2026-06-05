@@ -20,8 +20,8 @@ import Button, { ButtonType } from '../buttons/Button';
 import { InfoBoxType } from '../misc/InfoBox';
 import CommonRemoveModal from '../modals/CommonRemoveModal';
 import { ThemedText } from '../texts/ThemedText';
-import { OpenIDCustomNotificationType } from '../../modules/openid/refresh/types';
 import { useOpenIdReplacementNavigation } from '../../modules/openid/hooks/useOpenIdReplacementNavigation';
+import { OpenIDCustomNotificationType } from '../../modules/openid/refresh/types';
 import { useUpgradeExpiredCredential } from '../../modules/openid/hooks/useUpgradeExpiredCredential';
 const iconSize = 30;
 export let NotificationType = /*#__PURE__*/function (NotificationType) {
@@ -359,6 +359,10 @@ const NotificationListItem = ({
       case NotificationType.Custom:
         onPress = () => {
           var _navigation$getParent7;
+          if ((customNotification === null || customNotification === void 0 ? void 0 : customNotification.type) === OpenIDCustomNotificationType.CredentialReplacementAvailable) {
+            openReplacementOffer(customNotification);
+            return;
+          }
           if ((customNotification === null || customNotification === void 0 ? void 0 : customNotification.type) === OpenIDCustomNotificationType.CredentialExpired && customNotification.metadata && typeof customNotification.metadata.oldId === 'string') {
             upgrade(customNotification.metadata.oldId);
             return;

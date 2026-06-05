@@ -10,6 +10,7 @@ var _reactI18next = require("react-i18next");
 var _reactNative = require("react-native");
 var _reactNativeSafeAreaContext = require("react-native-safe-area-context");
 var _Button = _interopRequireWildcard(require("../components/buttons/Button"));
+var _constants = require("../constants");
 var _InfoBox = _interopRequireWildcard(require("../components/misc/InfoBox"));
 var _SafeAreaModal = _interopRequireDefault(require("../components/modals/SafeAreaModal"));
 var _containerApi = require("../container-api");
@@ -100,6 +101,7 @@ const PasteUrl = ({
     style: styles.description
   }, t('PasteUrl.PasteUrlDescription')), /*#__PURE__*/_react.default.createElement(_reactNative.TextInput, {
     testID: (0, _testable.testIdWithKey)('PastedUrl'),
+    accessibilityLabel: t('PasteUrl.PasteUrlInput'),
     style: styles.textBox,
     numberOfLines: 15,
     multiline: true,
@@ -109,6 +111,9 @@ const PasteUrl = ({
     style: styles.buttonContainer
   }, /*#__PURE__*/_react.default.createElement(_reactNative.TouchableOpacity, {
     testID: (0, _testable.testIdWithKey)('ScanPastedUrlDisabled'),
+    accessibilityLabel: t('PasteUrl.ScanDisabled'),
+    accessibilityRole: "button",
+    hitSlop: _constants.hitSlop,
     disabled: pastedContent.length > 0,
     onPress: () => {
       setErrorMessage({

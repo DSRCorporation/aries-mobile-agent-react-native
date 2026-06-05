@@ -142,6 +142,8 @@ const BannerSection = ({
       backgroundColor: bannerColor(type)
     },
     testID: (0, _testable.testIdWithKey)(`button-${type}`),
+    accessibilityLabel: title,
+    accessibilityRole: "button",
     onPress: () => {
       if (variant === 'summary' && onToggle) {
         onToggle();

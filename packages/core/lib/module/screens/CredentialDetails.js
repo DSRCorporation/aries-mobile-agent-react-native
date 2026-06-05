@@ -92,7 +92,7 @@ const CredentialDetails = ({
     metaOverlay: undefined,
     brandingOverlay: undefined
   });
-  const credentialConnectionLabel = useCredentialConnectionLabel(credential);
+  const credentialConnectionLabel = useCredentialConnectionLabel(credential, overlay);
   const isBranding10 = bundleResolver.getBrandingOverlayType() === BrandingOverlayType.Branding10;
   const isBranding11 = bundleResolver.getBrandingOverlayType() === BrandingOverlayType.Branding11;
   const containerBackgroundColor = (_overlay$brandingOver = overlay.brandingOverlay) !== null && _overlay$brandingOver !== void 0 && _overlay$brandingOver.secondaryBackgroundColor && overlay.brandingOverlay.secondaryBackgroundColor !== '' ? overlay.brandingOverlay.secondaryBackgroundColor : (_overlay$brandingOver2 = overlay.brandingOverlay) === null || _overlay$brandingOver2 === void 0 ? void 0 : _overlay$brandingOver2.primaryBackgroundColor;

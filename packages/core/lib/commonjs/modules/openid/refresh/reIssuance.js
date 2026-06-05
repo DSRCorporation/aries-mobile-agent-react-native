@@ -12,8 +12,7 @@ async function reissueCredentialWithAccessToken({
   logger,
   record,
   tokenResponse,
-  clientId,
-  pidSchemes
+  clientId
 }) {
   if (!record) {
     throw new Error('No credential record provided for re-issuance.');
@@ -35,26 +34,24 @@ async function reissueCredentialWithAccessToken({
   logger.info('*** Starting to get new credential via re-issuance flow ***');
   // Request a **new** credential using the *existing* configuration id
 
-  const creds = await agent.modules.openid4vc.holder.requestCredentials({
+  const creds = await agent.openid4vc.holder.requestCredentials({
     resolvedCredentialOffer,
     accessToken: tokenResponse.access_token,
     tokenType: tokenResponse.token_type || 'Bearer',
     cNonce: tokenResponse.c_nonce,
+    dpop: tokenResponse.dpop,
     clientId,
-    credentialsToRequest: [credentialConfigurationId],
+    credentialConfigurationIds: [credentialConfigurationId],
     verifyCredentialStatus: false,
     // you’ll check after storing
     allowedProofOfPossessionSignatureAlgorithms: ['EdDSA', 'ES256'],
     credentialBindingResolver: async opts => (0, _offerResolve.customCredentialBindingResolver)({
       agent,
       supportedDidMethods: opts.supportedDidMethods,
-      // keyType: opts.keyType,
+      proofTypes: opts.proofTypes,
       supportsAllDidMethods: opts.supportsAllDidMethods,
       supportsJwk: opts.supportsJwk,
-      credentialFormat: opts.credentialFormat,
-      // supportedCredentialId: opts.supportedCredentialId,
-      resolvedCredentialOffer: resolvedCredentialOffer,
-      pidSchemes
+      credentialFormat: opts.credentialFormat
     })
   });
   logger.info('*** New credential received via re-issuance flow ***.');
@@ -76,7 +73,8 @@ async function reissueCredentialWithAccessToken({
   //   })
   // }
 
-  const openId4VcMetadata = (0, _metadata.extractOpenId4VcCredentialMetadata)(resolvedCredentialOffer.offeredCredentialConfigurations, {
+  const requestedCredentialConfiguration = resolvedCredentialOffer.offeredCredentialConfigurations[credentialConfigurationId];
+  const openId4VcMetadata = (0, _metadata.extractOpenId4VcCredentialMetadata)(requestedCredentialConfiguration, {
     id: resolvedCredentialOffer.metadata.credentialIssuer.credential_issuer,
     display: resolvedCredentialOffer.metadata.credentialIssuer.display
   });
@@ -84,6 +82,11 @@ async function reissueCredentialWithAccessToken({
   (0, _metadata.setRefreshCredentialMetadata)(newRecord, {
     ...refreshMetaData,
     refreshToken: tokenResponse.refresh_token || refreshMetaData.refreshToken,
+    dpop: tokenResponse.dpop ? {
+      alg: tokenResponse.dpop.alg,
+      jwk: tokenResponse.dpop.jwk.toJson(),
+      nonce: tokenResponse.dpop.nonce
+    } : refreshMetaData.dpop,
     lastCheckedAt: Date.now(),
     lastCheckResult: _types.RefreshStatus.Valid
   });

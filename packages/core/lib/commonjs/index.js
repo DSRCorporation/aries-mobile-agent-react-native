@@ -4,8 +4,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var _exportNames = {
-  Agent: true,
   AgentProvider: true,
+  Agent: true,
   createApp: true,
   components: true,
   Button: true,
@@ -73,6 +73,7 @@ var _exportNames = {
   usePreventScreenCapture: true,
   useBifoldAgentSetup: true,
   OpenIDCredentialRecordProvider: true,
+  RefreshOrchestrator: true,
   DefaultScreenLayoutOptions: true,
   DefaultScreenOptionsDictionary: true,
   useDefaultStackOptions: true,
@@ -83,11 +84,13 @@ var _exportNames = {
   OnboardingPages: true,
   createStyles: true,
   Preface: true,
+  RenameWallet: true,
   Scan: true,
   Splash: true,
   Terms: true,
   UpdateAvailable: true,
   AbstractBifoldLogger: true,
+  AgentBridge: true,
   bifoldLoggerInstance: true,
   isBiometricsActive: true,
   loadLoginAttempt: true,
@@ -98,8 +101,6 @@ var _exportNames = {
   QrCodeScanError: true,
   BifoldError: true,
   InlineErrorPosition: true,
-  RefreshOrchestrator: true,
-  AgentBridge: true,
   animatedComponents: true,
   AnimatedComponentsProvider: true,
   useAnimatedComponents: true,
@@ -129,10 +130,12 @@ var _exportNames = {
   getCredentialIdentifiers: true,
   isValidAnonCredsCredential: true,
   connectFromScanOrDeepLink: true,
+  createConnectionInvitation: true,
   formatTime: true,
   getConnectionName: true,
   removeExistingInvitationsById: true,
   useCredentialConnectionLabel: true,
+  FileCache: true,
   getIndyLedgers: true,
   IndyLedger: true,
   readIndyLedgersFromFile: true,
@@ -141,11 +144,28 @@ var _exportNames = {
   StatusBarStyles: true,
   migrateToAskar: true,
   buildFieldsFromAnonCredsCredential: true,
+  parsedSchema: true,
   testIdForAccessabilityLabel: true,
   testIdWithKey: true,
+  OpenIDCredentialDetails: true,
+  CredentialDetails: true,
   BasicMessageMetadata: true,
   CredentialMetadata: true,
-  BaseTourID: true
+  BaseTourID: true,
+  OpenIDCredentialRefreshFlowType: true,
+  Connection: true,
+  CredentialOffer: true,
+  ProofRequest: true,
+  LoadingPlaceholder: true,
+  LoadingPlaceholderWorkflowType: true,
+  useConnectionByOutOfBandId: true,
+  useOutOfBandByConnectionId: true,
+  useOutOfBandById: true,
+  useNotifications: true,
+  isMediatorInvitation: true,
+  isDidCommInvitation: true,
+  isOpenIdCredentialOffer: true,
+  isOpenIdPresentationRequest: true
 };
 Object.defineProperty(exports, "AbstractBifoldLogger", {
   enumerable: true,
@@ -285,16 +305,34 @@ Object.defineProperty(exports, "ColorPalette", {
     return _theme2.ColorPalette;
   }
 });
+Object.defineProperty(exports, "Connection", {
+  enumerable: true,
+  get: function () {
+    return _Connection.default;
+  }
+});
 Object.defineProperty(exports, "ContentGradient", {
   enumerable: true,
   get: function () {
     return _ContentGradient.default;
   }
 });
+Object.defineProperty(exports, "CredentialDetails", {
+  enumerable: true,
+  get: function () {
+    return _CredentialDetails.default;
+  }
+});
 Object.defineProperty(exports, "CredentialMetadata", {
   enumerable: true,
   get: function () {
     return _metadata.CredentialMetadata;
+  }
+});
+Object.defineProperty(exports, "CredentialOffer", {
+  enumerable: true,
+  get: function () {
+    return _CredentialOffer.default;
   }
 });
 Object.defineProperty(exports, "DefaultScreenLayoutOptions", {
@@ -355,6 +393,12 @@ Object.defineProperty(exports, "FauxHeader", {
   enumerable: true,
   get: function () {
     return _FauxHeader.default;
+  }
+});
+Object.defineProperty(exports, "FileCache", {
+  enumerable: true,
+  get: function () {
+    return _fileCache.FileCache;
   }
 });
 Object.defineProperty(exports, "HomeContentView", {
@@ -423,6 +467,18 @@ Object.defineProperty(exports, "Link", {
     return _Link.default;
   }
 });
+Object.defineProperty(exports, "LoadingPlaceholder", {
+  enumerable: true,
+  get: function () {
+    return _LoadingPlaceholder.default;
+  }
+});
+Object.defineProperty(exports, "LoadingPlaceholderWorkflowType", {
+  enumerable: true,
+  get: function () {
+    return _LoadingPlaceholder.LoadingPlaceholderWorkflowType;
+  }
+});
 Object.defineProperty(exports, "LocalStorageKeys", {
   enumerable: true,
   get: function () {
@@ -489,10 +545,22 @@ Object.defineProperty(exports, "OnboardingPages", {
     return _OnboardingPages.default;
   }
 });
+Object.defineProperty(exports, "OpenIDCredentialDetails", {
+  enumerable: true,
+  get: function () {
+    return _OpenIDCredentialDetails.default;
+  }
+});
 Object.defineProperty(exports, "OpenIDCredentialRecordProvider", {
   enumerable: true,
   get: function () {
     return _OpenIDCredentialRecordProvider.OpenIDCredentialRecordProvider;
+  }
+});
+Object.defineProperty(exports, "OpenIDCredentialRefreshFlowType", {
+  enumerable: true,
+  get: function () {
+    return _types2.OpenIDCredentialRefreshFlowType;
   }
 });
 Object.defineProperty(exports, "PINRules", {
@@ -505,6 +573,12 @@ Object.defineProperty(exports, "Preface", {
   enumerable: true,
   get: function () {
     return _Preface.default;
+  }
+});
+Object.defineProperty(exports, "ProofRequest", {
+  enumerable: true,
+  get: function () {
+    return _ProofRequest.default;
   }
 });
 Object.defineProperty(exports, "QRRenderer", {
@@ -535,6 +609,12 @@ Object.defineProperty(exports, "RefreshOrchestrator", {
   enumerable: true,
   get: function () {
     return _refreshOrchestrator.RefreshOrchestrator;
+  }
+});
+Object.defineProperty(exports, "RenameWallet", {
+  enumerable: true,
+  get: function () {
+    return _RenameWallet.default;
   }
 });
 Object.defineProperty(exports, "SVGOverlay", {
@@ -713,6 +793,12 @@ Object.defineProperty(exports, "createApp", {
     return _App.default;
   }
 });
+Object.defineProperty(exports, "createConnectionInvitation", {
+  enumerable: true,
+  get: function () {
+    return _helpers.createConnectionInvitation;
+  }
+});
 Object.defineProperty(exports, "createLinkSecretIfRequired", {
   enumerable: true,
   get: function () {
@@ -809,6 +895,30 @@ Object.defineProperty(exports, "isBiometricsActive", {
     return _keychain.isBiometricsActive;
   }
 });
+Object.defineProperty(exports, "isDidCommInvitation", {
+  enumerable: true,
+  get: function () {
+    return _parsers.isDidCommInvitation;
+  }
+});
+Object.defineProperty(exports, "isMediatorInvitation", {
+  enumerable: true,
+  get: function () {
+    return _mediatorhelpers.isMediatorInvitation;
+  }
+});
+Object.defineProperty(exports, "isOpenIdCredentialOffer", {
+  enumerable: true,
+  get: function () {
+    return _parsers.isOpenIdCredentialOffer;
+  }
+});
+Object.defineProperty(exports, "isOpenIdPresentationRequest", {
+  enumerable: true,
+  get: function () {
+    return _parsers.isOpenIdPresentationRequest;
+  }
+});
 Object.defineProperty(exports, "isValidAnonCredsCredential", {
   enumerable: true,
   get: function () {
@@ -831,6 +941,12 @@ Object.defineProperty(exports, "migrateToAskar", {
   enumerable: true,
   get: function () {
     return _migration.migrateToAskar;
+  }
+});
+Object.defineProperty(exports, "parsedSchema", {
+  enumerable: true,
+  get: function () {
+    return _schema.parsedSchema;
   }
 });
 Object.defineProperty(exports, "proofRequestTourSteps", {
@@ -918,6 +1034,12 @@ Object.defineProperty(exports, "useBifoldAgentSetup", {
     return _useBifoldAgentSetup.default;
   }
 });
+Object.defineProperty(exports, "useConnectionByOutOfBandId", {
+  enumerable: true,
+  get: function () {
+    return _connections.useConnectionByOutOfBandId;
+  }
+});
 Object.defineProperty(exports, "useCredentialConnectionLabel", {
   enumerable: true,
   get: function () {
@@ -946,6 +1068,24 @@ Object.defineProperty(exports, "useNetwork", {
   enumerable: true,
   get: function () {
     return _network.useNetwork;
+  }
+});
+Object.defineProperty(exports, "useNotifications", {
+  enumerable: true,
+  get: function () {
+    return _notifications.useNotifications;
+  }
+});
+Object.defineProperty(exports, "useOutOfBandByConnectionId", {
+  enumerable: true,
+  get: function () {
+    return _connections.useOutOfBandByConnectionId;
+  }
+});
+Object.defineProperty(exports, "useOutOfBandById", {
+  enumerable: true,
+  get: function () {
+    return _connections.useOutOfBandById;
   }
 });
 Object.defineProperty(exports, "usePreventScreenCapture", {
@@ -984,8 +1124,8 @@ Object.defineProperty(exports, "writeIndyLedgersToFile", {
     return _ledger.writeIndyLedgersToFile;
   }
 });
-var _core = require("@credo-ts/core");
 var _reactHooks = _interopRequireDefault(require("@bifold/react-hooks"));
+var _core = require("@credo-ts/core");
 var _App = _interopRequireDefault(require("./App"));
 var components = _interopRequireWildcard(require("./components"));
 exports.components = components;
@@ -1038,6 +1178,7 @@ var _developerMode = require("./hooks/developer-mode");
 var _screenCapture = _interopRequireDefault(require("./hooks/screen-capture"));
 var _useBifoldAgentSetup = _interopRequireDefault(require("./hooks/useBifoldAgentSetup"));
 var _OpenIDCredentialRecordProvider = require("./modules/openid/context/OpenIDCredentialRecordProvider");
+var _refreshOrchestrator = require("./modules/openid/refresh/refreshOrchestrator");
 var _defaultLayoutOptions = require("./navigators/defaultLayoutOptions");
 var _defaultStackOptions = require("./navigators/defaultStackOptions");
 var _AttemptLockout = _interopRequireDefault(require("./screens/AttemptLockout"));
@@ -1046,11 +1187,13 @@ var _Developer = _interopRequireDefault(require("./screens/Developer"));
 var _Onboarding = _interopRequireDefault(require("./screens/Onboarding"));
 var _OnboardingPages = _interopRequireWildcard(require("./screens/OnboardingPages"));
 var _Preface = _interopRequireDefault(require("./screens/Preface"));
+var _RenameWallet = _interopRequireDefault(require("./screens/RenameWallet"));
 var _Scan = _interopRequireDefault(require("./screens/Scan"));
 var _Splash = _interopRequireDefault(require("./screens/Splash"));
 var _Terms = _interopRequireDefault(require("./screens/Terms"));
 var _UpdateAvailable = _interopRequireDefault(require("./screens/UpdateAvailable"));
 var _AbstractBifoldLogger = require("./services/AbstractBifoldLogger");
+var _AgentBridge = require("./services/AgentBridge");
 var _bifoldLogger = require("./services/bifoldLogger");
 var _keychain = require("./services/keychain");
 var _logger = require("./services/logger");
@@ -1059,8 +1202,6 @@ var _themeBuilder = require("./theme-builder");
 var types = _interopRequireWildcard(require("./types"));
 exports.types = types;
 var _error = require("./types/error");
-var _refreshOrchestrator = require("./modules/openid/refresh/refreshOrchestrator");
-var _AgentBridge = require("./services/AgentBridge");
 var _animatedComponents = require("./animated-components");
 var _animatedComponents2 = require("./contexts/animated-components");
 var _store = _interopRequireWildcard(require("./contexts/reducers/store"));
@@ -1105,6 +1246,18 @@ Object.keys(_attestation).forEach(function (key) {
     }
   });
 });
+var _autoCredential = require("./types/auto-credential");
+Object.keys(_autoCredential).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _autoCredential[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _autoCredential[key];
+    }
+  });
+});
 var _navigators2 = require("./types/navigators");
 var _versionCheck = require("./types/version-check");
 Object.keys(_versionCheck).forEach(function (key) {
@@ -1121,11 +1274,15 @@ Object.keys(_versionCheck).forEach(function (key) {
 var _agent = require("./utils/agent");
 var _credential = require("./utils/credential");
 var _helpers = require("./utils/helpers");
+var _fileCache = require("./utils/fileCache");
 var _ledger = require("./utils/ledger");
 var _luminance = require("./utils/luminance");
 var _migration = require("./utils/migration");
 var _oca = require("./utils/oca");
+var _schema = require("./utils/schema");
 var _testable = require("./utils/testable");
+var _OpenIDCredentialDetails = _interopRequireDefault(require("./modules/openid/screens/OpenIDCredentialDetails"));
+var _CredentialDetails = _interopRequireDefault(require("./screens/CredentialDetails"));
 var _metadata = require("./types/metadata");
 var _containerApi = require("./container-api");
 Object.keys(_containerApi).forEach(function (key) {
@@ -1140,6 +1297,15 @@ Object.keys(_containerApi).forEach(function (key) {
   });
 });
 var _tour = require("./types/tour");
+var _types2 = require("./modules/openid/refresh/types");
+var _Connection = _interopRequireDefault(require("./screens/Connection"));
+var _CredentialOffer = _interopRequireDefault(require("./screens/CredentialOffer"));
+var _ProofRequest = _interopRequireDefault(require("./screens/ProofRequest"));
+var _LoadingPlaceholder = _interopRequireWildcard(require("./components/views/LoadingPlaceholder"));
+var _connections = require("./hooks/connections");
+var _notifications = require("./hooks/notifications");
+var _mediatorhelpers = require("./utils/mediatorhelpers");
+var _parsers = require("./utils/parsers");
 function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 //# sourceMappingURL=index.js.map

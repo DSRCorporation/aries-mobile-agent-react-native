@@ -44,4 +44,19 @@ export const fetchLedgerNodes = (indyNamespace = 'sovrin') => {
   });
   return nodes;
 };
+export async function withRetry(promise, args, maxRetries = 3, onRetry) {
+  const retry = async (retries = 0) => {
+    try {
+      return await promise(...args);
+    } catch (err) {
+      onRetry === null || onRetry === void 0 || onRetry();
+      if (retries < maxRetries) {
+        return retry(retries + 1);
+      } else {
+        throw err;
+      }
+    }
+  };
+  return await retry();
+}
 //# sourceMappingURL=network.js.map

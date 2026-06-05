@@ -47,10 +47,12 @@ export interface Config {
     PINScreensConfig: PINScreensConfig;
     showGenericErrors?: boolean;
     enableFullScreenErrorModal?: boolean;
+    enableHardwareBackedHolderBinding?: boolean;
     customAutoLockTimes?: {
         default: AutoLockTimer;
         values: [AutoLockTimer, ...AutoLockTimer[]];
     };
+    enableAttestation: boolean;
 }
 export interface AutoLockTimer {
     time: number;

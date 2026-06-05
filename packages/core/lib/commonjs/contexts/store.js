@@ -72,6 +72,9 @@ const defaultState = exports.defaultState = {
     needsUpdate: false,
     lastChecked: undefined,
     version: undefined
+  },
+  attestation: {
+    isAttestationComplete: false
   }
 };
 const StoreContext = exports.StoreContext = /*#__PURE__*/(0, _react.createContext)([defaultState, () => {

@@ -58,6 +58,8 @@ exports[`PINEnter Screen PIN Enter renders correctly 1`] = `
         >
           <View>
             <View
+              accessibilityLabel="PINEnter.DeveloperMenuTrigger"
+              accessibilityRole="text"
               accessibilityState={
                 Object {
                   "busy": undefined,
@@ -737,7 +739,6 @@ exports[`PINEnter Screen PIN Enter renders correctly 1`] = `
                       },
                       false,
                       false,
-                      false,
                     ],
                   ]
                 }
@@ -832,6 +833,8 @@ exports[`PINEnter Screen PIN Enter renders correctly when logged out message is 
         >
           <View>
             <View
+              accessibilityLabel="PINEnter.DeveloperMenuTrigger"
+              accessibilityRole="text"
               accessibilityState={
                 Object {
                   "busy": undefined,
@@ -1509,7 +1512,6 @@ exports[`PINEnter Screen PIN Enter renders correctly when logged out message is 
                         "fontWeight": "bold",
                         "textAlign": "center",
                       },
-                      false,
                       false,
                       false,
                     ],

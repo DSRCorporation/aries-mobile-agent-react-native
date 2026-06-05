@@ -4,6 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.fetchLedgerNodes = exports.canConnectToHost = void 0;
+exports.withRetry = withRetry;
 var _reactNativeTcpSocket = _interopRequireDefault(require("react-native-tcp-socket"));
 var _indy = _interopRequireDefault(require("../configs/ledgers/indy"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
@@ -53,4 +54,19 @@ const fetchLedgerNodes = (indyNamespace = 'sovrin') => {
   return nodes;
 };
 exports.fetchLedgerNodes = fetchLedgerNodes;
+async function withRetry(promise, args, maxRetries = 3, onRetry) {
+  const retry = async (retries = 0) => {
+    try {
+      return await promise(...args);
+    } catch (err) {
+      onRetry === null || onRetry === void 0 || onRetry();
+      if (retries < maxRetries) {
+        return retry(retries + 1);
+      } else {
+        throw err;
+      }
+    }
+  };
+  return await retry();
+}
 //# sourceMappingURL=network.js.map

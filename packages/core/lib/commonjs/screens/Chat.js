@@ -25,7 +25,6 @@ var _chat2 = require("../types/chat");
 var _metadata = require("../types/metadata");
 var _navigators = require("../types/navigators");
 var _helpers = require("../utils/helpers");
-var _reactNative = require("react-native");
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
 const Chat = ({
@@ -56,8 +55,6 @@ const Chat = ({
   const [showActionSlider, setShowActionSlider] = (0, _react.useState)(false);
   const theme = (0, _theme.useTheme)();
   const {
-    ColorPalette,
-    ChatTheme,
     Assets
   } = theme;
   const [theirLabel, setTheirLabel] = (0, _react.useState)((0, _helpers.getConnectionName)(connection, store.preferences.alternateContactNames));
@@ -88,7 +85,7 @@ const Chat = ({
           ...meta,
           seen: true
         });
-        const basicMessageRepository = agent.context.dependencyManager.resolve(_didcomm.DidCommBasicMessageRepository); // Should maybe be resolved differently
+        const basicMessageRepository = agent.context.dependencyManager.resolve(_didcomm.DidCommBasicMessageRepository);
         basicMessageRepository.update(agent.context, msg);
       }
     });
@@ -123,40 +120,35 @@ const Chat = ({
   return /*#__PURE__*/_react.default.createElement(_reactNativeSafeAreaContext.SafeAreaView, {
     edges: ['bottom', 'left', 'right'],
     style: {
-      flex: 1,
-      backgroundColor: ColorPalette.grayscale.white,
-      borderRadius: 24
-    }
-  }, /*#__PURE__*/_react.default.createElement(_reactNative.KeyboardAvoidingView, {
-    style: {
       flex: 1
-    },
-    behavior: _reactNative.Platform.OS === 'ios' ? undefined : 'padding',
-    keyboardVerticalOffset: headerHeight
+    }
   }, /*#__PURE__*/_react.default.createElement(_reactNativeGiftedChat.GiftedChat, {
-    keyboardShouldPersistTaps: 'handled',
     messages: chatMessages,
-    showAvatarForEveryMessage: true,
-    alignTop: true,
+    isAvatarVisibleForEveryMessage: true,
     renderAvatar: () => null,
     messageIdGenerator: msg => (msg === null || msg === void 0 ? void 0 : msg._id.toString()) || '0',
     renderMessage: props => /*#__PURE__*/_react.default.createElement(_ChatMessage.ChatMessage, {
       messageProps: props
     }),
-    renderInputToolbar: props => (0, _chat.renderInputToolbar)(props, ChatTheme),
-    renderSend: props => (0, _chat.renderSend)(props, ChatTheme),
-    renderComposer: props => (0, _chat.renderComposer)(props, ChatTheme, t('Contacts.TypeHere')),
-    disableComposer: !silentAssertConnectedNetwork(),
+    renderInputToolbar: props => (0, _chat.renderInputToolbar)(props, theme),
+    renderSend: props => (0, _chat.renderSend)(props, theme),
+    renderComposer: props => (0, _chat.renderComposer)(props, theme, t('Contacts.TypeHere'), !silentAssertConnectedNetwork()),
     onSend: onSend,
     user: {
       _id: _chat2.Role.me
     },
-    renderActions: props => (0, _ChatActions.renderActions)(props, ChatTheme, actions),
-    onPressActionButton: actions ? () => setShowActionSlider(true) : undefined
+    renderActions: props => (0, _ChatActions.renderActions)(props, theme, actions),
+    onPressActionButton: actions ? () => setShowActionSlider(true) : undefined,
+    keyboardAvoidingViewProps: {
+      keyboardVerticalOffset: headerHeight
+    },
+    listProps: {
+      keyboardShouldPersistTaps: 'handled'
+    }
   }), showActionSlider && /*#__PURE__*/_react.default.createElement(_ActionSlider.default, {
     onDismiss: onDismiss,
     actions: actions
-  })));
+  }));
 };
 var _default = exports.default = Chat;
 //# sourceMappingURL=Chat.js.map

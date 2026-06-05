@@ -91,6 +91,7 @@ const useBifoldAgentSetup = () => {
       if (restartedAgent) {
         logger.info('Successfully restarted existing agent...');
         agentInstanceRef.current = restartedAgent;
+        bridge.setAgent(restartedAgent);
         setAgent(restartedAgent);
         return;
       }

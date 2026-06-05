@@ -63,7 +63,7 @@ const Home = () => {
         notification: item,
         customNotification: customNotification
       });
-    } else if (item.type === OpenIDCustomNotificationType.CredentialExpired) {
+    } else if (item.type === OpenIDCustomNotificationType.CredentialExpired || item.type === OpenIDCustomNotificationType.CredentialReplacementAvailable) {
       component = /*#__PURE__*/React.createElement(NotificationListItem, {
         notificationType: NotificationType.Custom,
         notification: item,

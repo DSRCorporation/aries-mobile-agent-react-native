@@ -1,15 +1,19 @@
 import { AnonCredsDidCommCredentialFormatService, AnonCredsDidCommProofFormatService, AnonCredsModule, DataIntegrityDidCommCredentialFormatService, DidCommCredentialV1Protocol, DidCommProofV1Protocol, LegacyIndyDidCommCredentialFormatService, LegacyIndyDidCommProofFormatService } from '@credo-ts/anoncreds';
-import { AskarModule } from '@credo-ts/askar';
-import { DidsModule, JwkDidResolver, KeyDidResolver, PeerDidResolver, WebDidResolver } from '@credo-ts/core';
+import { AskarKeyManagementService, AskarModule } from '@credo-ts/askar';
+import { DcqlModule, DidsModule, JwkDidResolver, KeyDidResolver, Kms, PeerDidResolver, WebDidResolver, X509Module } from '@credo-ts/core';
 import { DidCommAutoAcceptCredential, DidCommAutoAcceptProof, DidCommCredentialV2Protocol, DidCommProofV2Protocol, DidCommDifPresentationExchangeProofFormatService, DidCommModule, DidCommMediatorPickupStrategy } from '@credo-ts/didcomm';
 import { IndyVdrAnonCredsRegistry, IndyVdrModule } from '@credo-ts/indy-vdr';
 import { WebVhAnonCredsRegistry, WebVhDidResolver } from '@credo-ts/webvh';
 import { useAgent } from '@bifold/react-hooks';
 import { OpenId4VcModule } from '@credo-ts/openid4vc';
+import { SecureEnvironmentKeyManagementService } from '@credo-ts/react-native';
 // import { PushNotificationsApnsModule, PushNotificationsFcmModule } from '@credo-ts/push-notifications'
 import { anoncreds } from '@hyperledger/anoncreds-react-native';
 import { askar } from '@openwallet-foundation/askar-react-native';
 import { indyVdr } from '@hyperledger/indy-vdr-react-native';
+import Config from 'react-native-config';
+const mdocTrustedCertificate = Config.MDOC_TRUSTED_CERTIFICATE_BASE64;
+
 /**
  * Constructs the modules to be used in the agent setup
  * @param indyNetworks
@@ -35,11 +39,18 @@ export function getAgentModules({
   }
   return {
     askar: new AskarModule({
+      enableKms: false,
       askar,
       store: {
         id: walletSecret.id,
         key: walletSecret.key
       }
+    }),
+    kms: new Kms.KeyManagementModule({
+      backends: [new AskarKeyManagementService(), new SecureEnvironmentKeyManagementService({
+        biometricsBacked: false
+      })],
+      defaultBackend: 'askar'
     }),
     anoncreds: new AnonCredsModule({
       anoncreds,
@@ -75,7 +86,13 @@ export function getAgentModules({
         mediatorPickupStrategy: DidCommMediatorPickupStrategy.Implicit
       }
     }),
+    dcql: new DcqlModule(),
     openid4vc: new OpenId4VcModule(),
+    ...(mdocTrustedCertificate ? {
+      x509: new X509Module({
+        trustedCertificates: [mdocTrustedCertificate]
+      })
+    } : {}),
     dids: new DidsModule({
       resolvers: [new WebVhDidResolver(), new WebDidResolver(), new JwkDidResolver(), new KeyDidResolver(), new PeerDidResolver()]
     })

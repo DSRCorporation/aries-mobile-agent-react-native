@@ -176,7 +176,9 @@ const TabStack = () => {
         }
       }, t('TabStack.Home')))),
       tabBarShowLabel: false,
-      tabBarAccessibilityLabel: `${t('TabStack.Home')} (${notifications.length ?? 0})`,
+      tabBarAccessibilityLabel: t('TabStackAccessibility.Home', {
+        notifications: (notifications === null || notifications === void 0 ? void 0 : notifications.length) ?? 0
+      }),
       tabBarTestID: (0, _testable.testIdWithKey)(t('TabStack.Home')),
       tabBarBadge: notifications.length || undefined,
       tabBarBadgeStyle: {
@@ -244,7 +246,7 @@ const TabStack = () => {
         }
       }, t('TabStack.Scan'))))))),
       tabBarShowLabel: false,
-      tabBarAccessibilityLabel: t('TabStack.Scan'),
+      tabBarAccessibilityLabel: t('TabStackAccessibility.Scan'),
       tabBarTestID: (0, _testable.testIdWithKey)(t('TabStack.Scan'))
     },
     listeners: ({
@@ -292,7 +294,7 @@ const TabStack = () => {
         }
       }, t('TabStack.Credentials')))),
       tabBarShowLabel: false,
-      tabBarAccessibilityLabel: t('TabStack.Credentials'),
+      tabBarAccessibilityLabel: t('TabStackAccessibility.Credentials'),
       tabBarTestID: (0, _testable.testIdWithKey)(t('TabStack.Credentials'))
     }
   })), /*#__PURE__*/_react.default.createElement(_reactNativeSafeAreaContext.SafeAreaView, {

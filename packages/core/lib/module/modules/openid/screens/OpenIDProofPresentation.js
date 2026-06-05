@@ -1,26 +1,19 @@
 import { useAgent } from '@bifold/react-hooks';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { DeviceEventEmitter } from 'react-native';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import Button, { ButtonType } from '../../../components/buttons/Button';
-import OpenIDUnsatisfiedProofRequest from '../components/OpenIDUnsatisfiedProofRequest';
+import { DeviceEventEmitter, View, StyleSheet, Text } from 'react-native';
 import CommonRemoveModal from '../../../components/modals/CommonRemoveModal';
 import { EventTypes } from '../../../constants';
-import { TOKENS, useServices } from '../../../container-api';
-import { useTheme } from '../../../contexts/theme';
 import ScreenLayout from '../../../layout/ScreenLayout';
 import ProofRequestAccept from '../../../screens/ProofRequestAccept';
 import { BifoldError } from '../../../types/error';
 import { Screens, TabStacks } from '../../../types/navigators';
 import { ModalUsage } from '../../../types/remove';
-import { buildFieldsFromW3cCredsCredential } from '../../../utils/oca';
-import { testIdWithKey } from '../../../utils/testable';
 import { useOpenIDCredentials } from '../context/OpenIDCredentialRecordProvider';
-import { getCredentialForDisplay } from '../display';
-import { formatDifPexCredentialsForRequest } from '../displayProof';
+import OpenIdProofRequestDisplay from '../features/OpenIDProofPresentation/OpenIDProofRequestDisplay';
+import { useTheme } from '../../../contexts/theme';
+import { formatOpenIdProofRequest } from '../displayProof';
 import { shareProof } from '../resolverProof';
-import { isSdJwtProofRequest, isW3CProofRequest } from '../utils/utils';
 const OpenIDProofPresentation = ({
   navigation,
   route: {
@@ -29,6 +22,9 @@ const OpenIDProofPresentation = ({
     }
   }
 }) => {
+  const {
+    TextTheme
+  } = useTheme();
   const [declineModalVisible, setDeclineModalVisible] = useState(false);
   const [buttonsVisible, setButtonsVisible] = useState(true);
   const [acceptModalVisible, setAcceptModalVisible] = useState(false);
@@ -36,67 +32,16 @@ const OpenIDProofPresentation = ({
   const [satistfiedCredentialsSubmission, setSatistfiedCredentialsSubmission] = useState();
   const [selectedCredentialsSubmission, setSelectedCredentialsSubmission] = useState();
   const {
-    getW3CCredentialById,
-    getSdJwtCredentialById
+    getCredentialById
   } = useOpenIDCredentials();
-  const {
-    ColorPalette,
-    ListItems,
-    TextTheme
-  } = useTheme();
   const {
     t
   } = useTranslation();
   const {
     agent
   } = useAgent();
-  const [CredentialCard] = useServices([TOKENS.COMPONENT_CREDENTIAL_CARD]);
   const toggleDeclineModalVisible = () => setDeclineModalVisible(!declineModalVisible);
-  const styles = StyleSheet.create({
-    pageContent: {
-      flexGrow: 1,
-      justifyContent: 'space-between',
-      padding: 10
-    },
-    credentialsList: {
-      marginTop: 20,
-      justifyContent: 'space-between'
-    },
-    headerTextContainer: {
-      paddingVertical: 16
-    },
-    headerText: {
-      ...ListItems.recordAttributeText,
-      flexShrink: 1
-    },
-    footerButton: {
-      paddingVertical: 10
-    },
-    cardContainer: {
-      paddingHorizontal: 25,
-      paddingVertical: 16,
-      backgroundColor: ColorPalette.brand.secondaryBackground,
-      marginBottom: 20
-    },
-    cardAttributes: {
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-      borderColor: ColorPalette.grayscale.lightGrey,
-      borderWidth: 1,
-      borderRadius: 8,
-      padding: 8
-    },
-    cardGroupContainer: {
-      borderRadius: 8,
-      borderWidth: 2,
-      borderColor: 'rgba(255, 255, 255, 0.2)'
-    },
-    cardGroupHeader: {
-      padding: 8,
-      marginVertical: 8
-    }
-  });
-  const submission = useMemo(() => credential && credential.credentialsForRequest ? formatDifPexCredentialsForRequest(credential.credentialsForRequest) : undefined, [credential]);
+  const submission = useMemo(() => credential ? formatOpenIdProofRequest(credential) : undefined, [credential]);
 
   //This should run only once when the screen is mounted
   useEffect(() => {
@@ -118,15 +63,9 @@ const OpenIDProofPresentation = ({
       const creds = [];
       for (const [inputDescriptorID, credIDs] of Object.entries(satistfiedCredentialsSubmission)) {
         for (const {
-          id,
-          claimFormat
+          id
         } of credIDs) {
-          let credential;
-          if (isW3CProofRequest(claimFormat)) {
-            credential = await getW3CCredentialById(id);
-          } else if (isSdJwtProofRequest(claimFormat)) {
-            credential = await getSdJwtCredentialById(id);
-          }
+          const credential = await getCredentialById(id);
           if (credential && inputDescriptorID) {
             creds.push(credential);
           }
@@ -135,7 +74,7 @@ const OpenIDProofPresentation = ({
       setCredentialsRequested(creds);
     }
     fetchCreds();
-  }, [satistfiedCredentialsSubmission, getW3CCredentialById, getSdJwtCredentialById]);
+  }, [satistfiedCredentialsSubmission, getCredentialById]);
 
   //Once satisfied credentials are set and all credentials fetched, we select the first one of each submission to display on screen
   useEffect(() => {
@@ -159,14 +98,13 @@ const OpenIDProofPresentation = ({
   }, [credential]);
   const handleAcceptTouched = async () => {
     try {
-      if (!agent || !credential.credentialsForRequest || !selectedCredentialsSubmission) {
+      if (!agent || !selectedCredentialsSubmission) {
         return;
       }
       await shareProof({
         agent,
-        authorizationRequest: credential.authorizationRequestPayload,
-        credentialsForRequest: credential.credentialsForRequest,
-        selectedCredentials: selectedCredentialsSubmission
+        requestRecord: credential,
+        selectedProofCredentials: selectedCredentialsSubmission
       });
       setAcceptModalVisible(true);
     } catch (err) {
@@ -176,15 +114,12 @@ const OpenIDProofPresentation = ({
     }
   };
   const handleDeclineTouched = async () => {
+    toggleDeclineModalVisible();
+  };
+  const handleDismiss = async () => {
     var _navigation$getParent;
     toggleDeclineModalVisible();
     (_navigation$getParent = navigation.getParent()) === null || _navigation$getParent === void 0 || _navigation$getParent.navigate(TabStacks.HomeStack, {
-      screen: Screens.Home
-    });
-  };
-  const handleDismiss = async () => {
-    var _navigation$getParent2;
-    (_navigation$getParent2 = navigation.getParent()) === null || _navigation$getParent2 === void 0 || _navigation$getParent2.navigate(TabStacks.HomeStack, {
       screen: Screens.Home
     });
   };
@@ -203,9 +138,11 @@ const OpenIDProofPresentation = ({
       }
     }));
   };
-  const handleAltCredChange = useCallback((inputDescriptorID, selectedCredID, inputDescriptor) => {
-    const submittionEntries = submission === null || submission === void 0 ? void 0 : submission.entries.find(entry => entry.inputDescriptorId === inputDescriptor);
-    const credsForEntry = submittionEntries === null || submittionEntries === void 0 ? void 0 : submittionEntries.credentials;
+  const handleAltCredChange = useCallback((inputDescriptorID, selectedCredID) => {
+    const submissionEntries = submission === null || submission === void 0 ? void 0 : submission.entries.find(entry => {
+      return entry.inputDescriptorId === inputDescriptorID;
+    });
+    const credsForEntry = submissionEntries === null || submissionEntries === void 0 ? void 0 : submissionEntries.credentials;
     if (!credsForEntry) return;
     navigation.navigate(Screens.OpenIDProofCredentialSelect, {
       inputDescriptorID: inputDescriptorID,
@@ -219,120 +156,38 @@ const OpenIDProofPresentation = ({
       onCredChange: onCredChange
     });
   }, [submission, navigation]);
-  const renderHeader = () => {
-    if (!selectedCredentialsSubmission) return;
-    return /*#__PURE__*/React.createElement(View, {
-      style: styles.headerTextContainer
-    }, /*#__PURE__*/React.createElement(Text, {
-      style: styles.headerText,
-      testID: testIdWithKey('HeaderText')
-    }, /*#__PURE__*/React.createElement(Text, {
-      style: TextTheme.normal
-    }, t('ProofRequest.ReceiveProofTitle')), '\n', /*#__PURE__*/React.createElement(Text, {
-      style: TextTheme.title
-    }, verifierName ? verifierName : '')));
-  };
-  const renderCard = (sub, selectedCredential, hasMultipleCreds) => {
-    const credential = credentialsRequested.find(c => c.id === selectedCredential.id);
-    if (!credential) {
-      return null;
+  const styles = StyleSheet.create({
+    headerContainer: {
+      paddingVertical: 20,
+      justifyContent: 'center',
+      alignItems: 'center'
     }
-    const credentialDisplay = getCredentialForDisplay(credential);
-    const requestedAttributes = selectedCredential.requestedAttributes;
-    const fields = buildFieldsFromW3cCredsCredential(credentialDisplay, requestedAttributes);
-    return /*#__PURE__*/React.createElement(CredentialCard, {
-      credential: credential,
-      displayItems: fields,
-      hasAltCredentials: hasMultipleCreds,
-      handleAltCredChange: () => {
-        handleAltCredChange(sub.inputDescriptorId, selectedCredential.id, sub.inputDescriptorId);
-      }
-    });
-  };
-  const renderBody = () => {
-    if (submission && !submission.areAllSatisfied) {
-      return /*#__PURE__*/React.createElement(OpenIDUnsatisfiedProofRequest, {
-        credentialName: submission === null || submission === void 0 ? void 0 : submission.name,
-        requestPurpose: submission === null || submission === void 0 ? void 0 : submission.purpose,
-        verifierName: verifierName
-      });
-    }
-    if (!selectedCredentialsSubmission || !submission) return;
-    return /*#__PURE__*/React.createElement(View, {
-      style: styles.credentialsList
-    }, Object.entries(selectedCredentialsSubmission).map(([inputDescriptorId, credentialSimplified], i) => {
-      var _submission$entries;
-      //TODO: Support multiplae credentials
-
-      const globalSubmissionName = submission.name;
-      const globalSubmissionPurpose = submission.purpose;
-      const correspondingSubmission = (_submission$entries = submission.entries) === null || _submission$entries === void 0 ? void 0 : _submission$entries.find(s => s.inputDescriptorId === inputDescriptorId);
-      const submissionName = correspondingSubmission === null || correspondingSubmission === void 0 ? void 0 : correspondingSubmission.name;
-      const submissionPurpose = correspondingSubmission === null || correspondingSubmission === void 0 ? void 0 : correspondingSubmission.purpose;
-      const isSatisfied = correspondingSubmission === null || correspondingSubmission === void 0 ? void 0 : correspondingSubmission.isSatisfied;
-      const credentialSubmittion = correspondingSubmission === null || correspondingSubmission === void 0 ? void 0 : correspondingSubmission.credentials.find(s => s.id === credentialSimplified.id);
-      const requestedAttributes = credentialSubmittion === null || credentialSubmittion === void 0 ? void 0 : credentialSubmittion.requestedAttributes;
-      const name = submissionName || globalSubmissionName || undefined;
-      const purpose = submissionPurpose || globalSubmissionPurpose || undefined;
-      return /*#__PURE__*/React.createElement(View, {
-        key: i
-      }, /*#__PURE__*/React.createElement(View, {
-        style: styles.cardContainer
-      }, /*#__PURE__*/React.createElement(View, {
-        style: styles.cardGroupContainer
-      }, name && purpose && /*#__PURE__*/React.createElement(View, {
-        style: styles.cardGroupHeader
-      }, /*#__PURE__*/React.createElement(Text, {
-        style: TextTheme.bold
-      }, name), /*#__PURE__*/React.createElement(Text, {
-        style: TextTheme.labelTitle
-      }, purpose)), isSatisfied && requestedAttributes ? renderCard(correspondingSubmission, credentialSubmittion, correspondingSubmission.credentials.length > 1) : null)));
-    }));
-  };
-  const footerButton = (title, buttonPress, buttonType, testID, accessibilityLabel) => {
-    return /*#__PURE__*/React.createElement(View, {
-      style: styles.footerButton
-    }, /*#__PURE__*/React.createElement(Button, {
-      title: title,
-      accessibilityLabel: accessibilityLabel,
-      testID: testID,
-      buttonType: buttonType,
-      onPress: buttonPress,
-      disabled: !buttonsVisible
-    }));
-  };
-  const footer = () => {
-    if (submission && !submission.areAllSatisfied) {
-      return /*#__PURE__*/React.createElement(View, {
-        style: {
-          paddingHorizontal: 25,
-          paddingVertical: 16,
-          paddingBottom: 26,
-          backgroundColor: ColorPalette.brand.secondaryBackground
-        }
-      }, footerButton(t('Global.Dismiss'), handleDismiss, ButtonType.Primary, testIdWithKey('DismissCredentialOffer'), t('Global.Dismiss')));
-    }
-    return /*#__PURE__*/React.createElement(View, {
-      style: {
-        paddingHorizontal: 25,
-        paddingVertical: 16,
-        paddingBottom: 26,
-        backgroundColor: ColorPalette.brand.secondaryBackground
-      }
-    }, selectedCredentialsSubmission && Object.keys(selectedCredentialsSubmission).length > 0 ? /*#__PURE__*/React.createElement(React.Fragment, null, footerButton(t('Global.Send'), handleAcceptTouched, ButtonType.Primary, testIdWithKey('AcceptCredentialOffer'), t('Global.Send')), footerButton(t('Global.Decline'), toggleDeclineModalVisible, ButtonType.Secondary, testIdWithKey('DeclineCredentialOffer'), t('Global.Decline'))) : /*#__PURE__*/React.createElement(React.Fragment, null, footerButton(t('Global.Dismiss'), handleDismiss, ButtonType.Primary, testIdWithKey('DismissCredentialOffer'), t('Global.Dismiss'))));
-  };
+  });
   return /*#__PURE__*/React.createElement(ScreenLayout, {
-    screen: Screens.OpenIDCredentialDetails
-  }, /*#__PURE__*/React.createElement(ScrollView, null, /*#__PURE__*/React.createElement(View, {
-    style: styles.pageContent
-  }, renderHeader(), renderBody())), footer(), /*#__PURE__*/React.createElement(ProofRequestAccept, {
+    screen: Screens.OpenIDProofPresentation
+  }, /*#__PURE__*/React.createElement(View, {
+    style: styles.headerContainer
+  }, /*#__PURE__*/React.createElement(Text, {
+    style: TextTheme.headerTitle
+  }, t('ProofRequest.OID4VCTitle'))), /*#__PURE__*/React.createElement(OpenIdProofRequestDisplay, {
+    buttonsVisible: buttonsVisible,
+    credential: credential,
+    credentialsRequested: credentialsRequested,
+    onPressAltCredChange: handleAltCredChange,
+    onPressAccept: handleAcceptTouched,
+    onPressDecline: handleDeclineTouched,
+    onPressDismiss: handleDismiss,
+    selectedCredentialsSubmission: selectedCredentialsSubmission,
+    submission: submission,
+    verifierName: verifierName
+  }), /*#__PURE__*/React.createElement(ProofRequestAccept, {
     visible: acceptModalVisible,
     proofId: '',
     confirmationOnly: true
   }), /*#__PURE__*/React.createElement(CommonRemoveModal, {
     usage: ModalUsage.ProofRequestDecline,
     visible: declineModalVisible,
-    onSubmit: handleDeclineTouched,
+    onSubmit: handleDismiss,
     onCancel: toggleDeclineModalVisible
   }));
 };

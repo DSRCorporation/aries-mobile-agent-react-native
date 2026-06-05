@@ -18,6 +18,7 @@ import useBifoldAgentSetup from './hooks/useBifoldAgentSetup';
 import { Locales } from './localization';
 import HistoryManager from './modules/history/context/historyManager';
 import { RefreshOrchestrator } from './modules/openid/refresh/refreshOrchestrator';
+import { OpenIDCredentialRefreshFlowType } from './modules/openid/refresh/types';
 import OnboardingStack from './navigators/OnboardingStack';
 import { DefaultScreenLayoutOptions } from './navigators/defaultLayoutOptions';
 import { DefaultScreenOptionsDictionary } from './navigators/defaultStackOptions';
@@ -95,7 +96,9 @@ export const defaultConfig = {
     useNewPINDesign: false
   },
   showGenericErrors: false,
-  enableFullScreenErrorModal: false
+  enableFullScreenErrorModal: false,
+  enableHardwareBackedHolderBinding: true,
+  enableAttestation: false
 };
 export const defaultHistoryEventsLogger = {
   logAttestationAccepted: true,
@@ -173,6 +176,9 @@ export class MainContainer {
       useValue: undefined
     });
     this._container.registerInstance(TOKENS.UTIL_APP_VERSION_MONITOR, {
+      useValue: undefined
+    });
+    this._container.registerInstance(TOKENS.UTIL_CREDENTIAL_PROVISIONING_MONITOR, {
       useValue: undefined
     });
     this._container.registerInstance(TOKENS.NOTIFICATIONS, {
@@ -262,18 +268,22 @@ export class MainContainer {
     // Register OpenID Credentials Refresh Orchestrator
     const orchestrator = new RefreshOrchestrator(this._container.resolve(TOKENS.UTIL_LOGGER), this._container.resolve(TOKENS.UTIL_AGENT_BRIDGE), {
       autoStart: false,
+      runOnStart: true,
       intervalMs: undefined,
+      flowType: OpenIDCredentialRefreshFlowType.FullReplacement,
       listRecords: async () => {
         const agent = this._container.resolve(TOKENS.UTIL_AGENT_BRIDGE).current;
         if (!agent) return [];
-        const [w3c, sdjwt] = await Promise.all([agent.w3cCredentials.getAll(), agent.sdJwtVc.getAll()]);
-        return [...w3c, ...sdjwt];
+        const [w3c, w3cV2, sdjwt, mdoc] = await Promise.all([agent.w3cCredentials.getAll(), agent.w3cV2Credentials.getAll(), agent.sdJwtVc.getAll(), agent.mdoc.getAll()]);
+        return [...w3c, ...w3cV2, ...sdjwt, ...mdoc];
       }
     });
     this._container.registerInstance(TOKENS.UTIL_REFRESH_ORCHESTRATOR, orchestrator);
     this._container.registerInstance(TOKENS.FN_PIN_HASH_ALGORITHM, (PIN, salt) => {
       return hashPIN(PIN, salt);
     });
+    this._container.registerInstance(TOKENS.FN_ATTESTATION_GET_CHALLENGE, () => {});
+    this._container.registerInstance(TOKENS.FN_ATTESTATION_GET_JWT, () => {});
     return this;
   }
   resolve(token) {

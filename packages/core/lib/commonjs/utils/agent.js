@@ -14,10 +14,15 @@ var _indyVdr = require("@credo-ts/indy-vdr");
 var _webvh = require("@credo-ts/webvh");
 var _reactHooks = require("@bifold/react-hooks");
 var _openid4vc = require("@credo-ts/openid4vc");
+var _reactNative = require("@credo-ts/react-native");
 var _anoncredsReactNative = require("@hyperledger/anoncreds-react-native");
 var _askarReactNative = require("@openwallet-foundation/askar-react-native");
 var _indyVdrReactNative = require("@hyperledger/indy-vdr-react-native");
+var _reactNativeConfig = _interopRequireDefault(require("react-native-config"));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 // import { PushNotificationsApnsModule, PushNotificationsFcmModule } from '@credo-ts/push-notifications'
+
+const mdocTrustedCertificate = _reactNativeConfig.default.MDOC_TRUSTED_CERTIFICATE_BASE64;
 
 /**
  * Constructs the modules to be used in the agent setup
@@ -44,11 +49,18 @@ function getAgentModules({
   }
   return {
     askar: new _askar.AskarModule({
+      enableKms: false,
       askar: _askarReactNative.askar,
       store: {
         id: walletSecret.id,
         key: walletSecret.key
       }
+    }),
+    kms: new _core.Kms.KeyManagementModule({
+      backends: [new _askar.AskarKeyManagementService(), new _reactNative.SecureEnvironmentKeyManagementService({
+        biometricsBacked: false
+      })],
+      defaultBackend: 'askar'
     }),
     anoncreds: new _anoncreds.AnonCredsModule({
       anoncreds: _anoncredsReactNative.anoncreds,
@@ -84,7 +96,13 @@ function getAgentModules({
         mediatorPickupStrategy: _didcomm.DidCommMediatorPickupStrategy.Implicit
       }
     }),
+    dcql: new _core.DcqlModule(),
     openid4vc: new _openid4vc.OpenId4VcModule(),
+    ...(mdocTrustedCertificate ? {
+      x509: new _core.X509Module({
+        trustedCertificates: [mdocTrustedCertificate]
+      })
+    } : {}),
     dids: new _core.DidsModule({
       resolvers: [new _webvh.WebVhDidResolver(), new _core.WebDidResolver(), new _core.JwkDidResolver(), new _core.KeyDidResolver(), new _core.PeerDidResolver()]
     })

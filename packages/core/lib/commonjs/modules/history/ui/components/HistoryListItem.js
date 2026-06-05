@@ -8,9 +8,25 @@ var _react = _interopRequireDefault(require("react"));
 var _reactI18next = require("react-i18next");
 var _reactNative = require("react-native");
 var _theme = require("../../../../contexts/theme");
+var _testable = require("../../../../utils/testable");
 var _types = require("../../types");
 var _ThemedText = require("../../../../components/texts/ThemedText");
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+const cardTitleKeys = {
+  [_types.HistoryCardType.CardAccepted]: 'History.CardTitle.CardAccepted',
+  [_types.HistoryCardType.CardDeclined]: 'History.CardTitle.CardDeclined',
+  [_types.HistoryCardType.CardExpired]: 'History.CardTitle.CardExpired',
+  [_types.HistoryCardType.CardRemoved]: 'History.CardTitle.CardRemoved',
+  [_types.HistoryCardType.CardRevoked]: 'History.CardTitle.CardRevoked',
+  [_types.HistoryCardType.CardUpdates]: 'History.CardTitle.CardUpdates',
+  [_types.HistoryCardType.PinChanged]: 'History.CardTitle.WalletPinUpdated',
+  [_types.HistoryCardType.InformationSent]: 'History.CardTitle.InformationSent',
+  [_types.HistoryCardType.InformationNotSent]: 'History.CardTitle.InformationNotSent',
+  [_types.HistoryCardType.Connection]: 'History.CardTitle.Connection',
+  [_types.HistoryCardType.ConnectionRemoved]: 'History.CardTitle.ConnectionRemoved',
+  [_types.HistoryCardType.ActivateBiometry]: 'History.CardTitle.ActivateBiometry',
+  [_types.HistoryCardType.DeactivateBiometry]: 'History.CardTitle.DeactivateBiometry'
+};
 const styles = _reactNative.StyleSheet.create({
   card: {
     padding: 16,
@@ -68,7 +84,7 @@ const HistoryListItem = ({
             icon: /*#__PURE__*/_react.default.createElement(Assets.svg.historyCardAcceptedIcon, null),
             title: /*#__PURE__*/_react.default.createElement(_ThemedText.ThemedText, {
               variant: "headingThree"
-            }, t('History.CardTitle.CardAccepted')),
+            }, t(cardTitleKeys[_types.HistoryCardType.CardAccepted])),
             description: /*#__PURE__*/_react.default.createElement(_ThemedText.ThemedText, null, item.content.correspondenceName)
           };
         }
@@ -81,7 +97,7 @@ const HistoryListItem = ({
               style: {
                 color: styles.historyCardRevoked.color
               }
-            }, t('History.CardTitle.CardDeclined')),
+            }, t(cardTitleKeys[_types.HistoryCardType.CardDeclined])),
             description: /*#__PURE__*/_react.default.createElement(_ThemedText.ThemedText, null, item.content.correspondenceName)
           };
         }
@@ -91,7 +107,7 @@ const HistoryListItem = ({
             icon: /*#__PURE__*/_react.default.createElement(Assets.svg.historyCardExpiredIcon, null),
             title: /*#__PURE__*/_react.default.createElement(_ThemedText.ThemedText, {
               variant: "headerTitle"
-            }, t('History.CardTitle.CardExpired')),
+            }, t(cardTitleKeys[_types.HistoryCardType.CardExpired])),
             description: /*#__PURE__*/_react.default.createElement(_ThemedText.ThemedText, null, t('History.CardDescription.CardExpired', {
               cardName: item.content.correspondenceName
             }))
@@ -106,7 +122,7 @@ const HistoryListItem = ({
               style: {
                 color: styles.historyCardRevoked.color
               }
-            }, t('History.CardTitle.CardRemoved')),
+            }, t(cardTitleKeys[_types.HistoryCardType.CardRemoved])),
             description: /*#__PURE__*/_react.default.createElement(_ThemedText.ThemedText, null, item.content.correspondenceName)
           };
         }
@@ -119,7 +135,7 @@ const HistoryListItem = ({
               style: {
                 color: styles.historyCardRevoked.color
               }
-            }, t('History.CardTitle.CardRevoked')),
+            }, t(cardTitleKeys[_types.HistoryCardType.CardRevoked])),
             description: /*#__PURE__*/_react.default.createElement(_ThemedText.ThemedText, null, t('History.CardDescription.CardRevoked', {
               cardName: item.content.correspondenceName
             }))
@@ -131,7 +147,7 @@ const HistoryListItem = ({
             icon: /*#__PURE__*/_react.default.createElement(Assets.svg.historyCardUpdatesIcon, null),
             title: /*#__PURE__*/_react.default.createElement(_ThemedText.ThemedText, {
               variant: "headingThree"
-            }, t('History.CardTitle.CardUpdates')),
+            }, t(cardTitleKeys[_types.HistoryCardType.CardUpdates])),
             description: /*#__PURE__*/_react.default.createElement(_ThemedText.ThemedText, null, item.content.correspondenceName)
           };
         }
@@ -144,7 +160,7 @@ const HistoryListItem = ({
               style: {
                 color: styles.infoBox.color
               }
-            }, t('History.CardTitle.WalletPinUpdated')),
+            }, t(cardTitleKeys[_types.HistoryCardType.PinChanged])),
             description: /*#__PURE__*/_react.default.createElement(_ThemedText.ThemedText, null, t('History.CardDescription.WalletPinUpdated'))
           };
         }
@@ -157,7 +173,7 @@ const HistoryListItem = ({
               style: {
                 color: styles.successColor.color
               }
-            }, t('History.CardTitle.InformationSent')),
+            }, t(cardTitleKeys[_types.HistoryCardType.InformationSent])),
             description: /*#__PURE__*/_react.default.createElement(_ThemedText.ThemedText, null, item.content.correspondenceName)
           };
         }
@@ -170,7 +186,7 @@ const HistoryListItem = ({
               style: {
                 color: styles.historyCardRevoked.color
               }
-            }, t('History.CardTitle.InformationNotSent')),
+            }, t(cardTitleKeys[_types.HistoryCardType.InformationNotSent])),
             description: /*#__PURE__*/_react.default.createElement(_ThemedText.ThemedText, null, item.content.correspondenceName)
           };
         }
@@ -180,7 +196,7 @@ const HistoryListItem = ({
             icon: /*#__PURE__*/_react.default.createElement(Assets.svg.historyConnectionIcon, null),
             title: /*#__PURE__*/_react.default.createElement(_ThemedText.ThemedText, {
               variant: "headingThree"
-            }, t('History.CardTitle.Connection')),
+            }, t(cardTitleKeys[_types.HistoryCardType.Connection])),
             description: /*#__PURE__*/_react.default.createElement(_ThemedText.ThemedText, null, item.content.correspondenceName)
           };
         }
@@ -193,7 +209,7 @@ const HistoryListItem = ({
               style: {
                 color: styles.historyCardRevoked.color
               }
-            }, t('History.CardTitle.ConnectionRemoved')),
+            }, t(cardTitleKeys[_types.HistoryCardType.ConnectionRemoved])),
             description: /*#__PURE__*/_react.default.createElement(_ThemedText.ThemedText, null, item.content.correspondenceName)
           };
         }
@@ -203,7 +219,7 @@ const HistoryListItem = ({
             icon: /*#__PURE__*/_react.default.createElement(Assets.svg.historyActivateBiometryIcon, null),
             title: /*#__PURE__*/_react.default.createElement(_ThemedText.ThemedText, {
               variant: "headingThree"
-            }, t('History.CardTitle.ActivateBiometry')),
+            }, t(cardTitleKeys[_types.HistoryCardType.ActivateBiometry])),
             description: /*#__PURE__*/_react.default.createElement(_ThemedText.ThemedText, null, item.content.correspondenceName)
           };
         }
@@ -216,7 +232,7 @@ const HistoryListItem = ({
               style: {
                 color: styles.historyCardRevoked.color
               }
-            }, t('History.CardTitle.DeactivateBiometry')),
+            }, t(cardTitleKeys[_types.HistoryCardType.DeactivateBiometry])),
             description: /*#__PURE__*/_react.default.createElement(_ThemedText.ThemedText, null, item.content.correspondenceName)
           };
         }
@@ -269,7 +285,10 @@ const HistoryListItem = ({
   return /*#__PURE__*/_react.default.createElement(_reactNative.TouchableOpacity, {
     onPress: () => {
       //TODO: navigate to history details
-    }
+    },
+    accessibilityLabel: `${item.content.type && item.content.type in cardTitleKeys ? t(cardTitleKeys[item.content.type]) : ''} ${'correspondenceName' in item.content ? item.content.correspondenceName ?? '' : ''}`.trim(),
+    accessibilityRole: "button",
+    testID: (0, _testable.testIdWithKey)('HistoryItem')
   }, renderCard(item));
 };
 var _default = exports.default = HistoryListItem;

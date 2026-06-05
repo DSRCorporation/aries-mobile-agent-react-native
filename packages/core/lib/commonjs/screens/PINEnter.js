@@ -363,7 +363,9 @@ const PINEnter = ({
     style: style.appTitle
   }, t('PINEnter.AppTitle')), /*#__PURE__*/_react.default.createElement(_reactNative.Pressable, {
     onPress: enableHiddenDevModeTrigger ? incrementDeveloperMenuCounter : () => {},
-    testID: (0, _testable.testIdWithKey)('DeveloperCounter')
+    testID: (0, _testable.testIdWithKey)('DeveloperCounter'),
+    accessibilityLabel: t('PINEnter.DeveloperMenuTrigger'),
+    accessibilityRole: "text"
   }, HelpText), !PINScreensConfig.useNewPINDesign && /*#__PURE__*/_react.default.createElement(_ThemedText.ThemedText, {
     variant: "bold",
     style: style.inputLabel
